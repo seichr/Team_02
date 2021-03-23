@@ -3,11 +3,12 @@
 
 ## Main Features
 - Task management (add / modify / delete tasks)
-- Custom reminders (Bluetooth connection / GPS location / WIFI status / ...)
+- Custom reminders (Bluetooth connection / GPS location / WIFI status / ... as logic blocks that can be combined freely)
 - Task organization in labels and categories
 - Import / export (share) functionality
 - Backup / restore
 - Home screen widget
+- Calendar integration (Google calendar)
 - Simple UI with color customization options
 - Gamification features (stats / streaks / ...)
 
@@ -24,3 +25,8 @@
 | **Developer** | Jörg Rainer |
 | **Developer** | Stefan Schörkmeier |
 | **Developer** | Christian Seifert |
+
+## Implemented Feature List
+| Name | Associated User Story | Additional Information |
+| --- | --- | --- |
+| Placeholder | F-0 | None |
