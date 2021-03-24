@@ -19,7 +19,6 @@
 | **Scrum Master** | Stefan Schintler |
 | **Senior Developer** | Christian Seifert |
 | **Senior Developer** | Erwin Peterlin |
-| **Senior Developer** | Jörg Rainer |
 | **Developer** | Yuma Buchrieser |
 | **Developer** | Bernd Grabner |
 | **Developer** | Lukas Kloiber |
