@@ -13,6 +13,6 @@ jobs:
       - name: co
         uses: actions/checkout@v2
       - name: build
-        run: ./gradlew --no-daemon build
+        run: ./TodoTasker/gradlew --no-daemon build
       - name: test
-        run: ./gradlew --no-daemon test
+        run: ./TodoTasker/gradlew --no-daemon test
