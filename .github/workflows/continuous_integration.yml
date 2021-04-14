@@ -1,9 +1,7 @@
 name: continuous_integration
 
-# Controls when the action will run.
 on: [push, pull_request]
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -13,6 +11,6 @@ jobs:
       - name: co
         uses: actions/checkout@v2
       - name: build
-        run: ./TodoTasker/gradlew --no-daemon build
+        run: cd TodoTasker && ./gradlew --no-daemon build
       - name: test
-        run: ./TodoTasker/gradlew --no-daemon test
+        run: cd TodoTasker && ./gradlew --no-daemon test
