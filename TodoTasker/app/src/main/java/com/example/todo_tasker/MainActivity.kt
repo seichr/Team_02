@@ -1,5 +1,6 @@
 package com.example.todo_tasker
 
+import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.room.*
@@ -10,24 +11,31 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        val db = createDb()
-        thread { addToDb(db) }
+
+        val db = database_class(applicationContext)
+        val datab = db.createDb()
+        
+        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val test_todo = Todo(4, "Test", time_in_millis)
+        // TODO: Add Tests ( Single Add | Multi Add |  Multiple Same UIDs)
+
+        thread { db.addToDb(datab, test_todo) }
     }
+}
+
+class database_class(context: Context) {
+    var appContext = context
 
     fun createDb(): TodoDatabase {
         val db = Room.databaseBuilder(
-            applicationContext,
-            TodoDatabase::class.java, "database-name"
+            this.appContext,
+            TodoDatabase::class.java, "todo-database"
         ).build()
-
         return db;
     }
 
-    fun addToDb(db: TodoDatabase): Int {
+    fun addToDb(db: TodoDatabase, test_todo: Todo): Int {
         val todoDao = db.todoDao()
-        val time_in_millis = date_to_millis(get_current_date())
-        val test_todo = Todo(2, "Test", time_in_millis)
-
         val todos: List<Todo> = todoDao.getAll()
 
         val uids: MutableList<Int> = arrayListOf()
@@ -35,7 +43,7 @@ class MainActivity : AppCompatActivity() {
             uids.add(todo.uid)
         }
 
-        if(uids.contains(test_todo.uid)) {
+        if (uids.contains(test_todo.uid)) {
             println("UID already in DB")
             return -1
         }
@@ -50,15 +58,15 @@ class MainActivity : AppCompatActivity() {
         todoDao.deleteAll()
     }
 
-    private fun date_to_millis(date : Date): Long {
+    fun date_to_millis(date: Date): Long {
         return date.time
     }
 
-    private fun millis_to_date(millis : Long): Date {
+    fun millis_to_date(millis: Long): Date {
         return Date(millis)
     }
 
-    private fun get_current_date(): Date {
+    fun get_current_date(): Date {
         return Calendar.getInstance().time;
     }
 }
