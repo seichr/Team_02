@@ -17,14 +17,13 @@
 | ---- | ---- |
 | **Product Owner** | Andreas Steinkellner |
 | **Scrum Master** | Stefan Schintler |
+| **Senior Developer** | Christian Seifert |
+| **Senior Developer** | Erwin Peterlin |
 | **Developer** | Yuma Buchrieser |
 | **Developer** | Bernd Grabner |
 | **Developer** | Lukas Kloiber |
-| **Developer** | Manuel Krenn |
-| **Developer** | Erwin Peterlin |
-| **Developer** | Jörg Rainer |
+| **Developer** | Manuel Krenn 
 | **Developer** | Stefan Schörkmeier |
-| **Developer** | Christian Seifert |
 
 ## Implemented Feature List
 | Name | Associated User Story | Additional Information |
