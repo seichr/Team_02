@@ -5,21 +5,11 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.room.*
 import java.util.*
-import kotlin.concurrent.thread
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-        val db = database_class(applicationContext)
-        val datab = db.createDb()
-        
-        val time_in_millis = db.date_to_millis(db.get_current_date())
-        val test_todo = Todo(4, "Test", time_in_millis)
-        // TODO: Add Tests ( Single Add | Multi Add |  Multiple Same UIDs)
-
-        thread { db.addToDb(datab, test_todo) }
     }
 }
 
@@ -53,7 +43,7 @@ class database_class(context: Context) {
         return 0
     }
 
-    private fun deleteDBEntries(db: TodoDatabase) {
+    fun deleteDBEntries(db: TodoDatabase) {
         val todoDao = db.todoDao()
         todoDao.deleteAll()
     }
