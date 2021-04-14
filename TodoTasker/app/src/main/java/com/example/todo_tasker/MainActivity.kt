@@ -25,8 +25,7 @@ class database_class(context: Context) {
     }
 
     fun addToDb(db: TodoDatabase, test_todo: Todo): Int {
-        val todoDao = db.todoDao()
-        val todos: List<Todo> = todoDao.getAll()
+        val todos: List<Todo> = getAllDb(db)
 
         val uids: MutableList<Int> = arrayListOf()
         for (todo in todos) {
@@ -38,9 +37,14 @@ class database_class(context: Context) {
             return -1
         }
 
-        todoDao.insert(test_todo)
+        db.todoDao().insert(test_todo)
         println("Added TODO to DB")
         return 0
+    }
+
+    fun getAllDb(db: TodoDatabase): List<Todo> {
+        println("Getting all DB entries")
+        return db.todoDao().getAll()
     }
 
     fun deleteDBEntries(db: TodoDatabase) {
