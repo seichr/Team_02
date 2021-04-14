@@ -25,7 +25,7 @@ class DataBaseAddInstrumentedTest {
         db.deleteDBEntries(datab)
 
         val time_in_millis = db.date_to_millis(db.get_current_date())
-        val test_todo = Todo(6, "Test", time_in_millis)
+        val test_todo = Todo(6, "Test", time_in_millis, null)
 
         val ret_val = db.addToDb(datab, test_todo)
         assertNotEquals(ret_val, -1)
@@ -41,7 +41,7 @@ class DataBaseAddInstrumentedTest {
 
         val time_in_millis = db.date_to_millis(db.get_current_date())
         for(i in 0..50) {
-            val test_todo = Todo(i, "Test", time_in_millis)
+            val test_todo = Todo(i, "Test", time_in_millis, null)
             val ret_val = db.addToDb(datab, test_todo)
             assertNotEquals(ret_val, -1)
         }
@@ -56,12 +56,12 @@ class DataBaseAddInstrumentedTest {
         db.deleteDBEntries(datab)
 
         val time_in_millis = db.date_to_millis(db.get_current_date())
-        var test_todo = Todo(1337, "TestThatPasses", time_in_millis)
+        var test_todo = Todo(1337, "TestThatPasses", time_in_millis, null)
         var ret_val = db.addToDb(datab, test_todo)
         assertNotEquals(ret_val, -1)
 
         for(i in 0..50) {
-            test_todo = Todo(1337, "TestThatFails", time_in_millis)
+            test_todo = Todo(1337, "TestThatFails", time_in_millis, null)
             ret_val = db.addToDb(datab, test_todo)
             assertEquals(ret_val, -1)
         }
