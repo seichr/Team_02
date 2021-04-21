@@ -17,7 +17,6 @@ lateinit var datab: TodoDatabase
 
 class MainActivity : AppCompatActivity() {
 
-
     lateinit var todo_class: database_class
     lateinit var todo_database: TodoDatabase
     private val shared_db_lock = Semaphore(1)
@@ -52,7 +51,18 @@ class MainActivity : AppCompatActivity() {
 
             GlobalScope.launch {
                 shared_db_lock.acquire()
-                todo_class.addToDb(todo_database, Todo(todo_class.getLastEntry(todo_database).uid + 1, title, date.toLong(), reminder.toLong()))
+                //TODO: Should be used later when getLastEntry() works
+                /*
+                if (todo_class.getLastEntry(todo_database) == null)
+                {
+                    todo_class.addToDb(todo_database, Todo(0, title, date.toLong(), reminder.toLong()))
+                }
+                else
+                {
+                    todo_class.addToDb(todo_database, Todo(todo_class.getLastEntry(todo_database).uid + 1, title, date.toLong(), reminder.toLong()))
+                }
+                 */
+                todo_class.addToDb(todo_database, Todo(0, title, date.toLong(), reminder.toLong()))
                 shared_db_lock.release()
             }
         }
