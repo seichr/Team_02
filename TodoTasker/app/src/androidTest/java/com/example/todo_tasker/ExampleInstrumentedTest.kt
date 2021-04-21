@@ -21,7 +21,7 @@ class SecondActivityTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.myapplication", appContext.packageName)
+        assertEquals("com.example.todo_tasker", appContext.packageName)
     }
 
     @Test
