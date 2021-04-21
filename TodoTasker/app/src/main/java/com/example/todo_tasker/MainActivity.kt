@@ -1,16 +1,26 @@
 package com.example.todo_tasker
 
+
 import android.content.Context
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.room.*
 import java.util.*
+import android.content.Intent
+import android.widget.Button
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        val button = findViewById<Button>(R.id.button_switch_to_list)
+        button.setOnClickListener {
+            val intent = Intent(this, TaskListActivity::class.java)
+            startActivity(intent)
+        }
+
     }
+
 }
 
 class database_class(context: Context) {
@@ -18,8 +28,8 @@ class database_class(context: Context) {
 
     fun createDb(): TodoDatabase {
         val db = Room.databaseBuilder(
-            this.appContext,
-            TodoDatabase::class.java, "todo-database"
+                this.appContext,
+                TodoDatabase::class.java, "todo-database"
         ).build()
         return db;
     }
@@ -73,11 +83,11 @@ class database_class(context: Context) {
 //   - [Opt] Erstellungsdatum+Zeit
 @Entity
 data class Todo(
-    @PrimaryKey val uid: Int,
-    @ColumnInfo(name = "title") val title: String?,
-    @ColumnInfo(name = "date") val date: Long?,
-    @ColumnInfo(name = "reminder") val reminder: Long?
-    )
+        @PrimaryKey val uid: Int,
+        @ColumnInfo(name = "title") val title: String?,
+        @ColumnInfo(name = "date") val date: Long?,
+        @ColumnInfo(name = "reminder") val reminder: Long?
+)
 
 // Database To-do Operations
 @Dao
@@ -99,6 +109,5 @@ interface TodoDao {
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }
-
 
 
