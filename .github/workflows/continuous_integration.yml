@@ -1,0 +1,16 @@
+name: continuous_integration
+
+on: [push, pull_request]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    container:
+      image: androidsdk/android-30:latest
+    steps:
+      - name: co
+        uses: actions/checkout@v2
+      - name: build
+        run: cd TodoTasker && ./gradlew --no-daemon build
+      - name: test
+        run: cd TodoTasker && ./gradlew --no-daemon test
