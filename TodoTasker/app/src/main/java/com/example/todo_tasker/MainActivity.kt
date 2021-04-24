@@ -8,6 +8,11 @@ import androidx.room.*
 import java.util.*
 import android.content.Intent
 import android.widget.Button
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+
+lateinit var db: database_class
+lateinit var datab: TodoDatabase
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -15,9 +20,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         val button = findViewById<Button>(R.id.button_switch_to_list)
         button.setOnClickListener {
-            val intent = Intent(this, TaskListActivity::class.java)
+            val intent = Intent(this, TodoListActivity::class.java)
             startActivity(intent)
         }
+
+        db = database_class(applicationContext)
+        datab = db.createDb()
 
     }
 

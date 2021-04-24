@@ -21,7 +21,7 @@ import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
 @LargeTest
-class TaskListActivityTest {
+class TodoListActivityTest {
     val appContext = InstrumentationRegistry.getInstrumentation().targetContext
     val db = database_class(appContext)
     val datab = db.createDb()
@@ -46,7 +46,7 @@ class TaskListActivityTest {
         // Switch to task list
         onView(withId(R.id.button_switch_to_list)).perform(click())
 
-        onView(withId(R.id.task_list)).check(matches(isDisplayed()))
+        onView(withId(R.id.todo_list)).check(matches(isDisplayed()))
 
 
         //onData(anything()).inAdapterView(withId(R.id.task_list)).check()

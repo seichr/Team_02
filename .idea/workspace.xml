@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5fcab7fd-8c3b-449c-a0c5-5c4a99727c35" name="Default Changelist" comment="" />
+    <list default="true" id="5fcab7fd-8c3b-449c-a0c5-5c4a99727c35" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/precap_fork.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoTasker/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoTasker/app/src/main/java/com/example/todo_tasker/TaskListActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/TodoTasker/app/src/main/java/com/example/todo_tasker/TaskListActivity.kt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoTasker/app/src/main/res/layout/activity_main.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoTasker/app/src/main/res/layout/activity_main.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/TodoTasker/app/src/main/res/layout/activity_task_list.xml" beforeDir="false" afterPath="$PROJECT_DIR$/TodoTasker/app/src/main/res/layout/activity_task_list.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
