@@ -37,6 +37,7 @@ class MainActivity : AppCompatActivity() {
 
         todo_class = database_class(applicationContext)
         todo_database = todo_class.createDb()
+        var uid_counter = 0
 
 
         val addButton: Button = findViewById<Button>(R.id.addButton)
@@ -62,7 +63,7 @@ class MainActivity : AppCompatActivity() {
                     todo_class.addToDb(todo_database, Todo(todo_class.getLastEntry(todo_database).uid + 1, title, date.toLong(), reminder.toLong()))
                 }
                  */
-                todo_class.addToDb(todo_database, Todo(0, title, date.toLong(), reminder.toLong()))
+                todo_class.addToDb(todo_database, Todo(uid_counter++, title, date.toLong(), reminder.toLong()))
                 shared_db_lock.release()
             }
         }
