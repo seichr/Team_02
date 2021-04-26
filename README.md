@@ -25,7 +25,9 @@
 | **Developer** | Manuel Krenn 
 | **Developer** | Stefan Schörkmeier |
 
-## Implemented Feature List
-| Name | Associated User Story | Additional Information |
-| --- | --- | --- |
-| Placeholder | TT-0 | None |
+## Feature List
+| Name | Issue Tag | Finished | Started |
+| --- | :---: | :---: | :---: |
+| Create task | TT-001 | X | |
+| List tasks | TT-002 | X | |
+| Simple reminder | TT-003 | | X |
