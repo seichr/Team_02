@@ -18,9 +18,6 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val alarmHelper = AlarmHelper()
-        //val test = LocalDateTime.of()
-        //alarmHelper.setNewAlarm(applicationContext.)
         val button = findViewById<Button>(R.id.button_switch_to_list)
         button.setOnClickListener {
             val intent = Intent(this, TodoListActivity::class.java)
@@ -119,5 +116,6 @@ interface TodoDao {
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }
+
 
 
