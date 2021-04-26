@@ -1,4 +1,4 @@
-package com.example.todo_tasker
+package com.backend.todo_tasker.tasklist_view
 
 import android.view.LayoutInflater
 import android.view.View

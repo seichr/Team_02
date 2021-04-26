@@ -1,12 +1,12 @@
-package com.example.todo_tasker.tasklist_view
+package com.backend.todo_tasker.tasklist_view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_tasker.R
-import com.example.todo_tasker.dbClass
-import com.example.todo_tasker.todoDb
+import com.backend.todo_tasker.R
+import com.backend.todo_tasker.dbClass
+import com.backend.todo_tasker.todoDb
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 

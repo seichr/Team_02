@@ -1,4 +1,4 @@
-package com.example.todo_tasker
+package com.backend.todo_tasker
 
 import android.content.Context
 import androidx.test.core.app.ApplicationProvider

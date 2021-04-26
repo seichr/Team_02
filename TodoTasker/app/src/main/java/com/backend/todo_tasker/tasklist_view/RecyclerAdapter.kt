@@ -1,11 +1,10 @@
-package com.example.todo_tasker.tasklist_view
+package com.backend.todo_tasker.tasklist_view
 
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todo_tasker.R
-import com.example.todo_tasker.Todo
-import com.example.todo_tasker.inflate
+import com.backend.todo_tasker.R
+import com.backend.todo_tasker.database.Todo
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 class RecyclerAdapter(private val todos: List<Todo>) :

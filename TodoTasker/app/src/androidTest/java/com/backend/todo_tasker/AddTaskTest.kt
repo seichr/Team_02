@@ -1,4 +1,4 @@
-package com.example.todo_tasker
+package com.backend.todo_tasker
 
 
 import android.view.View
@@ -10,6 +10,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.backend.todo_tasker.database.DatabaseClass
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf

@@ -1,6 +1,4 @@
-package com.example.todo_tasker
-
-
+package com.backend.todo_tasker
 
 import androidx.lifecycle.Lifecycle
 import androidx.test.core.app.ActivityScenario
@@ -21,7 +19,7 @@ class SecondActivityTest {
     fun useAppContext() {
         // Context of the app under test.
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-        assertEquals("com.example.todo_tasker", appContext.packageName)
+        assertEquals("com.backend.todo_tasker", appContext.packageName)
     }
 
     @Test
