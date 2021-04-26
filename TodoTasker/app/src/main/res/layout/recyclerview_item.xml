@@ -17,7 +17,7 @@
     app:layout_constraintHorizontal_bias="0.5"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    tools:text="Some Title" />
+    tools:text="@string/STRING_PLACEHOLDER" />
 
 <TextView
     android:id="@+id/item_reminder"

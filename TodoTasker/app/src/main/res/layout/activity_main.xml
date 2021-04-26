@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!-- No Hard-Coded Strings or values. Define everything in the "values" folder corresponding file-->
 <!-- Default Layout should be suited for a resolution of 1080x2220 -->
+<!-- IDs: -->
+<!--        Naming Convention: elementtype_usage_with_short_desc -->
+<!-- Constants(Strings): -->
+<!--        Naming Convention: TYPE_USAGESHORTDESC-->
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
