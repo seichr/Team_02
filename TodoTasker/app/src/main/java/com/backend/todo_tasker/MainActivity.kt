@@ -7,6 +7,7 @@ import android.widget.EditText
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import android.content.Intent
+import android.view.View
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
@@ -30,31 +31,30 @@ class MainActivity : AppCompatActivity() {
 
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
+    }
 
-        val addButton: Button = findViewById(R.id.button_add_to_db)
-        addButton.setOnClickListener {
-            val textField: EditText = findViewById(R.id.edittext_name)
+    fun addTodoActivity(view: View) {
+        val textField: EditText = findViewById(R.id.edittext_name)
 
-            val title = textField.text.toString()
-            // TO-DO [For Date]: set this to spinner.
-            val date = 0
-            val reminder = 0
+        val title = textField.text.toString()
+        // TO-DO [For Date]: set this to spinner.
+        val date = 0
+        val reminder = 0
 
-            GlobalScope.launch {
-                sharedDbLock.acquire()
-                if (dbClass.getLastEntry(todoDb) == null) { // This is not always false...
-                    dbClass.addToDb(todoDb, Todo(0,
-                                                 title,
-                                                 date.toLong(),
-                                                 reminder.toLong()))
-                } else {
-                    dbClass.addToDb(todoDb, Todo(dbClass.getLastEntry(todoDb).uid + 1,
-                                                 title,
-                                                 date.toLong(),
-                                                 reminder.toLong()))
-                }
-                sharedDbLock.release()
+        GlobalScope.launch {
+            sharedDbLock.acquire()
+            if (dbClass.getLastEntry(todoDb) == null) { // This is not always false...
+                dbClass.addToDb(todoDb, Todo(0,
+                    title,
+                    date.toLong(),
+                    reminder.toLong()))
+            } else {
+                dbClass.addToDb(todoDb, Todo(dbClass.getLastEntry(todoDb).uid + 1,
+                    title,
+                    date.toLong(),
+                    reminder.toLong()))
             }
+            sharedDbLock.release()
         }
     }
 }
