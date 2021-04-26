@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
         var uid_counter = 0
 
 
-        val addButton: Button = findViewById<Button>(R.id.addButton)
+        val addButton: Button = findViewById<Button>(R.id.button_add_to_db)
 
         addButton.setOnClickListener {
-            val textField: EditText = findViewById<EditText>(R.id.editTextTextPersonName)
+            val textField: EditText = findViewById<EditText>(R.id.edittext_name)
 
             val title = textField.text.toString()
             // TODO set this to spinner.

@@ -1,9 +1,9 @@
 package com.example.todo_tasker
 
 
+import android.provider.Settings.Global.getString
 import android.view.View
 import android.view.ViewGroup
-import android.content.Context
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -29,8 +29,9 @@ class AddTaskTest {
 
     @Test
     fun addTaskTest() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val appCompatEditText = onView(
-                allOf(withId(R.id.editTextTextPersonName), withText("Name"),
+                allOf(withId(R.id.edittext_name),withText(appContext.getString(R.string.STRING_NAME)),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -40,7 +41,7 @@ class AddTaskTest {
         appCompatEditText.perform(replaceText("Foo"))
 
         val appCompatEditText2 = onView(
-                allOf(withId(R.id.editTextTextPersonName), withText("Foo"),
+                allOf(withId(R.id.edittext_name), withText("Foo"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -50,7 +51,7 @@ class AddTaskTest {
         appCompatEditText2.perform(closeSoftKeyboard())
 
         val appCompatEditText3 = onView(
-                allOf(withId(R.id.editTextTextPersonName), withText("Foo"),
+                allOf(withId(R.id.edittext_name), withText("Foo"),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -60,7 +61,7 @@ class AddTaskTest {
         appCompatEditText3.perform(pressImeActionButton())
 
         val materialButton = onView(
-                allOf(withId(R.id.addButton), withText("Add"),
+                allOf(withId(R.id.button_add_to_db), withText(appContext.getString(R.string.STRING_ADDTASK)),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -68,8 +69,6 @@ class AddTaskTest {
                                 1),
                         isDisplayed()))
         materialButton.perform(click())
-
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
         val db = database_class(appContext)
         val datab = db.createDb()
