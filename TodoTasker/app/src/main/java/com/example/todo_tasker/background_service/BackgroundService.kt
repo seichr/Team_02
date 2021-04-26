@@ -9,43 +9,39 @@ import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
 
-
 class BackgroundService : BroadcastReceiver() {
-
     override fun onReceive(context: Context?, intent: Intent?) {
-        doWork()
+        val retVal = doWork()
+        if(retVal != 0) {
+            println("[DEBUG] doWork was not successful!")
+        }
     }
 
     private fun doWork(): Int {
-
         val cal = Calendar.getInstance()
         println("Current time in millis is: " + cal.timeInMillis)
-
         return 0
     }
 }
 
 class AlarmHelper {
     private var counter = 0
-    private var alarm_map = HashMap<Int, PendingIntent?>()
+    private var alarmMap = HashMap<Int, PendingIntent?>()
 
     fun setNewAlarm(context: Context?, dateTime: LocalDateTime): Int {
-        val ztt = dateTime.atZone(ZoneId.of(ZoneId.systemDefault().toString()))
-        val time = ztt.toInstant().toEpochMilli();
+        val zoneTimeDate = dateTime.atZone(ZoneId.of(ZoneId.systemDefault().toString()))
+        val time = zoneTimeDate.toInstant().toEpochMilli()
+
         val intent = Intent(context, BackgroundService::class.java)
+        val pendingIntent = PendingIntent.getBroadcast(context, counter, intent, 0)
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        val pendingIntent =
-            PendingIntent.getBroadcast(
-                context, counter, intent,
-                0
-            )
+
         if (pendingIntent != null && alarmManager != null) {
             alarmManager.cancel(pendingIntent)
         }
 
-        val repeatTime: Long = 60000
-        val calendar = Calendar.getInstance()
+        val repeatTime: Long = 60000 // 60s in Millis | This is the shortest possible repeat Time!
         alarmManager?.setRepeating(
             AlarmManager.RTC_WAKEUP,
             time,
@@ -53,21 +49,21 @@ class AlarmHelper {
             pendingIntent
         )
 
-        alarm_map[counter] = pendingIntent
+        alarmMap[counter] = pendingIntent
         counter += 1
 
         return counter - 1
     }
 
-    // Needs to be called when databank:
+    // Needs to be called when Alarm is reached and accepted:
     // https://stackoverflow.com/questions/4315611/android-get-all-pendingintents-set-with-alarmmanager
     fun cancelAlarm(context: Context?, id: Int): Boolean {
-        if (!alarm_map.containsKey(id)) {
+        if (!alarmMap.containsKey(id)) {
             return false
         }
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
-        val pendingIntent = alarm_map[id]
+        val pendingIntent = alarmMap[id]
 
         alarmManager?.cancel(pendingIntent)
         return true
