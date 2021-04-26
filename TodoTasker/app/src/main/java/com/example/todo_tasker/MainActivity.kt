@@ -10,17 +10,14 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 import android.content.Intent
+import com.example.todo_tasker.tasklist_view.TodoListActivity
 import java.util.concurrent.Semaphore
 
-lateinit var db: database_class
-lateinit var datab: TodoDatabase
+lateinit var dbClass: DatabaseClass
+lateinit var todoDb: TodoDatabase
+private val sharedDbLock = Semaphore(1)
 
 class MainActivity : AppCompatActivity() {
-
-    lateinit var todo_class: database_class
-    lateinit var todo_database: TodoDatabase
-    private val shared_db_lock = Semaphore(1)
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -31,54 +28,45 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-        db = database_class(applicationContext)
-        datab = db.createDb()
+        dbClass = DatabaseClass(applicationContext)
+        todoDb = dbClass.createDb()
 
-
-        todo_class = database_class(applicationContext)
-        todo_database = todo_class.createDb()
-        var uid_counter = 0
-
-
-        val addButton: Button = findViewById<Button>(R.id.button_add_to_db)
-
+        val addButton: Button = findViewById(R.id.button_add_to_db)
         addButton.setOnClickListener {
-            val textField: EditText = findViewById<EditText>(R.id.edittext_name)
+            val textField: EditText = findViewById(R.id.edittext_name)
 
             val title = textField.text.toString()
-            // TODO set this to spinner.
+            // TO-DO [For Date]: set this to spinner.
             val date = 0
             val reminder = 0
 
             GlobalScope.launch {
-                shared_db_lock.acquire()
-                //TODO: Should be used later when getLastEntry() works
-                /*
-                if (todo_class.getLastEntry(todo_database) == null)
-                {
-                    todo_class.addToDb(todo_database, Todo(0, title, date.toLong(), reminder.toLong()))
+                sharedDbLock.acquire()
+                if (dbClass.getLastEntry(todoDb) == null) { // This is not always false...
+                    dbClass.addToDb(todoDb, Todo(0,
+                                                 title,
+                                                 date.toLong(),
+                                                 reminder.toLong()))
+                } else {
+                    dbClass.addToDb(todoDb, Todo(dbClass.getLastEntry(todoDb).uid + 1,
+                                                 title,
+                                                 date.toLong(),
+                                                 reminder.toLong()))
                 }
-                else
-                {
-                    todo_class.addToDb(todo_database, Todo(todo_class.getLastEntry(todo_database).uid + 1, title, date.toLong(), reminder.toLong()))
-                }
-                 */
-                todo_class.addToDb(todo_database, Todo(uid_counter++, title, date.toLong(), reminder.toLong()))
-                shared_db_lock.release()
+                sharedDbLock.release()
             }
         }
     }
 }
 
-class database_class(context: Context) {
-    var appContext = context
+class DatabaseClass(context: Context) {
+    private var appContext = context
 
     fun createDb(): TodoDatabase {
-        val db = Room.databaseBuilder(
-            this.appContext,
+        return Room.databaseBuilder(
+            appContext,
             TodoDatabase::class.java, "todo-database"
         ).build()
-        return db;
     }
 
     fun addToDb(db: TodoDatabase, test_todo: Todo): Int {
@@ -110,20 +98,15 @@ class database_class(context: Context) {
     }
 
     fun getLastEntry(db: TodoDatabase): Todo {
-        //println("Returning Last Compass Entry")
         return db.todoDao().getLastEntry()
     }
 
-    fun date_to_millis(date: Date): Long {
+    fun dateToMillis(date: Date): Long {
         return date.time
     }
 
-    fun millis_to_date(millis: Long): Date {
-        return Date(millis)
-    }
-
-    fun get_current_date(): Date {
-        return Calendar.getInstance().time;
+    fun getCurrentDate(): Date {
+        return Calendar.getInstance().time
     }
 }
 
@@ -154,14 +137,14 @@ interface TodoDao {
     fun getAll(): List<Todo>
 
     @Query("DELETE FROM todo")
-    fun deleteAll();
+    fun deleteAll()
 
     @Query("SELECT * FROM todo ORDER BY uid DESC LIMIT 1")
     fun getLastEntry(): Todo
 
 }
 
-@Database(entities = arrayOf(Todo::class), version = 1)
+@Database(entities = [Todo::class], version = 1)
 abstract class TodoDatabase : RoomDatabase() {
     abstract fun todoDao(): TodoDao
 }

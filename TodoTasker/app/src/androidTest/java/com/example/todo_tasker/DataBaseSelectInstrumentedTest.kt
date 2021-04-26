@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import kotlin.concurrent.thread
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -21,11 +20,11 @@ class DataBaseSelectInstrumentedTest {
     fun SingleSelectPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val time_in_millis = db.dateToMillis(db.getCurrentDate())
         val test_todo = Todo(6, "Test", time_in_millis, null)
 
         // Add a single entry into the Database
@@ -45,12 +44,12 @@ class DataBaseSelectInstrumentedTest {
     fun MultiSelectPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
         // Add 51 differing entries to the Database
-        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val time_in_millis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..50) {
             val test_todo = Todo(i, "Test", time_in_millis, null)
             val ret_val = db.addToDb(datab, test_todo)

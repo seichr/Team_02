@@ -1,7 +1,6 @@
 package com.example.todo_tasker
 
 
-import android.provider.Settings.Global.getString
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -70,7 +69,7 @@ class AddTaskTest {
                         isDisplayed()))
         materialButton.perform(click())
 
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         val allEntrys = (db.getAllDb(datab))
         assert(true)

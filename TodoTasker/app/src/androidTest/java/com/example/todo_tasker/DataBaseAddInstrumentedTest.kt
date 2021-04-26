@@ -7,7 +7,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 
 import org.junit.Assert.*
-import kotlin.concurrent.thread
 
 /**
  * Instrumented test, which will execute on an Android device.
@@ -20,11 +19,11 @@ class DataBaseAddInstrumentedTest {
     fun SingleAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val time_in_millis = db.dateToMillis(db.getCurrentDate())
         val test_todo = Todo(6, "Test", time_in_millis, null)
 
         val ret_val = db.addToDb(datab, test_todo)
@@ -35,11 +34,11 @@ class DataBaseAddInstrumentedTest {
     fun MultiAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val time_in_millis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..50) {
             val test_todo = Todo(i, "Test", time_in_millis, null)
             val ret_val = db.addToDb(datab, test_todo)
@@ -51,11 +50,11 @@ class DataBaseAddInstrumentedTest {
     fun MultiUIDFail() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val time_in_millis = db.dateToMillis(db.getCurrentDate())
         var test_todo = Todo(1337, "TestThatPasses", time_in_millis, null)
         var ret_val = db.addToDb(datab, test_todo)
         assertNotEquals(ret_val, -1)

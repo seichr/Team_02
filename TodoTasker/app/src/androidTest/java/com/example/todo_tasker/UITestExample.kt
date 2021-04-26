@@ -1,5 +1,11 @@
 package com.example.todo_tasker
 
+/*
+ DISCLAIMER:
+    This Testcase shows an example of a UI-Test and is only here to help guide devs!
+    DO NOT DELETE
+*/
+
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
