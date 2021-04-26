@@ -28,11 +28,6 @@ class SecondActivityTest {
             ActivityScenario.launch(MainActivity::class.java)
 
         activityScenario.moveToState(Lifecycle.State.STARTED);
-        //Activity start should load database
-        /*
-        Database b = //GETDB
-        assert(b.count >3);
-        */
         activityScenario.close();
     }
 }

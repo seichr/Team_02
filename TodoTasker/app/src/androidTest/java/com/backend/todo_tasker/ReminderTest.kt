@@ -12,7 +12,7 @@ import java.time.LocalDateTime
 @RunWith(AndroidJUnit4::class)
 class ReminderTest {
     @Test
-    fun Set_And_Cancel_Alarm() {
+    fun set_And_Cancel_Alarm() {
         val appContext: Context = ApplicationProvider.getApplicationContext()
         val alarm = AlarmHelper()
         val retVal = alarm.setNewAlarm(appContext, LocalDateTime.now().plusSeconds(60))

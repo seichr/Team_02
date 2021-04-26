@@ -1,6 +1,5 @@
 package com.backend.todo_tasker
 
-
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
@@ -18,6 +17,8 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
+var STRING_FOO = "Foo"
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -38,10 +39,10 @@ class AddTaskTest {
                                         0),
                                 2),
                         isDisplayed()))
-        appCompatEditText.perform(replaceText("Foo"))
+        appCompatEditText.perform(replaceText(STRING_FOO))
 
         val appCompatEditText2 = onView(
-                allOf(withId(R.id.edittext_name), withText("Foo"),
+                allOf(withId(R.id.edittext_name), withText(STRING_FOO),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -51,7 +52,7 @@ class AddTaskTest {
         appCompatEditText2.perform(closeSoftKeyboard())
 
         val appCompatEditText3 = onView(
-                allOf(withId(R.id.edittext_name), withText("Foo"),
+                allOf(withId(R.id.edittext_name), withText(STRING_FOO),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
