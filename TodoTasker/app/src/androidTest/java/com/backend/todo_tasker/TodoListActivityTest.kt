@@ -1,18 +1,16 @@
-package com.example.todo_tasker
+package com.backend.todo_tasker
 
-import android.widget.ListView
-import androidx.test.espresso.Espresso.onData
+import android.content.Context
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
-import androidx.test.espresso.assertion.ViewAssertions.doesNotExist
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
-import org.hamcrest.Matchers.anything
+import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.database.Todo
 import org.junit.Assert.assertNotEquals
 import org.junit.Before
 import org.junit.Rule
@@ -22,9 +20,9 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 @LargeTest
 class TodoListActivityTest {
-    val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-    val db = database_class(appContext)
-    val datab = db.createDb()
+    private val appContext: Context = InstrumentationRegistry.getInstrumentation().targetContext
+    private val db = DatabaseClass(appContext)
+    private val datab = db.createDb()
 
     @get:Rule
     var activityRule: ActivityScenarioRule<MainActivity>
@@ -33,11 +31,11 @@ class TodoListActivityTest {
     @Before
     fun fill_db() {
         db.deleteDBEntries(datab)
-        val time_in_millis = db.date_to_millis(db.get_current_date())
+        val timeInMillis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..3) {
-            val test_todo = Todo(i, "Test", time_in_millis, null)
-            val ret_val = db.addToDb(datab, test_todo)
-            assertNotEquals(ret_val, -1)
+            val testTodo = Todo(i, "Test", timeInMillis, null)
+            val retVal = db.addToDb(datab, testTodo)
+            assertNotEquals(retVal, -1)
         }
     }
 
@@ -47,8 +45,7 @@ class TodoListActivityTest {
         onView(withId(R.id.button_switch_to_list)).perform(click())
 
         onView(withId(R.id.todo_list)).check(matches(isDisplayed()))
-
-
+        // TODO: Should be finished
         //onData(anything()).inAdapterView(withId(R.id.task_list)).check()
         //var listView: ListView
         //val listView = TaskListActivity.findViewByID(R.id.task_list)

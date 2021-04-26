@@ -1,9 +1,7 @@
-package com.example.todo_tasker
-
+package com.backend.todo_tasker
 
 import android.view.View
 import android.view.ViewGroup
-import android.content.Context
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -11,6 +9,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.backend.todo_tasker.database.DatabaseClass
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
@@ -18,6 +17,8 @@ import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
+
+var STRING_FOO = "Foo"
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
@@ -29,18 +30,19 @@ class AddTaskTest {
 
     @Test
     fun addTaskTest() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val appCompatEditText = onView(
-                allOf(withId(R.id.editTextTextPersonName), withText("Name"),
+                allOf(withId(R.id.edittext_name),withText(appContext.getString(R.string.STRING_NAME)),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
                                         0),
                                 2),
                         isDisplayed()))
-        appCompatEditText.perform(replaceText("Foo"))
+        appCompatEditText.perform(replaceText(STRING_FOO))
 
         val appCompatEditText2 = onView(
-                allOf(withId(R.id.editTextTextPersonName), withText("Foo"),
+                allOf(withId(R.id.edittext_name), withText(STRING_FOO),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -50,7 +52,7 @@ class AddTaskTest {
         appCompatEditText2.perform(closeSoftKeyboard())
 
         val appCompatEditText3 = onView(
-                allOf(withId(R.id.editTextTextPersonName), withText("Foo"),
+                allOf(withId(R.id.edittext_name), withText(STRING_FOO),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -60,7 +62,7 @@ class AddTaskTest {
         appCompatEditText3.perform(pressImeActionButton())
 
         val materialButton = onView(
-                allOf(withId(R.id.addButton), withText("Add"),
+                allOf(withId(R.id.button_add_to_db), withText(appContext.getString(R.string.STRING_ADDTASK)),
                         childAtPosition(
                                 childAtPosition(
                                         withId(android.R.id.content),
@@ -69,9 +71,7 @@ class AddTaskTest {
                         isDisplayed()))
         materialButton.perform(click())
 
-        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
-
-        val db = database_class(appContext)
+        val db = DatabaseClass(appContext)
         val datab = db.createDb()
         val allEntrys = (db.getAllDb(datab))
         assert(true)
