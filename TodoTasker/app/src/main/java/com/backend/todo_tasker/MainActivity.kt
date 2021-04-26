@@ -38,8 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         val title = textField.text.toString()
         // TO-DO [For Date]: set this to spinner.
-        val date = 0
-        val reminder = 0
+        val date = 0 // TODO: Change
+        val reminder = 0 // TOOD: Change
 
         GlobalScope.launch {
             sharedDbLock.acquire()
