@@ -1,20 +1,14 @@
 # Pairing Matrix
-Dev 1: Name
-Dev 2: Name
-Dev 3: Name
-Dev 4: Name
-Dev 5: Name
-Dev 6: Name
-Dev 7: Name
-Dev 8: Name
 
-| Syntax      | Dev 1   	  | Dev 2   	  | Dev 3   	  | Dev 4   	  | Dev 5   	  | Dev 6   	  | Dev 7   	  | Dev 8   	  |
-| :---        |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |    :----:   |
-| Dev 1       | X           | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       |
-| Dev 2       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       |
-| Dev 3       | HH:MM       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       |
-| Dev 4       | HH:MM       | HH:MM       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       | HH:MM       |
-| Dev 5       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | X           | HH:MM       | HH:MM       | HH:MM       |
-| Dev 6       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | X           | HH:MM       | HH:MM       |
-| Dev 7       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | X           | HH:MM       |
-| Dev 8       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | HH:MM       | X           |
+|                    | Christian Seifert | Erwin Peterlin | Yuma Buchrieser | Bernd Grabner | Lukas Kloiber | Manuel Krenn | Stefan Schörkmeier |
+|--------------------|:-----------------:|:--------------:|:---------------:|:-------------:|:-------------:|:------------:|:------------------:|
+| Christian Seifert  | X                 | 02:00          | 00:00           | 07:45         | 07:45         | 00:00        | 02:00              |
+| Erwin Peterlin     | 02:00             | X              | 00:00           | 07:45         | 07:45         | 00:00        | 00:00              |
+| Yuma Buchrieser    | 00:00             | 00:00          | X               | 00:00         | 00:00         | 08:00        | 08:00              |
+| Bernd Grabner      | 07:45             | 07:45          | 00:00           | X             | 00:00         | 00:00        | 00:00              |
+| Lukas Kloiber      | 07:45             | 07:45          | 00:00           | 00:00         | X             | 00:00        | 00:00              |
+| Manuel Krenn       | 00:00             | 00:00          | 08:00           | 00:00         | 00:00         | X            | 00:00              |
+| Stefan Schörkmeier | 02:00             | 00:00          | 08:00           | 00:00         | 00:00         | 00:00        | X                  |
+| RESEARCH           |                   | 02:00          |                 |               |               | 08:00        | 08:45              |
+|                    | -                 | -              | -               | -             | -             | -            | -                  |
+| **SUM** (HH:MM)    | 19:30             | 19:30          | 16:00           | 15:30         | 15:30         | 16:00        | 18:45              |
