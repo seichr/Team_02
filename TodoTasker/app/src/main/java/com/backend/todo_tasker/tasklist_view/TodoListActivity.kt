@@ -2,6 +2,7 @@ package com.backend.todo_tasker.tasklist_view
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.R
@@ -21,10 +22,14 @@ class TodoListActivity : AppCompatActivity() {
         val todoList = findViewById<RecyclerView>(R.id.todo_list)
         todoList.adapter = RecyclerAdapter(emptyList())
 
+
         linearLayoutManager = LinearLayoutManager(this)
         todoList.layoutManager = linearLayoutManager
 
         GlobalScope.launch {
+            val dividerItemDecoration = DividerItemDecoration(todoList.getContext(),
+                linearLayoutManager.getOrientation());
+            todoList.addItemDecoration(dividerItemDecoration)
             val data = dbClass.getAllDb(todoDb)
             this@TodoListActivity.runOnUiThread {
                 adapter = RecyclerAdapter(data)
