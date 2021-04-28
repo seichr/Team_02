@@ -1,5 +1,6 @@
 package com.backend.todo_tasker
 
+import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -7,11 +8,15 @@ import android.widget.EditText
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.view.View
+import android.widget.DatePicker
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.tasklist_view.TodoListActivity
+import java.util.*
 import java.util.concurrent.Semaphore
 
 lateinit var dbClass: DatabaseClass
@@ -31,6 +36,24 @@ class MainActivity : AppCompatActivity() {
 
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
+
+        //DarePicker Code
+        val myCalendar = Calendar.getInstance()
+        val edittext = findViewById<EditText>(R.id.editTextDate)
+        val date =
+            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
+                myCalendar.set(Calendar.YEAR, year)
+                myCalendar.set(Calendar.MONTH, monthOfYear)
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
+                val myFormat = "dd/MM/yy"
+                val sdf = SimpleDateFormat(myFormat, Locale.US)
+                edittext.setText(sdf.format(myCalendar.time))
+            }
+        edittext.setOnClickListener {
+            DatePickerDialog(this, date, myCalendar
+                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+        }
     }
 
     fun addTodoActivity(view: View) {
@@ -38,7 +61,8 @@ class MainActivity : AppCompatActivity() {
 
         val title = textField.text.toString()
         // TO-DO [For Date]: set this to spinner.
-        val date = 0 // TODO: Change
+        val myCalendar = Calendar.getInstance()
+        val date = myCalendar.timeInMillis
         val reminder = 0 // TOOD: Change
 
         GlobalScope.launch {
@@ -57,6 +81,7 @@ class MainActivity : AppCompatActivity() {
             sharedDbLock.release()
         }
     }
+
 }
 
 
