@@ -78,6 +78,12 @@ class AddTaskTest {
         //assert(allEntrys[allEntrys.size - 1].title == "Foo") // TODO: Add mock-db
     }
 
+
+    @Test
+    fun addTaskTestŴithDate() {
+
+    }
+
     private fun childAtPosition(
             parentMatcher: Matcher<View>, position: Int): Matcher<View> {
 
@@ -88,7 +94,7 @@ class AddTaskTest {
             }
 
             public override fun matchesSafely(view: View): Boolean {
-                val parent = view.parent
+               val parent = view.parent
                 return parent is ViewGroup && parentMatcher.matches(parent)
                         && view == parent.getChildAt(position)
             }
