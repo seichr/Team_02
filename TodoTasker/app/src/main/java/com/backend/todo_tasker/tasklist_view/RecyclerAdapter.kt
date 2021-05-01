@@ -1,11 +1,14 @@
 package com.backend.todo_tasker.tasklist_view
 
+import android.graphics.Color
+import android.text.format.DateFormat
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.R
 import com.backend.todo_tasker.database.Todo
 import kotlinx.android.synthetic.main.recyclerview_item.view.*
+import java.util.*
 
 class RecyclerAdapter(private val todos: List<Todo>) :
     RecyclerView.Adapter<RecyclerAdapter.TodoHolder>()  {
@@ -20,6 +23,12 @@ class RecyclerAdapter(private val todos: List<Todo>) :
     }
 
     override fun onBindViewHolder(holder: TodoHolder, position: Int) {
+        if (position %2 == 1) {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
+        }
+        else {
+            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        }
         val itemTodo = todos[position]
         holder.bindTodo(itemTodo)
     }
@@ -42,9 +51,8 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             // Only way to access the Recycler Items. Android Studio might be sad but its ok :'/
             // See --> Kotlin Extensions
             view.item_title.text = todo.title
-            view.item_date.text = todo.date.toString()
-            view.item_reminder.text = todo.reminder.toString()
+            if(todo.date!= null)
+                view.item_date.text = DateFormat.format("dd.MM.yyyy - hh:mm", Date(todo.date)).toString()
         }
-
     }
 }
