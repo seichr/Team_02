@@ -12,7 +12,6 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.ext.junit.rules.ActivityScenarioRule
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.LargeTest
-import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
@@ -51,7 +50,7 @@ class TodoListActivityTest {
         onView(withId(R.id.button_switch_to_list)).perform(click())
         onView(withId(R.id.todo_list)).check(matches(isDisplayed()))
         //TODO: Check if tasks are displayed correctly
-        //;Mean to check dates too!
+        //TODO: Mean to check dates too!
         onView(withId(R.id.todo_list)).check( RecyclerViewItemCountAssertion(4));
     }
 
