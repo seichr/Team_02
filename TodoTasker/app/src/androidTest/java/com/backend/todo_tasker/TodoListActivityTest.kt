@@ -51,6 +51,7 @@ class TodoListActivityTest {
         onView(withId(R.id.button_switch_to_list)).perform(click())
         onView(withId(R.id.todo_list)).check(matches(isDisplayed()))
         //TODO: Check if tasks are displayed correctly
+        //;Mean to check dates too!
         onView(withId(R.id.todo_list)).check( RecyclerViewItemCountAssertion(4));
     }
 
