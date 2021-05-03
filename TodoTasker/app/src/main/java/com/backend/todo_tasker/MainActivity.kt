@@ -11,16 +11,16 @@ import androidx.appcompat.app.AppCompatActivity
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
+import com.backend.todo_tasker.language.LanguageHelper
 import com.backend.todo_tasker.tasklist_view.TodoListActivity
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.util.*
 import java.util.concurrent.Semaphore
 
 lateinit var dbClass: DatabaseClass
 lateinit var todoDb: TodoDatabase
 private val sharedDbLock = Semaphore(1)
-private var currentLanguage = "en"
+private var languageHelper = LanguageHelper()
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,29 +44,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun changeLanguageActivity(item: MenuItem) {
-        val locale: Locale
-        val oldLanguage: String
-        if(currentLanguage == "en") {
-            oldLanguage = "en"
-            currentLanguage = "ru"
-            locale = Locale("ru")
-
-        } else {
-            oldLanguage = "ru"
-            currentLanguage = "en"
-            locale = Locale("en")
-        }
-        val res = resources
-        val dm = res.displayMetrics
-        val conf = res.configuration
-        conf.locale = locale
-        res.updateConfiguration(conf, dm)
-        val refresh = Intent(
-                this,
-                MainActivity::class.java
-        )
-        refresh.putExtra(oldLanguage, currentLanguage)
-        startActivity(refresh)
+        languageHelper.toggleLanguage(resources, this)
     }
 
     fun addTodoActivity(view: View) {
