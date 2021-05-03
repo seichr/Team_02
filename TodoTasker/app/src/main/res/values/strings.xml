@@ -5,5 +5,6 @@
     <string name="STRING_NAME">Name</string>
     <string name="STRING_SHOWTASKLIST">Show Task List</string>
     <string name="STRING_PLACEHOLDER">Placeholder</string>
+    <string name="STRING_LANGUAGEBUTTON">Change Language</string>
     <!--string name=""></string-->
 </resources>
