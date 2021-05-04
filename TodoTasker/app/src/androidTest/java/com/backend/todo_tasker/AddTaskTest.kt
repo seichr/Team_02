@@ -113,7 +113,6 @@ class AddTaskTest {
                 isDisplayed()))
         appCompatEditText3.perform(pressImeActionButton())
 
-        onView(withId(R.id.date_picker)).perform(PickerActions.setDate(2017, 6, 30));
 
         val materialButton = onView(
             allOf(withId(R.id.button_add_to_db), withText(appContext.getString(R.string.STRING_ADDTASK)),
