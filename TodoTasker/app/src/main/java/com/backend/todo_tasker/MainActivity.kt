@@ -1,22 +1,23 @@
 package com.backend.todo_tasker
 
 import android.app.DatePickerDialog
-import androidx.appcompat.app.AppCompatActivity
-import android.os.Bundle
-import android.widget.Button
-import android.widget.EditText
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
+import android.os.Bundle
 import android.view.View
-import android.widget.DatePicker
+import android.widget.Button
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.tasklist_view.TodoListActivity
-import java.util.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.concurrent.Semaphore
 
 lateinit var dbClass: DatabaseClass
@@ -24,6 +25,7 @@ lateinit var todoDb: TodoDatabase
 private val sharedDbLock = Semaphore(1)
 
 class MainActivity : AppCompatActivity() {
+    private var taskTimeMillis = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -37,22 +39,40 @@ class MainActivity : AppCompatActivity() {
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
 
-        //DarePicker Code
-        val myCalendar = Calendar.getInstance()
-        val edittext = findViewById<EditText>(R.id.editTextDate)
-        val date =
-            DatePickerDialog.OnDateSetListener { view, year, monthOfYear, dayOfMonth ->
-                myCalendar.set(Calendar.YEAR, year)
-                myCalendar.set(Calendar.MONTH, monthOfYear)
-                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth)
-                val myFormat = "dd/MM/yy"
-                val sdf = SimpleDateFormat(myFormat, Locale.US)
-                edittext.setText(sdf.format(myCalendar.time))
-            }
-        edittext.setOnClickListener {
-            DatePickerDialog(this, date, myCalendar
-                .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
-                myCalendar.get(Calendar.DAY_OF_MONTH)).show()
+        //DatePicker Code
+        val dateInputEditText = findViewById<EditText>(R.id.edittext_datetime)
+        dateInputEditText.setOnClickListener {
+            val calendar = Calendar.getInstance()
+            val dateSetListener =
+                OnDateSetListener { view, year, month, dayOfMonth ->
+                    calendar[Calendar.YEAR] = year
+                    calendar[Calendar.MONTH] = month
+                    calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+                    val timeSetListener =
+                        OnTimeSetListener { view, hourOfDay, minute ->
+                            calendar[Calendar.HOUR_OF_DAY] = hourOfDay
+                            calendar[Calendar.MINUTE] = minute
+                            val simpleDateFormat =
+                                SimpleDateFormat("dd-MM-yy HH:mm")
+                            dateInputEditText.setText(simpleDateFormat.format(calendar.time))
+                            taskTimeMillis = calendar.timeInMillis
+                        }
+                    TimePickerDialog(
+                        this@MainActivity,
+                        timeSetListener,
+                        calendar[Calendar.HOUR_OF_DAY],
+                        calendar[Calendar.MINUTE],
+                        false
+                    ).show()
+                }
+
+            DatePickerDialog(
+                this@MainActivity,
+                dateSetListener,
+                calendar[Calendar.YEAR],
+                calendar[Calendar.MONTH],
+                calendar[Calendar.DAY_OF_MONTH]
+            ).show()
         }
     }
 
@@ -60,9 +80,7 @@ class MainActivity : AppCompatActivity() {
         val textField: EditText = findViewById(R.id.edittext_name)
 
         val title = textField.text.toString()
-        // TO-DO [For Date]: set this to spinner.
-        val myCalendar = Calendar.getInstance()
-        val date = myCalendar.timeInMillis
+        val date = taskTimeMillis
         val reminder = 0 // TOOD: Change
 
         GlobalScope.launch {
