@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="STRING_APP_NAME">Сделать Таскер</string>
+    <string name="STRING_CREATETASK">Создать задачу</string>
+    <string name="STRING_ADDTASK">Добавить задачу</string>
+    <string name="STRING_NAME">Имя</string>
+    <string name="STRING_SHOWTASKLIST">Показать список задач</string>
+    <string name="STRING_PLACEHOLDER">Заполнитель</string>
+    <string name="STRING_LANGUAGEBUTTON">Изменить язык</string>
+    <!--string name=""></string-->
+</resources>
