@@ -68,12 +68,14 @@ class MainActivity : AppCompatActivity() {
         languageHelper.toggleLanguage(resources, this)
     }
 
+    /*
     fun addTodoActivity(view: View) {
         val textField: EditText = findViewById(R.id.edittext_name)
 
         val title = textField.text.toString()
         val date = taskTimeMillis
         val reminder = 0 // TOOD: Change
+
 
         GlobalScope.launch {
             sharedDbLock.acquire()
@@ -125,6 +127,7 @@ class MainActivity : AppCompatActivity() {
             calendar[Calendar.DAY_OF_MONTH]
         ).show()
     }
+         */
 }
 
 
