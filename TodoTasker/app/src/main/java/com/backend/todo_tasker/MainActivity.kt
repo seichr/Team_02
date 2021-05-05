@@ -1,6 +1,12 @@
 package com.backend.todo_tasker
 
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
 import android.content.Intent
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
@@ -23,6 +29,7 @@ private val sharedDbLock = Semaphore(1)
 private var languageHelper = LanguageHelper()
 
 class MainActivity : AppCompatActivity() {
+    private var taskTimeMillis = 0L
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -51,8 +58,7 @@ class MainActivity : AppCompatActivity() {
         val textField: EditText = findViewById(R.id.edittext_name)
 
         val title = textField.text.toString()
-        // TO-DO [For Date]: set this to spinner.
-        val date = 0 // TODO: Change
+        val date = taskTimeMillis
         val reminder = 0 // TOOD: Change
 
         GlobalScope.launch {
@@ -70,6 +76,40 @@ class MainActivity : AppCompatActivity() {
             }
             sharedDbLock.release()
         }
+    }
+    fun clickOnDateTimeField(view: View){
+        val calendar = Calendar.getInstance()
+        val dateSetListener =
+            OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar[Calendar.YEAR] = year
+                calendar[Calendar.MONTH] = month
+                calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+                val timeSetListener =
+                    OnTimeSetListener { view, hourOfDay, minute ->
+                        calendar[Calendar.HOUR_OF_DAY] = hourOfDay
+                        calendar[Calendar.MINUTE] = minute
+                        val simpleDateFormat =
+                            SimpleDateFormat("dd-MM-yy HH:mm")
+                        val dateInputEditText = findViewById<EditText>(R.id.edittext_datetime)
+                        dateInputEditText.setText(simpleDateFormat.format(calendar.time))
+                        taskTimeMillis = calendar.timeInMillis
+                    }
+                TimePickerDialog(
+                    this@MainActivity,
+                    timeSetListener,
+                    calendar[Calendar.HOUR_OF_DAY],
+                    calendar[Calendar.MINUTE],
+                    false
+                ).show()
+            }
+
+        DatePickerDialog(
+            this@MainActivity,
+            dateSetListener,
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH]
+        ).show()
     }
 }
 
