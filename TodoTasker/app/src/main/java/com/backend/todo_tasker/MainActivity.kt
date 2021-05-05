@@ -4,21 +4,22 @@ import android.app.DatePickerDialog
 import android.app.DatePickerDialog.OnDateSetListener
 import android.app.TimePickerDialog
 import android.app.TimePickerDialog.OnTimeSetListener
-import android.content.Intent
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.language.LanguageHelper
-import com.backend.todo_tasker.tasklist_view.TodoListActivity
+import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.Semaphore
@@ -30,18 +31,31 @@ private var languageHelper = LanguageHelper()
 
 class MainActivity : AppCompatActivity() {
     private var taskTimeMillis = 0L
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var adapter: RecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.button_switch_to_list)
-        button.setOnClickListener {
-            val intent = Intent(this, TodoListActivity::class.java)
-            startActivity(intent)
-        }
-
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
+
+        val todoList = findViewById<RecyclerView>(R.id.todo_list)
+        todoList.adapter = RecyclerAdapter(emptyList())
+
+        linearLayoutManager = LinearLayoutManager(this)
+        todoList.layoutManager = linearLayoutManager
+
+        GlobalScope.launch {
+            val dividerItemDecoration = DividerItemDecoration(todoList.getContext(),
+                linearLayoutManager.getOrientation());
+            todoList.addItemDecoration(dividerItemDecoration)
+            val data = dbClass.getAllDb(todoDb)
+            this@MainActivity.runOnUiThread {
+                adapter = RecyclerAdapter(data)
+                todoList.adapter = adapter
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
