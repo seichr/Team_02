@@ -53,4 +53,24 @@ class DatabaseClass(context: Context) {
     fun getCurrentDate(): Date {
         return Calendar.getInstance().time
     }
+    fun deleteDBSingleEntry(db: TodoDatabase, uid: Int) {
+        db.todoDao().deleteSingle(uid)
+    }
+
+    fun duplicateDBEntry(db: TodoDatabase, uid: Int):Int {
+        var toDuplicate:Todo= getSingleEntry(db,uid)
+        val lastEntry: Todo = getLastEntry(db)
+        var nextId = lastEntry.uid+1
+        val toInsert : Todo = Todo(nextId,toDuplicate.title,toDuplicate.date,toDuplicate.reminder)
+        addToDb(db,toInsert)
+        return nextId
+    }
+
+    fun modificationEntry(db:TodoDatabase, uid:Int, title:String, date:Long ,reminder:Long){
+        db.todoDao().update(uid, title, date ,reminder)
+    }
+
+    fun getSingleEntry(db: TodoDatabase, uid:Int): Todo {
+        return db.todoDao().getSingle(uid)
+    }
 }
