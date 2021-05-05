@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.backend.todo_tasker">
 
     <uses-permission android:name="android.permission.WAKE_LOCK" />
@@ -17,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".BackgroundService"/>
+        <receiver android:name=".BackgroundService"
+            tools:ignore="Instantiatable" />
         <activity android:name=".tasklist_view.TodoListActivity"></activity>
     </application>
 
