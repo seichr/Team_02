@@ -21,6 +21,7 @@ lateinit var dbClass: DatabaseClass
 lateinit var todoDb: TodoDatabase
 private val sharedDbLock = Semaphore(1)
 private var languageHelper = LanguageHelper()
+lateinit var backgroundService: BackgroundService
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
+        backgroundService = BackgroundService(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

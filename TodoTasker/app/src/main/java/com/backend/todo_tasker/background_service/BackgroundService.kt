@@ -5,11 +5,16 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import com.backend.todo_tasker.background_service.NotificationHelper
 import java.time.LocalDateTime
 import java.time.ZoneId
 import java.util.*
 
-class BackgroundService : BroadcastReceiver() {
+class BackgroundService(context: Context) : BroadcastReceiver() {
+
+    private val notificationHelper = NotificationHelper()
+    private val appContext = context
+
     override fun onReceive(context: Context?, intent: Intent?) {
         val retVal = doWork()
         if(retVal != 0) {
@@ -19,7 +24,7 @@ class BackgroundService : BroadcastReceiver() {
 
     private fun doWork(): Int {
         val cal = Calendar.getInstance()
-        // TODO send notification
+        notificationHelper.notify(appContext)
         println("Current time in millis is: " + cal.timeInMillis)
         return 0
     }
