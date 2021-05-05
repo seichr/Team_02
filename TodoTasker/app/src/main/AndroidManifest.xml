@@ -18,7 +18,6 @@
             </intent-filter>
         </activity>
         <receiver android:name=".BackgroundService"/>
-        <activity android:name=".tasklist_view.TodoListActivity"></activity>
     </application>
 
 </manifest>
