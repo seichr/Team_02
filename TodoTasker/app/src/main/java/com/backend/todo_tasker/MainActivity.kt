@@ -42,42 +42,6 @@ class MainActivity : AppCompatActivity() {
 
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
-
-        //DatePicker Code
-        val dateInputEditText = findViewById<EditText>(R.id.edittext_datetime)
-        dateInputEditText.setOnClickListener {
-            val calendar = Calendar.getInstance()
-            val dateSetListener =
-                OnDateSetListener { view, year, month, dayOfMonth ->
-                    calendar[Calendar.YEAR] = year
-                    calendar[Calendar.MONTH] = month
-                    calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
-                    val timeSetListener =
-                        OnTimeSetListener { view, hourOfDay, minute ->
-                            calendar[Calendar.HOUR_OF_DAY] = hourOfDay
-                            calendar[Calendar.MINUTE] = minute
-                            val simpleDateFormat =
-                                SimpleDateFormat("dd-MM-yy HH:mm")
-                            dateInputEditText.setText(simpleDateFormat.format(calendar.time))
-                            taskTimeMillis = calendar.timeInMillis
-                        }
-                    TimePickerDialog(
-                        this@MainActivity,
-                        timeSetListener,
-                        calendar[Calendar.HOUR_OF_DAY],
-                        calendar[Calendar.MINUTE],
-                        false
-                    ).show()
-                }
-
-            DatePickerDialog(
-                this@MainActivity,
-                dateSetListener,
-                calendar[Calendar.YEAR],
-                calendar[Calendar.MONTH],
-                calendar[Calendar.DAY_OF_MONTH]
-            ).show()
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -113,7 +77,40 @@ class MainActivity : AppCompatActivity() {
             sharedDbLock.release()
         }
     }
+    fun clickOnDateTimeField(view: View){
+        val calendar = Calendar.getInstance()
+        val dateSetListener =
+            OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar[Calendar.YEAR] = year
+                calendar[Calendar.MONTH] = month
+                calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+                val timeSetListener =
+                    OnTimeSetListener { view, hourOfDay, minute ->
+                        calendar[Calendar.HOUR_OF_DAY] = hourOfDay
+                        calendar[Calendar.MINUTE] = minute
+                        val simpleDateFormat =
+                            SimpleDateFormat("dd-MM-yy HH:mm")
+                        val dateInputEditText = findViewById<EditText>(R.id.edittext_datetime)
+                        dateInputEditText.setText(simpleDateFormat.format(calendar.time))
+                        taskTimeMillis = calendar.timeInMillis
+                    }
+                TimePickerDialog(
+                    this@MainActivity,
+                    timeSetListener,
+                    calendar[Calendar.HOUR_OF_DAY],
+                    calendar[Calendar.MINUTE],
+                    false
+                ).show()
+            }
 
+        DatePickerDialog(
+            this@MainActivity,
+            dateSetListener,
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH]
+        ).show()
+    }
 }
 
 

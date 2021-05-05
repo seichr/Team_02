@@ -129,7 +129,7 @@ class DateTimePickRecordedTest {
 
         val textView = onView(
             allOf(
-                withId(R.id.item_date), withText(startsWith("1619971")),
+                withId(R.id.item_date), withText(startsWith("161997")),
                 withParent(withParent(withId(R.id.todo_list))),
                 isDisplayed()
             )
