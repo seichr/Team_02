@@ -19,6 +19,7 @@ class BackgroundService : BroadcastReceiver() {
 
     private fun doWork(): Int {
         val cal = Calendar.getInstance()
+        // TODO send notification
         println("Current time in millis is: " + cal.timeInMillis)
         return 0
     }
