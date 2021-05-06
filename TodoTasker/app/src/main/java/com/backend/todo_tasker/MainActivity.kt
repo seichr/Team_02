@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import com.backend.todo_tasker.background_service.NotificationHelper
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
@@ -19,9 +20,10 @@ import java.util.concurrent.Semaphore
 
 lateinit var dbClass: DatabaseClass
 lateinit var todoDb: TodoDatabase
-lateinit var backgroundService: BackgroundService
-private val sharedDbLock = Semaphore(1)
+val sharedDbLock = Semaphore(1)
 private var languageHelper = LanguageHelper()
+val notificationHelper = NotificationHelper()
+val alarmHelper = AlarmHelper()
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +38,6 @@ class MainActivity : AppCompatActivity() {
 
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
-        backgroundService = BackgroundService(applicationContext)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
         val title = textField.text.toString()
         // TO-DO [For Date]: set this to spinner.
         val date = 0 // TODO: Change
-        val reminder = 0 // TOOD: Change
+        val reminder:Long = 0 // TOOD: Change
 
         GlobalScope.launch {
             sharedDbLock.acquire()
@@ -72,6 +73,8 @@ class MainActivity : AppCompatActivity() {
             }
             sharedDbLock.release()
         }
+
+        alarmHelper.replaceNextAlarm(applicationContext, reminder)
     }
 }
 

@@ -5,38 +5,42 @@ import android.app.PendingIntent
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
-import com.backend.todo_tasker.background_service.NotificationHelper
-import java.time.LocalDateTime
-import java.time.ZoneId
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.*
 
-class BackgroundService(context: Context) : BroadcastReceiver() {
-
-    private val notificationHelper = NotificationHelper()
-    private val appContext = context
-
-    override fun onReceive(context: Context?, intent: Intent?) {
-        val retVal = doWork()
-        if(retVal != 0) {
-            println("[DEBUG] doWork was not successful!")
-        }
-    }
-
-    private fun doWork(): Int {
-        val cal = Calendar.getInstance()
-        notificationHelper.notify(appContext)
-        println("Current time in millis is: " + cal.timeInMillis)
-        return 0
+class BackgroundService : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent?) {
+        notificationHelper.notify(context)
+        alarmHelper.setNextAlarm(context)
     }
 }
 
 class AlarmHelper {
     private var counter = 0
     private var alarmMap = HashMap<Int, PendingIntent?>()
+    private var liveAlarmID = -1
+    private var liveAlarmTime:Long = -1
 
-    fun setNewAlarm(context: Context?, dateTime: LocalDateTime): Int {
-        val zoneTimeDate = dateTime.atZone(ZoneId.of(ZoneId.systemDefault().toString()))
-        val time = zoneTimeDate.toInstant().toEpochMilli()
+    fun setNextAlarm(context: Context?) {
+        GlobalScope.launch {
+            sharedDbLock.acquire()
+            val todo = dbClass.getNextReminder(todoDb)
+            sharedDbLock.release()
+            if(todo.reminder != null) {
+                setNewAlarm(context, todo.reminder)
+            }
+        }
+    }
+
+    fun replaceNextAlarm(context: Context, time: Long) {
+        if(liveAlarmTime > time) {
+            cancelAlarm(context, liveAlarmID)
+            setNewAlarm(context, time)
+        }
+    }
+
+    fun setNewAlarm(context: Context?, time: Long): Int {
 
         val intent = Intent(context, BackgroundService::class.java)
         val pendingIntent = PendingIntent.getBroadcast(context, counter, intent, 0)
@@ -56,7 +60,10 @@ class AlarmHelper {
         )
 
         alarmMap[counter] = pendingIntent
+        liveAlarmID = counter
         counter += 1
+
+        liveAlarmTime = time
 
         return counter - 1
     }
@@ -72,6 +79,8 @@ class AlarmHelper {
         val pendingIntent = alarmMap[id]
 
         alarmManager?.cancel(pendingIntent)
+        liveAlarmID = -1
+        liveAlarmTime = -1
         return true
     }
 }
