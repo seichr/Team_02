@@ -1,17 +1,21 @@
 package com.backend.todo_tasker
 
 
+import android.app.Application
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.test.core.app.ApplicationProvider
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.*
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
+import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.backend.todo_tasker.database.DatabaseClass
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -31,6 +35,12 @@ class EndToEndTest {
 
     @Test
     fun endToEndTest() {
+        val appContext = ApplicationProvider.getApplicationContext<Application>()
+
+        val db = DatabaseClass(appContext)
+        val datab = db.createDb()
+        db.deleteDBEntries(datab)
+
         val appCompatImageButton = onView(
             allOf(
                 withId(R.id.button_add_to_db), withContentDescription("Add Task"),
@@ -45,6 +55,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton.perform(click())
+        Thread.sleep(1000)
 
         val appCompatEditText = onView(
             allOf(
@@ -57,6 +68,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText.perform(replaceText("TC1"), closeSoftKeyboard())
+        Thread.sleep(1000)
 
         val materialButton = onView(
             allOf(
@@ -69,6 +81,7 @@ class EndToEndTest {
             )
         )
         materialButton.perform(click())
+        Thread.sleep(1000)
 
         val appCompatImageButton2 = onView(
             allOf(
@@ -84,6 +97,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton2.perform(click())
+        Thread.sleep(1000)
 
         val appCompatEditText2 = onView(
             allOf(
@@ -96,6 +110,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText2.perform(replaceText("TC2"), closeSoftKeyboard())
+        Thread.sleep(1000)
 
         val materialButton2 = onView(
             allOf(
@@ -108,6 +123,7 @@ class EndToEndTest {
             )
         )
         materialButton2.perform(click())
+        Thread.sleep(1000)
 
         val appCompatImageButton3 = onView(
             allOf(
@@ -123,6 +139,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton3.perform(click())
+        Thread.sleep(1000)
 
         val appCompatEditText3 = onView(
             allOf(
@@ -135,6 +152,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText3.perform(replaceText("TC3"), closeSoftKeyboard())
+        Thread.sleep(1000)
 
         val materialButton3 = onView(
             allOf(
@@ -147,6 +165,7 @@ class EndToEndTest {
             )
         )
         materialButton3.perform(click())
+        Thread.sleep(1000)
 
         val appCompatImageButton4 = onView(
             allOf(
@@ -162,6 +181,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton4.perform(click())
+        Thread.sleep(1000)
 
         val appCompatEditText4 = onView(
             allOf(
@@ -174,6 +194,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText4.perform(replaceText("TC4"), closeSoftKeyboard())
+        Thread.sleep(1000)
 
         val materialButton4 = onView(
             allOf(
@@ -186,6 +207,7 @@ class EndToEndTest {
             )
         )
         materialButton4.perform(click())
+        Thread.sleep(1000)
 
         val appCompatImageButton5 = onView(
             allOf(
@@ -201,6 +223,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton5.perform(click())
+        Thread.sleep(1000)
 
         val appCompatEditText5 = onView(
             allOf(
@@ -213,6 +236,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText5.perform(replaceText("TC5"), closeSoftKeyboard())
+        Thread.sleep(1000)
 
         val materialButton5 = onView(
             allOf(
@@ -225,6 +249,7 @@ class EndToEndTest {
             )
         )
         materialButton5.perform(click())
+        Thread.sleep(1000)
 
         val recyclerView = onView(
             allOf(
@@ -236,6 +261,7 @@ class EndToEndTest {
             )
         )
         recyclerView.perform(actionOnItemAtPosition<ViewHolder>(1, click()))
+        Thread.sleep(1000)
 
         val appCompatEditText6 = onView(
             allOf(
@@ -248,6 +274,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText6.perform(replaceText("TC7"))
+        Thread.sleep(1000)
 
         val appCompatEditText7 = onView(
             allOf(
@@ -260,6 +287,7 @@ class EndToEndTest {
             )
         )
         appCompatEditText7.perform(closeSoftKeyboard())
+        Thread.sleep(1000)
 
         val materialButton6 = onView(
             allOf(
@@ -272,6 +300,7 @@ class EndToEndTest {
             )
         )
         materialButton6.perform(click())
+        Thread.sleep(1000)
 
         val textView = onView(
             allOf(
@@ -281,6 +310,7 @@ class EndToEndTest {
             )
         )
         textView.check(matches(withText("TC7")))
+        Thread.sleep(1000)
 
         val recyclerView2 = onView(
             allOf(
@@ -292,6 +322,7 @@ class EndToEndTest {
             )
         )
         recyclerView2.perform(actionOnItemAtPosition<ViewHolder>(1, click()))
+        Thread.sleep(1000)
 
         val appCompatImageButton6 = onView(
             allOf(
@@ -304,6 +335,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton6.perform(click())
+        Thread.sleep(1000)
 
         val materialButton7 = onView(
             allOf(
@@ -316,15 +348,7 @@ class EndToEndTest {
             )
         )
         materialButton7.perform(click())
-
-        val textView2 = onView(
-            allOf(
-                withId(R.id.item_title), withText("TC7"),
-                withParent(withParent(withId(R.id.todo_list))),
-                isDisplayed()
-            )
-        )
-        textView2.check(matches(withText("TC7")))
+        Thread.sleep(1000)
 
         val recyclerView3 = onView(
             allOf(
@@ -336,6 +360,7 @@ class EndToEndTest {
             )
         )
         recyclerView3.perform(actionOnItemAtPosition<ViewHolder>(1, click()))
+        Thread.sleep(1000)
 
         val appCompatImageButton7 = onView(
             allOf(
@@ -348,6 +373,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton7.perform(click())
+        Thread.sleep(1000)
 
         val materialButton8 = onView(
             allOf(
@@ -360,6 +386,7 @@ class EndToEndTest {
             )
         )
         materialButton8.perform(click())
+        Thread.sleep(1000)
 
         val recyclerView4 = onView(
             allOf(
@@ -371,6 +398,7 @@ class EndToEndTest {
             )
         )
         recyclerView4.perform(actionOnItemAtPosition<ViewHolder>(4, click()))
+        Thread.sleep(1000)
 
         val appCompatImageButton8 = onView(
             allOf(
@@ -383,6 +411,7 @@ class EndToEndTest {
             )
         )
         appCompatImageButton8.perform(click())
+        Thread.sleep(1000)
 
         val materialButton9 = onView(
             allOf(
