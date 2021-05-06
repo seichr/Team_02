@@ -19,9 +19,9 @@ import java.util.concurrent.Semaphore
 
 lateinit var dbClass: DatabaseClass
 lateinit var todoDb: TodoDatabase
+lateinit var backgroundService: BackgroundService
 private val sharedDbLock = Semaphore(1)
 private var languageHelper = LanguageHelper()
-lateinit var backgroundService: BackgroundService
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

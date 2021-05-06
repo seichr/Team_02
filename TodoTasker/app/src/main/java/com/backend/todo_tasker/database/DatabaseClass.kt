@@ -53,4 +53,8 @@ class DatabaseClass(context: Context) {
     fun getCurrentDate(): Date {
         return Calendar.getInstance().time
     }
+
+    fun getNextReminder(db: TodoDatabase): Todo {
+        return db.todoDao().getNextReminder();
+    }
 }
