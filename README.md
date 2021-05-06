@@ -30,4 +30,9 @@
 | --- | :---: | :---: | :---: |
 | Create task | TT-001 | X | |
 | List tasks | TT-002 | X | |
+| Task deletion | TT-010 | X | |
+| Task modification | TT-011 | X | |
+| Task duplication | TT-012 | X | |
+| Multi-Language support | TT-023 | X | |
 | Simple reminder | TT-003 | | X |
+
