@@ -10,5 +10,7 @@
     <string name="STRING_PLACEHOLDER">Placeholder</string>
     <string name="STRING_LANGUAGEBUTTON">Change Language</string>
     <string name="STRING_CANCEL">Cancel</string>
+    <string name="STRING_DUPLICATETASK">Duplicate Task</string>
+    <string name="STRING_DELETETASK">Delete Task</string>
     <!--string name=""></string-->
 </resources>

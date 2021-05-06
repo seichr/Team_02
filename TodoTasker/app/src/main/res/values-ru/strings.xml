@@ -11,5 +11,7 @@
     <string name="STRING_PLACEHOLDER">Заполнитель</string>
     <string name="STRING_LANGUAGEBUTTON">Изменить язык</string>
     <string name="STRING_CANCEL">отменить</string>
+    <string name="STRING_DUPLICATETASK">Повторяющаяся задача</string>
+    <string name="STRING_DELETETASK">Удалить задачу</string>
     <!--string name=""></string-->
 </resources>
