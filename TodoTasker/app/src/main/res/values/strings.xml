@@ -2,10 +2,13 @@
     <string name="STRING_APP_NAME">Todo-Tasker</string>
     <string name="STRING_CREATETASK">Create Task</string>
     <string name="STRING_ADDTASK">Add Task</string>
+    <string name="STRING_MODIFYTASK">Modify Task</string>
+    <string name="STRING_SAVE">Save</string>
     <string name="STRING_NAME">Name</string>
-    <string name="STRING_ENTER_DATE">Enter Date</string>
+    <string name="STRING_ENTER_DATE">Due Date</string>
     <string name="STRING_SHOWTASKLIST">Show Task List</string>
     <string name="STRING_PLACEHOLDER">Placeholder</string>
     <string name="STRING_LANGUAGEBUTTON">Change Language</string>
+    <string name="STRING_CANCEL">Cancel</string>
     <!--string name=""></string-->
 </resources>
