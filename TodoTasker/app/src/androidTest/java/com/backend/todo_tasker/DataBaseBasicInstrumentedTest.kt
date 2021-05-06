@@ -5,10 +5,9 @@ import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
-import com.backend.todo_tasker.database.TodoDatabase
 import org.junit.Test
 import org.junit.runner.RunWith
-import java.util.*
+
 @MediumTest
 @RunWith(AndroidJUnit4::class)
 class DataBaseBasicInstrumentedTest {
@@ -24,7 +23,7 @@ class DataBaseBasicInstrumentedTest {
         db.addToDb(datab, toInsert)
         var varget = db.getLastEntry(datab)
         assert(varget.uid == 1 && varget.title == "test" && varget.date == 3.toLong() && varget.reminder == 6.toLong())
-        db.modificationEntry(datab, varget.uid, "test2", 5, 9)
+        db.updateEntry(datab, varget.uid, "test2", 5, 9)
         var updated : Todo= db.getSingleEntry(datab,varget.uid)
         assert(updated.title == "test2" && updated.date == 5.toLong() && updated.reminder == 9.toLong())
     }
