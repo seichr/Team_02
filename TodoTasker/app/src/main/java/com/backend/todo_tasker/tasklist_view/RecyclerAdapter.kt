@@ -1,5 +1,6 @@
 package com.backend.todo_tasker.tasklist_view
 
+import android.R.attr.x
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Color
@@ -20,6 +21,7 @@ import kotlinx.android.synthetic.main.recyclerview_item.view.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
+
 
 class RecyclerAdapter(private val todos: List<Todo>) :
     RecyclerView.Adapter<RecyclerAdapter.TodoHolder>()  {
@@ -49,9 +51,13 @@ class RecyclerAdapter(private val todos: List<Todo>) :
         private var view: View = v
         private var todo: Todo? = null
 
+        private var currentUID: Int? = null
+
         private var backgroundDimmerWindow: PopupWindow? = null
         private var modifyTaskWindow:       PopupWindow? = null
+        private var moreOptionsTaskWindow:  PopupWindow? = null
         private var modifyTaskView:         View?        = null
+        private var moreOptionsTaskView:    View?        = null
 
         init {
             v.setOnClickListener(this)
@@ -113,6 +119,66 @@ class RecyclerAdapter(private val todos: List<Todo>) :
                 clickOnDateTimeField(it)
             }
             editTextDateTime?.text = taskDate
+            val moreOptionsButton = modifyTaskView?.findViewById<ImageButton>(R.id.button_more_options)
+            moreOptionsButton?.setOnClickListener {
+                openMoreOptionsWindows(it, v, v.item_uid)
+            }
+        }
+
+        fun openMoreOptionsWindows(it: View, v: View, itemUid: TextView) {
+            val inflater = LayoutInflater.from(v.context)
+            moreOptionsTaskView = inflater.inflate(R.layout.more_options_window, null)
+
+            currentUID = itemUid.text.toString().toInt()
+            val widthTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
+            val heightTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
+
+            moreOptionsTaskWindow = PopupWindow(moreOptionsTaskView, widthTaskWindow, heightTaskWindow, true)
+            moreOptionsTaskWindow!!.showAtLocation(view, Gravity.CENTER, 0, -300)
+            //TODO: Y-Position Hardcoded for now Could not find correct Pos from Vars
+
+            val duplicateButton = moreOptionsTaskView?.findViewById<Button>(R.id.button_duplicate_task)
+            duplicateButton?.setOnClickListener {
+                duplicateTask(it, currentUID!!)
+                moreOptionsTaskWindow!!.dismiss()
+            }
+            val deleteButton = moreOptionsTaskView?.findViewById<Button>(R.id.button_delete_task)
+            deleteButton?.setOnClickListener {
+                deleteTask(it, currentUID!!)
+                moreOptionsTaskWindow!!.dismiss()
+            }
+
+            moreOptionsTaskWindow!!.setOnDismissListener(PopupWindow.OnDismissListener {
+                modifyTaskWindow!!.dismiss()
+            })
+
+        }
+
+        fun duplicateTask(it: View, UID: Int) {
+            GlobalScope.launch {
+                sharedDbLock.acquire()
+                dbClass.duplicateDBEntry(todoDb, UID)
+                refreshList()
+                sharedDbLock.release()
+                todoList?.post {
+                    // TODO: Couldn't figure out why this is not working yet
+                    todoList?.scrollToPosition(adapterPosition)
+                }
+            }
+
+        }
+
+        fun deleteTask(view: View?, UID: Int) {
+            GlobalScope.launch {
+                sharedDbLock.acquire()
+                dbClass.deleteDBSingleEntry(todoDb, UID)
+                refreshList()
+                sharedDbLock.release()
+                todoList?.post {
+                    // TODO: Couldn't figure out why this is not working yet
+                    todoList?.scrollToPosition(adapterPosition)
+                }
+            }
         }
 
         fun clickOnDateTimeField(view: View){
@@ -167,11 +233,11 @@ class RecyclerAdapter(private val todos: List<Todo>) :
                         reminder.toLong())
 
                 refreshList()
-                sharedDbLock.release()
                 todoList?.post {
-                    // TODO: COuldn figure out why this is not working yet
+                    // TODO: Couldn't figure out why this is not working yet
                     todoList?.scrollToPosition(adapterPosition)
                 }
+                sharedDbLock.release()
             }
             cancelModifyActivity(view)
         }
@@ -196,8 +262,9 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             // See --> Kotlin Extensions
             view.item_title.text = todo.title
             view.item_uid.text = todo.uid.toString()
-            if(todo.date!= null)
-                view.item_date.text = DateFormat.format("dd.MM.yyyy - hh:mm", Date(todo.date)).toString()
+            if(todo.date!= null && todo.date != 0.toLong()) {
+                view.item_date.text = DateFormat.format("dd.MM.yyyy - HH:mm", Date(todo.date)).toString()
+            }
         }
     }
 }
