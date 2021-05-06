@@ -58,8 +58,8 @@ class MainActivity : AppCompatActivity() {
         todoList?.layoutManager = linearLayoutManager
 
         GlobalScope.launch {
-            val dividerItemDecoration = DividerItemDecoration(todoList?.getContext(),
-                    linearLayoutManager.getOrientation());
+            val dividerItemDecoration = DividerItemDecoration(todoList?.context,
+                    linearLayoutManager.orientation)
             todoList?.addItemDecoration(dividerItemDecoration)
         }
         refreshListView()
@@ -158,12 +158,12 @@ class MainActivity : AppCompatActivity() {
     fun clickOnDateTimeField(view: View){
         val calendar = Calendar.getInstance()
         val dateSetListener =
-            OnDateSetListener { view, year, month, dayOfMonth ->
+            OnDateSetListener { _, year, month, dayOfMonth ->
                 calendar[Calendar.YEAR] = year
                 calendar[Calendar.MONTH] = month
                 calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
                 val timeSetListener =
-                    OnTimeSetListener { view1, hourOfDay, minute ->
+                    OnTimeSetListener { _, hourOfDay, minute ->
                         calendar[Calendar.HOUR_OF_DAY] = hourOfDay
                         calendar[Calendar.MINUTE] = minute
                         val simpleDateFormat = SimpleDateFormat("dd.MM.yy HH:mm")
