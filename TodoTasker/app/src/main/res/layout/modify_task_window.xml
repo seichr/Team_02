@@ -6,7 +6,7 @@
     android:background="@drawable/roundedbutton7dp">
 
     <TextView
-        android:id="@+id/textview_addtitle"
+        android:id="@+id/textview_modifytitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -18,11 +18,22 @@
         android:textSize="22sp"
         android:textStyle="bold" />
 
+    <ImageButton
+        android:id="@+id/button_more_options"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="15dp"
+        android:background="@drawable/baseline_more_vert_24"
+        android:backgroundTint="@color/black" />
+
     <TextView
-        android:id="@+id/textview_addname"
+        android:id="@+id/textview_modifyname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_addtitle"
+        android:layout_below="@+id/textview_modifytitle"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -30,10 +41,10 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/edittext_name"
+        android:id="@+id/edittext_modify_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_addname"
+        android:layout_below="@+id/textview_modifyname"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
@@ -44,10 +55,10 @@
         android:labelFor="@+id/edittext_name" />
 
     <TextView
-        android:id="@+id/textview_adddate"
+        android:id="@+id/textview_modify_datetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edittext_name"
+        android:layout_below="@+id/edittext_modify_name"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
@@ -55,10 +66,10 @@
         android:textSize="18sp" />
 
     <EditText
-        android:id="@+id/edittext_datetime"
+        android:id="@+id/edittext_modify_datetime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/textview_adddate"
+        android:layout_below="@+id/textview_modify_datetime"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="5dp"
@@ -78,7 +89,7 @@
         android:id="@+id/button_modify_cancel"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edittext_datetime"
+        android:layout_below="@+id/edittext_modify_datetime"
         android:layout_alignParentStart="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="50dp"
@@ -91,7 +102,7 @@
         android:id="@+id/button_modify_to_db"
         android:layout_width="130dp"
         android:layout_height="50dp"
-        android:layout_below="@+id/edittext_datetime"
+        android:layout_below="@+id/edittext_modify_datetime"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="20dp"

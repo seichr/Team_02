@@ -66,7 +66,7 @@ class DatabaseClass(context: Context) {
         return nextId
     }
 
-    fun modificationEntry(db:TodoDatabase, uid:Int, title:String, date:Long ,reminder:Long){
+    fun updateEntry(db:TodoDatabase, uid:Int, title:String, date:Long, reminder:Long){
         db.todoDao().update(uid, title, date ,reminder)
     }
 

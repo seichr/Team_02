@@ -1,6 +1,10 @@
 package com.backend.todo_tasker.tasklist_view
 
+import android.app.DatePickerDialog
+import android.app.TimePickerDialog
 import android.graphics.Color
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.text.Editable
 import android.text.TextWatcher
 import android.text.format.DateFormat
@@ -8,10 +12,7 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.PopupWindow
+import android.widget.*
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.*
 import com.backend.todo_tasker.database.Todo
@@ -75,19 +76,19 @@ class RecyclerAdapter(private val todos: List<Todo>) :
                 backgroundDimmerWindow!!.dismiss()
             }
 
-            val editTextName = modifyTaskView?.findViewById<EditText>(R.id.edittext_name)
+            val editTextName = modifyTaskView?.findViewById<EditText>(R.id.edittext_modify_name)
             editTextName?.addTextChangedListener(object : TextWatcher {
                 override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
                 override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
                 override fun afterTextChanged(s: Editable) {
-                    val saveButton = modifyTaskView?.findViewById<Button>(R.id.button_add_to_db)
+                    val saveButton = modifyTaskView?.findViewById<Button>(R.id.button_modify_to_db)
                     saveButton?.isEnabled = editTextName.text.toString() != ""
                 }
             })
             if (editTextName != null && editTextName.text.toString() == "") {
-                val saveButton = modifyTaskView?.findViewById<Button>(R.id.button_add_to_db)
+                val saveButton = modifyTaskView?.findViewById<Button>(R.id.button_modify_to_db)
                 saveButton?.isEnabled = false
             }
 
@@ -95,41 +96,82 @@ class RecyclerAdapter(private val todos: List<Todo>) :
 
             val taskName = Editable.Factory.getInstance().newEditable(v.item_title.text)
             val taskDate = Editable.Factory.getInstance().newEditable(v.item_date.text)
+
             editTextName?.text = taskName
-            val editTextDateTime = modifyTaskView?.findViewById<EditText>(R.id.edittext_datetime)
-            editTextDateTime?.text = taskDate
-            // Configure Cancel-Buttons
+
+            // Configure Buttons and EditText
             val cancelButton = modifyTaskView?.findViewById<Button>(R.id.button_modify_cancel)
             cancelButton?.setOnClickListener {
                 cancelModifyActivity(it)
             }
             val saveButton = modifyTaskView?.findViewById<Button>(R.id.button_modify_to_db)
             saveButton?.setOnClickListener {
-                updateModifyActivity(it, editTextName, editTextDateTime)
+                updateModifyActivity(it, editTextName, v.item_uid)
             }
+            val editTextDateTime = modifyTaskView?.findViewById<EditText>(R.id.edittext_modify_datetime)
+            editTextDateTime?.setOnClickListener {
+                clickOnDateTimeField(it)
+            }
+            editTextDateTime?.text = taskDate
         }
 
-        fun updateModifyActivity(view: View, editTextName: EditText?, editTextDateTime: EditText?) {
+        fun clickOnDateTimeField(view: View){
+            val calendar = Calendar.getInstance()
+            val dateSetListener =
+                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                        calendar[Calendar.YEAR] = year
+                        calendar[Calendar.MONTH] = month
+                        calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+                        val timeSetListener =
+                                TimePickerDialog.OnTimeSetListener { view1, hourOfDay, minute ->
+                                    calendar[Calendar.HOUR_OF_DAY] = hourOfDay
+                                    calendar[Calendar.MINUTE] = minute
+                                    val simpleDateFormat = SimpleDateFormat("dd.MM.yy HH:mm")
+                                    taskTimeMillis = calendar.timeInMillis
+                                    val editTextDateTime = modifyTaskView?.findViewById<EditText>(R.id.edittext_modify_datetime)
+                                    editTextDateTime?.text = Editable.Factory.getInstance().newEditable(simpleDateFormat.format(calendar.time))
+                                }
+                        TimePickerDialog(
+                                view.context,
+                                R.style.DatePickerTheme,
+                                timeSetListener,
+                                calendar[Calendar.HOUR_OF_DAY],
+                                calendar[Calendar.MINUTE],
+                                true
+                        ).show()
+                    }
+
+            DatePickerDialog(
+                    view.context,
+                    R.style.DatePickerTheme,
+                    dateSetListener,
+                    calendar[Calendar.YEAR],
+                    calendar[Calendar.MONTH],
+                    calendar[Calendar.DAY_OF_MONTH]
+            ).show()
+        }
+
+        fun updateModifyActivity(view: View, editTextName: EditText?, textViewUID: TextView) {
             val title = editTextName?.text.toString()
             val date = taskTimeMillis
+            val uid = textViewUID.text.toString().toInt()
             val reminder = 0 // TODO: Change
 
 
             GlobalScope.launch {
                 sharedDbLock.acquire()
-                if (dbClass.getLastEntry(todoDb) == null) { // This is not always false...
-                    dbClass.addToDb(todoDb, Todo(0,
-                            title,
-                            date,
-                            reminder.toLong()))
-                } else {
-                    dbClass.addToDb(todoDb, Todo(dbClass.getLastEntry(todoDb).uid + 1,
-                            title,
-                            date,
-                            reminder.toLong()))
-                }
+                dbClass.updateEntry(todoDb,
+                        uid,
+                        title,
+                        date,
+                        reminder.toLong())
+
                 refreshList()
                 sharedDbLock.release()
+                todoList?.post {
+                    // TODO: COuldn figure out why this is not working yet
+                    todoList?.scrollToPosition(adapterPosition)
+                }
             }
             cancelModifyActivity(view)
         }
@@ -140,7 +182,6 @@ class RecyclerAdapter(private val todos: List<Todo>) :
                 todoList?.post(Runnable {
                     adapter = RecyclerAdapter(data)
                     todoList?.adapter = adapter
-                    todoList!!.adapter?.itemCount?.let { todoList?.layoutManager?.scrollToPosition(it - 1) }
                 })
             }
         }
@@ -154,6 +195,7 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             // Only way to access the Recycler Items. Android Studio might be sad but its ok :'/
             // See --> Kotlin Extensions
             view.item_title.text = todo.title
+            view.item_uid.text = todo.uid.toString()
             if(todo.date!= null)
                 view.item_date.text = DateFormat.format("dd.MM.yyyy - hh:mm", Date(todo.date)).toString()
         }
