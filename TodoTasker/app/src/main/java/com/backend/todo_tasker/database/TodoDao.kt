@@ -25,7 +25,7 @@ interface TodoDao {
     @Query("DELETE FROM todo WHERE uid = :uid")
     fun deleteSingle(uid: Int)
 
-    @Query("Select * FROM todo WHERE uid = :uid Limit 1")
+    @Query("Select * FROM todo WHERE uid = :uid")
     fun getSingle(uid: Int) : Todo
 
     @Query("Update todo set title = :title, date = :date, reminder = :reminder where uid = :uid")
