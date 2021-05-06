@@ -1,4 +1,4 @@
-package com.example.todo_tasker
+package com.backend.todo_tasker
 
 import org.junit.Test
 
