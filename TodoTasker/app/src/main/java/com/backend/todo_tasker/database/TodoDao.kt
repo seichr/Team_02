@@ -22,4 +22,12 @@ interface TodoDao {
     @Query("SELECT * FROM todo ORDER BY uid DESC LIMIT 1")
     fun getLastEntry(): Todo
 
+    @Query("DELETE FROM todo WHERE uid = :uid")
+    fun deleteSingle(uid: Int)
+
+    @Query("Select * FROM todo WHERE uid = :uid")
+    fun getSingle(uid: Int) : Todo
+
+    @Query("Update todo set title = :title, date = :date, reminder = :reminder where uid = :uid")
+    fun update(uid: Int, title:String, date:Long ,reminder:Long)
 }
