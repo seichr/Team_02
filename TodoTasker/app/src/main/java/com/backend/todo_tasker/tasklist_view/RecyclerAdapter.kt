@@ -2,7 +2,6 @@ package com.backend.todo_tasker.tasklist_view
 
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
-import android.graphics.Color
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.text.Editable
@@ -134,8 +133,17 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             val heightTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
 
             moreOptionsTaskWindow = PopupWindow(moreOptionsTaskView, widthTaskWindow, heightTaskWindow, true)
-            moreOptionsTaskWindow!!.showAtLocation(view, Gravity.CENTER, 0, -300)
-            //TODO: Y-Position Hardcoded for now Could not find correct Pos from Vars
+
+            val windowLoc = IntArray(2)
+            it.getLocationOnScreen(windowLoc)
+
+            val button = it.findViewById<ImageButton>(R.id.button_more_options)
+            val margin = 30 // Gap between Button and Window
+
+            val moreOptionsWindowYPos = -windowLoc[1]/2 + button.height + margin
+            val moreOptionsWindowXPos = 120
+
+            moreOptionsTaskWindow!!.showAtLocation(view, Gravity.CENTER, moreOptionsWindowXPos, moreOptionsWindowYPos)
 
             val duplicateButton = moreOptionsTaskView?.findViewById<Button>(R.id.button_duplicate_task)
             duplicateButton?.setOnClickListener {
@@ -148,13 +156,13 @@ class RecyclerAdapter(private val todos: List<Todo>) :
                 moreOptionsTaskWindow!!.dismiss()
             }
 
-            moreOptionsTaskWindow!!.setOnDismissListener(PopupWindow.OnDismissListener {
+            moreOptionsTaskWindow!!.setOnDismissListener {
                 modifyTaskWindow!!.dismiss()
-            })
+            }
 
         }
 
-        fun duplicateTask(it: View, UID: Int) {
+        private fun duplicateTask(it: View, UID: Int) {
             GlobalScope.launch {
                 sharedDbLock.acquire()
                 dbClass.duplicateDBEntry(todoDb, UID)
@@ -168,7 +176,7 @@ class RecyclerAdapter(private val todos: List<Todo>) :
 
         }
 
-        fun deleteTask(view: View?, UID: Int) {
+        private fun deleteTask(view: View?, UID: Int) {
             GlobalScope.launch {
                 sharedDbLock.acquire()
                 dbClass.deleteDBSingleEntry(todoDb, UID)
@@ -181,18 +189,18 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             }
         }
 
-        fun clickOnDateTimeField(view: View){
+        private fun clickOnDateTimeField(view: View){
             val calendar = Calendar.getInstance()
             val dateSetListener =
-                    DatePickerDialog.OnDateSetListener { view, year, month, dayOfMonth ->
+                    DatePickerDialog.OnDateSetListener { _, year, month, dayOfMonth ->
                         calendar[Calendar.YEAR] = year
                         calendar[Calendar.MONTH] = month
                         calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
                         val timeSetListener =
-                                TimePickerDialog.OnTimeSetListener { view1, hourOfDay, minute ->
+                                TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
                                     calendar[Calendar.HOUR_OF_DAY] = hourOfDay
                                     calendar[Calendar.MINUTE] = minute
-                                    val simpleDateFormat = SimpleDateFormat("dd.MM.yy HH:mm")
+                                    val simpleDateFormat = SimpleDateFormat(this.view.context.getString(R.string.STRING_DATETIMEFORMAT))
                                     taskTimeMillis = calendar.timeInMillis
                                     val editTextDateTime = modifyTaskView?.findViewById<EditText>(R.id.edittext_modify_datetime)
                                     editTextDateTime?.text = Editable.Factory.getInstance().newEditable(simpleDateFormat.format(calendar.time))
@@ -217,7 +225,7 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             ).show()
         }
 
-        fun updateModifyActivity(view: View, editTextName: EditText?, textViewUID: TextView) {
+        private fun updateModifyActivity(view: View, editTextName: EditText?, textViewUID: TextView) {
             val title = editTextName?.text.toString()
             val date = taskTimeMillis
             val uid = textViewUID.text.toString().toInt()
@@ -245,14 +253,14 @@ class RecyclerAdapter(private val todos: List<Todo>) :
         private fun refreshList() {
             GlobalScope.launch {
                 val data = dbClass.getAllDb(todoDb)
-                todoList?.post(Runnable {
+                todoList?.post {
                     adapter = RecyclerAdapter(data)
                     todoList?.adapter = adapter
-                })
+                }
             }
         }
 
-        fun cancelModifyActivity(view: View) {
+        private fun cancelModifyActivity(view: View) {
             modifyTaskWindow!!.dismiss()
         }
 
@@ -263,7 +271,8 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             view.item_title.text = todo.title
             view.item_uid.text = todo.uid.toString()
             if(todo.date!= null && todo.date != 0.toLong()) {
-                view.item_date.text = DateFormat.format("dd.MM.yyyy - HH:mm", Date(todo.date)).toString()
+                val test: String = this.view.context.getString(R.string.STRING_DATETIMEFORMAT)
+                view.item_date.text = DateFormat.format(test, Date(todo.date)).toString()
             }
         }
     }

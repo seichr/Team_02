@@ -13,5 +13,6 @@
     <string name="STRING_CANCEL">отменить</string>
     <string name="STRING_DUPLICATETASK">Повторяющаяся задача</string>
     <string name="STRING_DELETETASK">Удалить задачу</string>
+    <string name="STRING_DATETIMEFORMAT">dd.MM.yy HH:mm</string>
     <!--string name=""></string-->
 </resources>
