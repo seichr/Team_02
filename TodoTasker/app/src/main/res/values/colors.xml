@@ -10,4 +10,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="violet">#8D1E5D</color>
     <color name="light_grey">#d3d3d3</color>
+    <color name="ultralight_grey">#FFFAF8FD</color>
 </resources>

@@ -1,6 +1,5 @@
 package com.backend.todo_tasker.tasklist_view
 
-import android.R.attr.x
 import android.app.DatePickerDialog
 import android.app.TimePickerDialog
 import android.graphics.Color
@@ -14,6 +13,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.*
 import com.backend.todo_tasker.database.Todo
@@ -37,10 +37,10 @@ class RecyclerAdapter(private val todos: List<Todo>) :
 
     override fun onBindViewHolder(holder: TodoHolder, position: Int) {
         if (position %2 == 1) {
-            holder.itemView.setBackgroundColor(Color.parseColor("#FFFAF8FD"));
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.ultralight_grey))
         }
         else {
-            holder.itemView.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
         }
         val itemTodo = todos[position]
         holder.bindTodo(itemTodo)
@@ -125,7 +125,7 @@ class RecyclerAdapter(private val todos: List<Todo>) :
             }
         }
 
-        fun openMoreOptionsWindows(it: View, v: View, itemUid: TextView) {
+        private fun openMoreOptionsWindows(it: View, v: View, itemUid: TextView) {
             val inflater = LayoutInflater.from(v.context)
             moreOptionsTaskView = inflater.inflate(R.layout.more_options_window, null)
 
