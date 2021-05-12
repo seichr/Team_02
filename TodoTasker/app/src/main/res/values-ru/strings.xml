@@ -3,11 +3,18 @@
     <string name="STRING_APP_NAME">Сделать Таскер</string>
     <string name="STRING_CREATETASK">Создать задачу</string>
     <string name="STRING_ADDTASK">Добавить задачу</string>
+    <string name="STRING_MODIFYTASK">Изменить задачу</string>
+    <string name="STRING_SAVE">спасти</string>
     <string name="STRING_NAME">Имя</string>
-    <string name="STRING_ENTER_DATE">Введите Дату</string>
+    <string name="STRING_ENTER_DATE">срок</string>
     <string name="STRING_SHOWTASKLIST">Показать список задач</string>
     <string name="STRING_PLACEHOLDER">Заполнитель</string>
     <string name="STRING_LANGUAGEBUTTON">Изменить язык</string>
     <string name="NOTIFICATION_TITLE">Напоминание о задаче</string>
     <string name="NOTIFICATION_TEXT">Отстань от своей ленивой задницы товарищ</string> <!--string name=""></string-->
+    <string name="STRING_CANCEL">отменить</string>
+    <string name="STRING_DUPLICATETASK">Повторяющаяся задача</string>
+    <string name="STRING_DELETETASK">Удалить задачу</string>
+    <string name="STRING_DATETIMEFORMAT">dd.MM.yy HH:mm</string>
+    <!--string name=""></string-->
 </resources>

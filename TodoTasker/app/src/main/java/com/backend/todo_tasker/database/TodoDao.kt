@@ -28,4 +28,12 @@ interface TodoDao {
             "ORDER BY reminder ASC LIMIT 1 ")
     fun getNextReminder(): Todo
 
+    @Query("DELETE FROM todo WHERE uid = :uid")
+    fun deleteSingle(uid: Int)
+
+    @Query("Select * FROM todo WHERE uid = :uid")
+    fun getSingle(uid: Int) : Todo
+
+    @Query("Update todo set title = :title, date = :date, reminder = :reminder where uid = :uid")
+    fun update(uid: Int, title:String, date:Long ,reminder:Long)
 }
