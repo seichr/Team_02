@@ -1,19 +1,26 @@
 package com.backend.todo_tasker
 
-import android.content.Intent
+import android.app.DatePickerDialog
+import android.app.DatePickerDialog.OnDateSetListener
+import android.app.TimePickerDialog
+import android.app.TimePickerDialog.OnTimeSetListener
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Button
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import com.backend.todo_tasker.background_service.NotificationHelper
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.database.DatabaseClass
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.language.LanguageHelper
-import com.backend.todo_tasker.tasklist_view.TodoListActivity
+import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.Semaphore
@@ -26,18 +33,32 @@ val notificationHelper = NotificationHelper()
 val alarmHelper = AlarmHelper()
 
 class MainActivity : AppCompatActivity() {
+    private var taskTimeMillis = 0L
+    private lateinit var linearLayoutManager: LinearLayoutManager
+    private lateinit var adapter: RecyclerAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val button = findViewById<Button>(R.id.button_switch_to_list)
-        button.setOnClickListener {
-            val intent = Intent(this, TodoListActivity::class.java)
-            startActivity(intent)
-        }
-
         dbClass = DatabaseClass(applicationContext)
         todoDb = dbClass.createDb()
+
+        val todoList = findViewById<RecyclerView>(R.id.todo_list)
+        todoList.adapter = RecyclerAdapter(emptyList())
+
+        linearLayoutManager = LinearLayoutManager(this)
+        todoList.layoutManager = linearLayoutManager
+
+        GlobalScope.launch {
+            val dividerItemDecoration = DividerItemDecoration(todoList.getContext(),
+                linearLayoutManager.getOrientation());
+            todoList.addItemDecoration(dividerItemDecoration)
+            val data = dbClass.getAllDb(todoDb)
+            this@MainActivity.runOnUiThread {
+                adapter = RecyclerAdapter(data)
+                todoList.adapter = adapter
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -55,8 +76,9 @@ class MainActivity : AppCompatActivity() {
 
         val title = textField.text.toString()
         // TO-DO [For Date]: set this to spinner.
-        val date = 0 // TODO: Change
+        val date = taskTimeMillis // TODO: Change
         val reminder:Long = 0 // TOOD: Change
+
 
         GlobalScope.launch {
             sharedDbLock.acquire()
@@ -76,6 +98,41 @@ class MainActivity : AppCompatActivity() {
 
         alarmHelper.replaceNextAlarm(applicationContext, reminder)
     }
+    fun clickOnDateTimeField(view: View){
+        val calendar = Calendar.getInstance()
+        val dateSetListener =
+            OnDateSetListener { view, year, month, dayOfMonth ->
+                calendar[Calendar.YEAR] = year
+                calendar[Calendar.MONTH] = month
+                calendar[Calendar.DAY_OF_MONTH] = dayOfMonth
+                val timeSetListener =
+                    OnTimeSetListener { view, hourOfDay, minute ->
+                        calendar[Calendar.HOUR_OF_DAY] = hourOfDay
+                        calendar[Calendar.MINUTE] = minute
+                        val simpleDateFormat =
+                            SimpleDateFormat("dd-MM-yy HH:mm")
+                        val dateInputEditText = findViewById<EditText>(R.id.edittext_datetime)
+                        dateInputEditText.setText(simpleDateFormat.format(calendar.time))
+                        taskTimeMillis = calendar.timeInMillis
+                    }
+                TimePickerDialog(
+                    this@MainActivity,
+                    timeSetListener,
+                    calendar[Calendar.HOUR_OF_DAY],
+                    calendar[Calendar.MINUTE],
+                    false
+                ).show()
+            }
+
+        DatePickerDialog(
+            this@MainActivity,
+            dateSetListener,
+            calendar[Calendar.YEAR],
+            calendar[Calendar.MONTH],
+            calendar[Calendar.DAY_OF_MONTH]
+        ).show()
+    }
+
 }
 
 
