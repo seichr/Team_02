@@ -44,7 +44,5 @@ class NotificationHelper {
             notify(notificationId, builder.build())
             notificationId++
         }
-
     }
-
 }
