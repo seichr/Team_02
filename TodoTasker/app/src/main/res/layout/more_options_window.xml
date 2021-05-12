@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:background="@drawable/roundedbutton7dp"
     android:backgroundTint="@color/light_grey">
@@ -9,7 +9,8 @@
     <Button
         android:id="@+id/button_duplicate_task"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
+        android:paddingEnd="75dp"
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -22,7 +23,8 @@
     <Button
         android:id="@+id/button_delete_task"
         style="@style/Widget.AppCompat.Button.Borderless"
-        android:layout_width="300dp"
+        android:layout_width="wrap_content"
+        android:paddingEnd="75dp"
         android:layout_height="50dp"
         android:layout_below="@+id/button_duplicate_task"
         android:layout_alignParentStart="true"

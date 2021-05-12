@@ -71,6 +71,21 @@ class ChangeLanguageAndBackTest {
             )
         )
         actionMenuItemView3.perform(click())
+
+        val actionMenuItemView4 = onView(
+                allOf(
+                        withId(R.id.language), withContentDescription("Изменить язык"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.action_bar),
+                                        1
+                                ),
+                                0
+                        ),
+                        isDisplayed()
+                )
+        )
+        actionMenuItemView4.perform(click())
     }
 
     private fun childAtPosition(

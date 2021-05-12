@@ -166,7 +166,7 @@ class MainActivity : AppCompatActivity() {
                     OnTimeSetListener { _, hourOfDay, minute ->
                         calendar[Calendar.HOUR_OF_DAY] = hourOfDay
                         calendar[Calendar.MINUTE] = minute
-                        val simpleDateFormat = SimpleDateFormat("dd.MM.yy HH:mm")
+                        val simpleDateFormat = SimpleDateFormat(applicationContext.getString(R.string.STRING_DATETIMEFORMAT))
                         val dateInputEditText = addTaskView?.findViewById<EditText>(R.id.edittext_datetime)
                         dateInputEditText?.setText(simpleDateFormat.format(calendar.time))
                         taskTimeMillis = calendar.timeInMillis

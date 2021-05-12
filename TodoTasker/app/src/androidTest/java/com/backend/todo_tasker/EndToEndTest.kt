@@ -55,7 +55,6 @@ class EndToEndTest {
             )
         )
         appCompatImageButton.perform(click())
-        Thread.sleep(1000)
 
         val appCompatEditText = onView(
             allOf(
