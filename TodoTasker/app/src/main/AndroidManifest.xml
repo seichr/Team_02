@@ -20,7 +20,6 @@
         </activity>
         <receiver android:name=".BackgroundService"
             tools:ignore="Instantiatable" />
-        <activity android:name=".tasklist_view.TodoListActivity"></activity>
     </application>
 
 </manifest>
