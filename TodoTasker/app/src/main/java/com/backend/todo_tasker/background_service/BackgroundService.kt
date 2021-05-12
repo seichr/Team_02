@@ -17,18 +17,20 @@ class BackgroundService : BroadcastReceiver() {
 }
 
 class AlarmHelper {
-    private var counter = 0
-    private var alarmMap = HashMap<Int, PendingIntent?>()
-    private var liveAlarmID = -1
-    private var liveAlarmTime:Long = -1
+    private var counter:Long = 0
+    private var alarmMap = HashMap<Long, PendingIntent?>()
+    private val NO_ALARM_SET:Long = -1
+    private var liveAlarmID:Long = NO_ALARM_SET
+    private var liveAlarmTime:Long = NO_ALARM_SET
 
     fun setNextAlarm(context: Context?) {
         GlobalScope.launch {
             sharedDbLock.acquire()
-            val todo = dbClass.getNextReminder(todoDb)
+            val todo = dbClass.getNextDate(todoDb)
             sharedDbLock.release()
-            if(todo.reminder != null) {
-                setNewAlarm(context, todo.reminder)
+            cancelAlarm(context, liveAlarmID)
+            if(todo != null && todo.date != null) {
+                setNewAlarm(context, todo.date)
             }
         }
     }
@@ -37,13 +39,15 @@ class AlarmHelper {
         if(liveAlarmTime > time) {
             cancelAlarm(context, liveAlarmID)
             setNewAlarm(context, time)
+        } else if (liveAlarmTime == NO_ALARM_SET) {
+            setNewAlarm(context, time)
         }
     }
 
-    fun setNewAlarm(context: Context?, time: Long): Int {
+    fun setNewAlarm(context: Context?, time: Long): Long {
 
         val intent = Intent(context, BackgroundService::class.java)
-        val pendingIntent = PendingIntent.getBroadcast(context, counter, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(context, counter.toInt(), intent, 0)
 
         val alarmManager = context?.getSystemService(Context.ALARM_SERVICE) as? AlarmManager
 
@@ -70,7 +74,7 @@ class AlarmHelper {
 
     // Needs to be called when Alarm is reached and accepted:
     // https://stackoverflow.com/questions/4315611/android-get-all-pendingintents-set-with-alarmmanager
-    fun cancelAlarm(context: Context?, id: Int): Boolean {
+    fun cancelAlarm(context: Context?, id: Long): Boolean {
         if (!alarmMap.containsKey(id)) {
             return false
         }
