@@ -81,11 +81,11 @@ class DataBaseReminderInstrumentedTest {
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..3) {
-            var testTodo = Todo(i, "TestThatPasses", timeInMillis, timeInMillis + (i * 60000))
+            var testTodo = Todo(i, "TestThatPasses", timeInMillis + (i * 60000), 0)
             var retVal = db.addToDb(datab, testTodo)
         }
 
-        val todo = db.getNextReminder(datab)
-        assertEquals(todo.reminder, timeInMillis + 60000)
+        val todo = db.getNextDate(datab)
+        assertEquals(todo.date, timeInMillis + 60000)
     }
 }

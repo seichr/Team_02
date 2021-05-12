@@ -155,7 +155,7 @@ class MainActivity : AppCompatActivity() {
             }
             sharedDbLock.release()
         }
-        alarmHelper.replaceNextAlarm(applicationContext, reminder)
+        alarmHelper.replaceNextAlarm(applicationContext, date)
         cancelAddActivity(view)
     }
 
