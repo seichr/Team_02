@@ -54,8 +54,8 @@ class DatabaseClass(context: Context) {
         return Calendar.getInstance().time
     }
 
-    fun getNextReminder(db: TodoDatabase): Todo {
-        return db.todoDao().getNextReminder();
+    fun getNextDate(db: TodoDatabase): Todo {
+        return db.todoDao().getNextDate();
     }
     fun deleteDBSingleEntry(db: TodoDatabase, uid: Int) {
         db.todoDao().deleteSingle(uid)
