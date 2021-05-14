@@ -12,6 +12,7 @@ import android.text.TextWatcher
 import android.view.*
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.backend.todo_tasker.background_service.NotificationHelper
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -30,6 +31,8 @@ lateinit var dbClass: DatabaseClass
 lateinit var todoDb: TodoDatabase
 val sharedDbLock = Semaphore(1)
 private var languageHelper = LanguageHelper()
+val notificationHelper = NotificationHelper()
+val alarmHelper = AlarmHelper()
 lateinit var adapter: RecyclerAdapter
 var todoList: RecyclerView? = null
 var taskTimeMillis = 0L
@@ -130,7 +133,7 @@ class MainActivity : AppCompatActivity() {
 
         val title = textField.text.toString()
         val date = taskTimeMillis
-        val reminder = 0 // TODO: Change
+        val reminder:Long = 0 // TODO: Change
 
 
         GlobalScope.launch {
@@ -152,6 +155,7 @@ class MainActivity : AppCompatActivity() {
             }
             sharedDbLock.release()
         }
+        alarmHelper.replaceNextAlarm(applicationContext, date)
         cancelAddActivity(view)
     }
 

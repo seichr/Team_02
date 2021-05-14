@@ -10,6 +10,8 @@
     <string name="STRING_SHOWTASKLIST">Показать список задач</string>
     <string name="STRING_PLACEHOLDER">Заполнитель</string>
     <string name="STRING_LANGUAGEBUTTON">Изменить язык</string>
+    <string name="NOTIFICATION_TITLE">Напоминание о задаче</string>
+    <string name="NOTIFICATION_TEXT">Отстань от своей ленивой задницы товарищ</string> <!--string name=""></string-->
     <string name="STRING_CANCEL">отменить</string>
     <string name="STRING_DUPLICATETASK">Повторяющаяся задача</string>
     <string name="STRING_DELETETASK">Удалить задачу</string>

@@ -70,4 +70,22 @@ class DataBaseReminderInstrumentedTest {
             assertEquals(retVal, -1)
         }
     }
+
+    @Test
+    fun getNewestReminder() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+        val db = DatabaseClass(appContext)
+        val datab = db.createDb()
+        db.deleteDBEntries(datab)
+
+        val timeInMillis = db.dateToMillis(db.getCurrentDate())
+        for(i in 0..3) {
+            var testTodo = Todo(i, "TestThatPasses", timeInMillis + (i * 60000), 0)
+            var retVal = db.addToDb(datab, testTodo)
+        }
+
+        val todo = db.getNextDate(datab)
+        assertEquals(todo.date, timeInMillis + 60000)
+    }
 }

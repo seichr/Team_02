@@ -53,6 +53,10 @@ class DatabaseClass(context: Context) {
     fun getCurrentDate(): Date {
         return Calendar.getInstance().time
     }
+
+    fun getNextDate(db: TodoDatabase): Todo {
+        return db.todoDao().getNextDate();
+    }
     fun deleteDBSingleEntry(db: TodoDatabase, uid: Int) {
         db.todoDao().deleteSingle(uid)
     }
