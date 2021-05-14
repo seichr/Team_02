@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+    <RelativeLayout
+        android:id="@+id/layout_purple_zone"
+        android:layout_width="270dp"
+        android:layout_height="75dp"
+        android:background="@color/purple_title_bar">
+
+        <TextView
+            android:id="@+id/text_burgermenu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:text="@string/STRING_APP_NAME"
+            android:textSize="22sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/text_burgermenu_placeholder"
+        android:layout_width="270dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_purple_zone"
+        android:text="Hier könnten deine Buttons stehen"
+        android:textSize="12sp" />
+</RelativeLayout>
