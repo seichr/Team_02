@@ -169,7 +169,6 @@ class RecyclerAdapter(private val todos: List<Todo>) :
                 refreshList()
                 sharedDbLock.release()
                 todoList?.post {
-                    // TODO: Couldn't figure out why this is not working yet
                     todoList?.scrollToPosition(adapterPosition)
                 }
             }
