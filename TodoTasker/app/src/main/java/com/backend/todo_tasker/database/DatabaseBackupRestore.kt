@@ -13,7 +13,7 @@ class DatabaseBackupRestore(Context:Context, activity: Activity?) {
 
     private var appContext = Context
     fun backup() {
-
+        verifyStoragePermissions(Activity)
         val db = DatabaseClass(appContext)
         val datab = db.createDb()
         var title = (db.getLastEntry(datab).title)
