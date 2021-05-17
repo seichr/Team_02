@@ -21,4 +21,22 @@ class DatabaseBackupRestore(Context:Context, activity: Activity?) {
         print(title)
 
     }
+    fun verifyStoragePermissions(activity: Activity?) {
+        val REQUEST_EXTERNAL_STORAGE = 1
+        val PERMISSIONS_STORAGE =
+            arrayOf<String>( //Manifest.permission.READ_EXTERNAL_STORAGE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        val permission = ActivityCompat.checkSelfPermission(
+            activity!!,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        )
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                activity,
+                PERMISSIONS_STORAGE,
+                REQUEST_EXTERNAL_STORAGE
+            )
+        }
+    }
 }
