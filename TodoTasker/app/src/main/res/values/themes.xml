@@ -20,14 +20,19 @@
     </style>
 
     <style name="ChangingTextColor">
-        <item name="android:textColor">@color/ultralight_grey</item>
+        <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="AdditionalSettings">
         <item name="android:backgroundTint">@color/light_grey</item>
     </style>
 
+    <style name="PopUpWindow">
+        <item name="android:backgroundTint">@color/ultralight_grey</item>
+    </style>
+
     <style name="DatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
+        <item name="android:windowBackground">@color/white</item>
         <item name="colorPrimary">@color/violet</item>
         <item name="colorPrimaryDark">@color/purple_title_bar</item>
         <item name="colorAccent">@color/violet</item>
