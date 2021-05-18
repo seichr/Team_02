@@ -43,10 +43,10 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.TodoHolder>()  {
 
     override fun onBindViewHolder(holder: TodoHolder, position: Int) {
         if (position %2 == 1) {
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.ultralight_grey))
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.tasks1))
         }
         else {
-            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.white))
+            holder.itemView.setBackgroundColor(ContextCompat.getColor(holder.itemView.context, R.color.tasks2))
         }
         val itemTodo = todos[position]
         holder.bindTodo(itemTodo)

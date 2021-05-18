@@ -14,6 +14,19 @@
         <!-- Customize your theme here. -->
         <item name="windowNoTitle">true</item>
     </style>
+
+    <style name="SettingsButtonStyle">
+        <item name="android:background">@color/black</item>
+    </style>
+
+    <style name="ChangingTextColor">
+        <item name="android:textColor">@color/ultralight_grey</item>
+    </style>
+
+    <style name="AdditionalSettings">
+        <item name="android:backgroundTint">@color/light_grey</item>
+    </style>
+
     <style name="DatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="colorPrimary">@color/violet</item>
         <item name="colorPrimaryDark">@color/purple_title_bar</item>

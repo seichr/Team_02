@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/AdditionalSettings"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/roundedbutton7dp"
-    android:backgroundTint="@color/light_grey">
+    android:background="@drawable/roundedbutton7dp">
 
     <Button
         android:id="@+id/button_duplicate_task"
@@ -31,5 +31,6 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:backgroundTint="@color/light_grey"
-        android:text="@string/STRING_DELETETASK" />
+        android:text="@string/STRING_DELETETASK"
+        android:textColor="@color/white" />
 </RelativeLayout>

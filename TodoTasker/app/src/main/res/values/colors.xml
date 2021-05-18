@@ -11,4 +11,13 @@
     <color name="violet">#8D1E5D</color>
     <color name="light_grey">#d3d3d3</color>
     <color name="ultralight_grey">#FFFAF8FD</color>
+    <color name="dark_grey">#858585</color>
+    <color name="ultradark_grey">#303030</color>
+
+
+    <color name="background">#FFFFFFFF</color>
+    <color name="tasks1">#FFFFFFFF</color>
+    <color name="tasks2">#FFFAF8FD</color>
+
+
 </resources>
