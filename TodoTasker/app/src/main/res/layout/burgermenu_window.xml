@@ -22,22 +22,44 @@
             android:textColor="@color/white"/>
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/button_projects"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_purple_zone"
+        android:backgroundTint="@color/white"
+        android:clickable="false"
+        android:text="@string/STRING_YOUR_PROJECT"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textColor="@color/black"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/button_projects_settings"
+        style="@style/Widget.AppCompat.Button.Borderless"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_purple_zone"
+        android:layout_toEndOf="@id/button_projects"
+        android:tint="@color/black"
+        android:src="@drawable/baseline_settings_24"
+        android:onClick="openProjectSettings"
+        android:contentDescription="@string/STRING_PROJECT_SETTINGS" />
+
     <TextView
         android:id="@+id/themes"
         style="@style/BurgerMenuButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layout_purple_zone"
+        android:layout_below="@+id/button_projects_settings"
         android:layout_alignParentStart="true"
         android:layout_marginStart="15dp"
         android:layout_marginTop="0dp"
         android:text="@string/STRING_THEME"
         android:textSize="20dp"
         android:textStyle="bold" />
-
-
-
-
 
     <Button
         android:id="@+id/lightmode_btn"
