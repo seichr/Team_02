@@ -33,16 +33,16 @@
     </style>
 
     <style name="BurgerMenu">
-        <item name="android:background">@color/ultradark_grey</item>
+        <item name="android:background">?android:colorBackground</item>
     </style>
 
     <style name="BurgerMenuButtons">
-        <item name="android:backgroundTint">@color/ultradark_grey</item>
+        <item name="android:backgroundTint">?android:colorBackground</item>
         <item name="android:textColor">@color/white</item>
     </style>
 
     <style name="BurgerMenuTop">
-        <item name="android:background">@color/darkpurple</item>
+        <item name="android:background">@color/dark_grey</item>
     </style>
 
 
