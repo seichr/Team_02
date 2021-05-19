@@ -10,8 +10,13 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.*
-import android.widget.*
+import android.widget.Button
+import android.widget.EditText
+import android.widget.LinearLayout
+import android.widget.PopupWindow
+import android.view.animation.AnimationUtils
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import com.backend.todo_tasker.background_service.NotificationHelper
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -22,6 +27,7 @@ import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.language.LanguageHelper
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.burgermenu_toolbar.*
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.concurrent.Semaphore
@@ -60,12 +66,52 @@ class MainActivity : AppCompatActivity() {
         linearLayoutManager = LinearLayoutManager(this)
         todoList?.layoutManager = linearLayoutManager
 
+        val toolbar: Toolbar? = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        if (supportActionBar != null) {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
+            supportActionBar!!.title = applicationContext.getString(R.string.STRING_APP_NAME)
+        }
+
+        toolbar!!.setNavigationOnClickListener {
+            openMenuActivity(it)
+        }
+
+
+
         GlobalScope.launch {
             val dividerItemDecoration = DividerItemDecoration(todoList?.context,
                     linearLayoutManager.orientation)
             todoList?.addItemDecoration(dividerItemDecoration)
         }
         refreshListView()
+    }
+
+    private fun openMenuActivity(view: View) {
+
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val openMenuView = inflater.inflate(R.layout.burgermenu_window, null)
+        val backgroundView: View = inflater.inflate(R.layout.dimming_background, null)
+
+        val widthBackgroundWindow = LinearLayout.LayoutParams.MATCH_PARENT
+        val heightBackgroundWindow = LinearLayout.LayoutParams.MATCH_PARENT
+
+        backgroundDimmerWindow = PopupWindow(backgroundView, widthBackgroundWindow, heightBackgroundWindow, false)
+        backgroundDimmerWindow!!.showAtLocation(view, Gravity.CENTER, 0, 0)
+
+        val widthTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
+        val heightTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
+
+        val openMenuWindow = PopupWindow(openMenuView, widthTaskWindow, heightTaskWindow, true)
+        openMenuView.animation = AnimationUtils.loadAnimation(this, R.anim.slide_in)
+
+        openMenuWindow.setOnDismissListener {
+            backgroundDimmerWindow!!.dismiss()
+        }
+
+        openMenuWindow.showAtLocation(view, Gravity.START, 0, 0)
     }
 
     private fun refreshListView() {
