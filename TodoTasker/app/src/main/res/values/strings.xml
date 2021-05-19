@@ -16,6 +16,12 @@
     <string name="STRING_DUPLICATETASK">Duplicate Task</string>
     <string name="STRING_DELETETASK">Delete Task</string>
     <string name="STRING_DATETIMEFORMAT">dd.MM.yyyy HH:mm</string>
+    <string name="STRING_YOUR_PROJECT">Your Projects</string>
+    <string name="STRING_PROJECT_SETTINGS">Project Settings</string>
+    <string name="STRING_BACK">Back Arrow</string>
+    <string name="STRING_MODIFY_PROJECTS">Modify Projects</string>
+    <string name="STRING_ADDPROJECT">Modify Project</string>
+    <string name="STRING_ENTER_COLOR">Color</string>
     <string name="STRING_BACKUP_AND_RESTORE_BUTTON">Backup and Restore</string>
     <string name="STRING_EXPORT_TO_FILE">Export to file\n</string>
     <string name="STRING_RESTORE_FROM_FILE">Restore from file\n</string>
