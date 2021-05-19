@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundedbutton7dp">
+
+    <TextView
+        android:id="@+id/textview_addtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/STRING_ADDPROJECT"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview_addname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_addtitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/STRING_NAME"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edittext_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_addname"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:labelFor="@+id/edittext_name" />
+
+    <TextView
+        android:id="@+id/textview_adddate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edittext_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/STRING_ENTER_COLOR"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edittext_datetime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_adddate"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:layout_alignParentEnd="true"
+        android:inputType="none"
+        android:editable="false"
+        android:onClick="clickOnDateTimeField"
+        android:labelFor="@+id/edittext_name" />
+
+    <!-- Dieser Button ist stur.... die Farbe lässt sich nicht ordentlich
+         ändern wenn man einen anderen Style oder Background wählt
+         und Border hinzufügen geht auch null :'( -->
+
+    <Button
+        android:id="@+id/button_add_cancel"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edittext_datetime"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/light_grey"
+        android:text="@string/STRING_CANCEL"
+        android:textColor="@color/black"
+        android:onClick="cancelAddActivity"/>
+
+    <Button
+        android:id="@+id/button_add_to_db"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/edittext_datetime"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/violet"
+        android:text="@string/STRING_SAVE"
+        android:onClick="addTodoActivity" />
+</RelativeLayout>
