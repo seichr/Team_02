@@ -118,6 +118,32 @@ class MainActivity : AppCompatActivity() {
         MenuFunctions().lightModeFunction()
     }
 
+
+    fun openBackupAndRestoreWindowActivity(view: View) {
+        setContentView(R.layout.backup_and_restore_window)
+    }
+
+    fun openMainWindowActivity(view: View) {
+        setContentView(R.layout.activity_main)
+
+        val toolbar: Toolbar? = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        if (supportActionBar != null) {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
+            supportActionBar!!.title = applicationContext.getString(R.string.STRING_APP_NAME)
+        }
+        toolbar!!.setNavigationOnClickListener {
+            openMenuActivity(it)
+        }
+
+        todoList = findViewById(R.id.todo_list)
+        todoList?.adapter = RecyclerAdapter(emptyList())
+        linearLayoutManager = LinearLayoutManager(this)
+        todoList?.layoutManager = linearLayoutManager
+        refreshListView()
+    }
+
 }
 
 
