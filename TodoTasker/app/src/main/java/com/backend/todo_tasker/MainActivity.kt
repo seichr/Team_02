@@ -99,6 +99,56 @@ class MainActivity : AppCompatActivity() {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.MENU)
     }
 
+    fun openProjectSettings(v: View) {
+        setContentView(R.layout.project_settings)
+        openMenuWindow?.dismiss()
+    }
+
+    fun openMainWindowActivity(view: View) {
+        setContentView(R.layout.activity_main)
+
+        val toolbar: Toolbar? = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+        if (supportActionBar != null) {
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+            supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
+            supportActionBar!!.title = applicationContext.getString(R.string.STRING_APP_NAME)
+        }
+        toolbar!!.setNavigationOnClickListener {
+            openMenuActivity(it)
+        }
+
+        todoList = findViewById(R.id.todo_list)
+        todoList?.adapter = RecyclerAdapter(emptyList())
+        linearLayoutManager = LinearLayoutManager(this)
+        todoList?.layoutManager = linearLayoutManager
+        refreshListView()
+    }
+
+    fun openAddProjectWindow(v: View) {
+        val inflater = getSystemService(LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val createProjectView = inflater.inflate(R.layout.create_project_window, null)
+        val backgroundView: View = inflater.inflate(R.layout.dimming_background, null)
+
+        val widthBackgroundWindow = LinearLayout.LayoutParams.MATCH_PARENT
+        val heightBackgroundWindow = LinearLayout.LayoutParams.MATCH_PARENT
+
+        backgroundDimmerWindow = PopupWindow(backgroundView, widthBackgroundWindow, heightBackgroundWindow, false)
+        backgroundDimmerWindow!!.showAtLocation(v, Gravity.CENTER, 0, 0)
+
+        val widthTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
+        val heightTaskWindow = LinearLayout.LayoutParams.WRAP_CONTENT
+
+        val createProjectWindow = PopupWindow(createProjectView, widthTaskWindow, heightTaskWindow, true)
+
+        createProjectWindow.setOnDismissListener {
+            backgroundDimmerWindow!!.dismiss()
+        }
+
+        createProjectWindow.showAtLocation(v, Gravity.CENTER, 0, 0)
+    }
+
+
     fun changeToDarkMode(view: View) {
         MenuFunctions().darkModeFunction()
     }
