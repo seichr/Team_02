@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="wrap_content"
     android:layout_height="match_parent"
     android:background="@color/white">
@@ -21,11 +22,25 @@
             android:textColor="@color/white"/>
     </RelativeLayout>
 
+    <Button
+        android:id="@+id/button_example"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_purple_zone"
+        android:backgroundTint="@color/white"
+        android:text="DELETE ME BEFORE RELEASE!"
+        android:textColor="@color/black"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:icon="@drawable/abc_vector_test"
+        app:iconTint="#000000" />
+        <!-- android:onClick="Funktionsname" -->
+
     <TextView
         android:id="@+id/text_burgermenu_placeholder"
         android:layout_width="270dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/layout_purple_zone"
-        android:text="Hier könnten deine Buttons stehen"
+        android:layout_below="@id/button_example"
+        android:text=""
         android:textSize="12sp" />
 </RelativeLayout>
