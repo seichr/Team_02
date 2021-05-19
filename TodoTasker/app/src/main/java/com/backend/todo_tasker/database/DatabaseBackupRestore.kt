@@ -24,14 +24,14 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
 
         val sdir = appContext.getExternalFilesDir("/todoBackup/")
         if(sdir != null){
-            val sfpath =
-                    sdir.path + File.separator.toString() + "TodoDBBackup"
-                            .toString()
             if (!sdir.exists()) {
                 sdir.mkdirs()
             }
-            val savefile = File(sfpath)
-            val created= savefile.createNewFile()
+            val sfpath =
+                    sdir.path + File.separator.toString() + "TodoDBBackup"
+            val savefile = File(sdir,"ToDoDatabaseBackup")
+            savefile.delete()
+            savefile.createNewFile()
             val buffersize = 8 * 1024
             val buffer = ByteArray(buffersize)
             var bytes_read = buffersize
@@ -46,7 +46,39 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
 
         }
     }
+    fun restore() {
+        if(Activity!= null){
+            verifyStoragePermissions(Activity)
+        }
+        val db = DatabaseClass(appContext)
+        val datab = db.createDb()
+        datab.close()
+        val dbFile = appContext.getDatabasePath("todo-database").absolutePath
 
+        val sdir = appContext.getExternalFilesDir("/todoBackup/")
+        if(sdir != null){
+            if (!sdir.exists()) {
+                sdir.mkdirs()
+            }
+            val sfpath =
+                    sdir.path + File.separator.toString() + "TodoDBBackup"
+            val savefile = File(sdir,"ToDoDatabaseBackup")
+            val dbFilefile = File(dbFile)
+            dbFilefile.delete()
+            dbFilefile.createNewFile()
+            val buffersize = 8 * 1024
+            val buffer = ByteArray(buffersize)
+            var bytes_read = buffersize
+            val savedb: OutputStream = FileOutputStream(dbFile)
+            val indb: InputStream = FileInputStream(savefile)
+            while (indb.read(buffer, 0, buffersize).also({ bytes_read = it }) > 0) {
+                savedb.write(buffer, 0, bytes_read)
+            }
+            savedb.flush()
+            indb.close()
+            savedb.close()
+        }
+    }
 
     fun verifyStoragePermissions(activity: Activity?) {
         val REQUEST_EXTERNAL_STORAGE = 1
