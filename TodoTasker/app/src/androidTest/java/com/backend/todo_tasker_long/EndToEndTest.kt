@@ -1,4 +1,4 @@
-package com.backend.todo_tasker
+package com.backend.todo_tasker_long
 
 
 import android.app.Application
@@ -12,9 +12,10 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.contrib.RecyclerViewActions.actionOnItemAtPosition
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.LargeTest
-import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import com.backend.todo_tasker.MainActivity
+import com.backend.todo_tasker.R
 import com.backend.todo_tasker.database.DatabaseClass
 import org.hamcrest.Description
 import org.hamcrest.Matcher

@@ -1,4 +1,4 @@
-package com.backend.todo_tasker
+package com.backend.todo_tasker_long
 
 
 import android.view.View
@@ -17,7 +17,10 @@ import androidx.test.uiautomator.By
 import androidx.test.uiautomator.UiDevice
 import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
+import com.backend.todo_tasker.MainActivity
+import com.backend.todo_tasker.R
 import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.todoDb
 import junit.framework.Assert.assertEquals
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -44,7 +47,7 @@ class ReminderNotificationShowUpRecordedTest {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val notificationTitle =  appContext.getString(R.string.NOTIFICATION_TITLE)
         val notificationText =  appContext.getString(R.string.NOTIFICATION_TEXT)
-        val timeout:Long =  61 * 1000
+        val timeout:Long =  90 * 1000
 
         val db = DatabaseClass(appContext)
         db.deleteDBEntries(todoDb) //TODO this clears the production Database, could be changed to mockdb at some point
