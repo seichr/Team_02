@@ -4,6 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_title_bar</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryDark">@color/black</item>
         <item name="colorOnPrimary">@color/white</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -29,6 +30,19 @@
 
     <style name="PopUpWindow">
         <item name="android:backgroundTint">@color/ultralight_grey</item>
+    </style>
+
+    <style name="BurgerMenu">
+        <item name="android:background">@color/white</item>
+    </style>
+
+    <style name="BurgerMenuButtons">
+        <item name="android:backgroundTint">@color/ultralight_grey</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="BurgerMenuTop">
+        <item name="android:background">@color/purple_title_bar</item>
     </style>
 
     <style name="DatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">

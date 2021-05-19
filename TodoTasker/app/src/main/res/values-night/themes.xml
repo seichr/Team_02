@@ -4,6 +4,7 @@
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/purple_title_bar</item>
         <item name="colorPrimaryVariant">@color/purple_700</item>
+        <item name="colorPrimaryDark">@color/white</item>
         <item name="colorOnPrimary">@color/light_grey</item>
         <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/teal_200</item>
@@ -12,6 +13,7 @@
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">@color/black</item>
         <!-- Customize your theme here. -->
+        <item name="windowNoTitle">true</item>
     </style>
 
     <style name="SettingsButtonStyle">
@@ -29,6 +31,21 @@
     <style name="PopUpWindow">
         <item name="android:backgroundTint">@color/ultradark_grey</item>
     </style>
+
+    <style name="BurgerMenu">
+        <item name="android:background">@color/ultradark_grey</item>
+    </style>
+
+    <style name="BurgerMenuButtons">
+        <item name="android:backgroundTint">@color/ultradark_grey</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="BurgerMenuTop">
+        <item name="android:background">@color/darkpurple</item>
+    </style>
+
+
 
     <style name="DatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog.Alert">
         <item name="android:windowBackground">@color/ultradark_grey</item>
