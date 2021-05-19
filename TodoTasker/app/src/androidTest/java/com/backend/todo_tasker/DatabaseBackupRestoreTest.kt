@@ -22,7 +22,23 @@ class DatabaseBackupRestoreTest {
         val backup = DatabaseBackupRestore(appContext, null)
         backup.backup()
         val f= appContext.getExternalFilesDir("/todoBackup/")
-        val file = File(f,"/TodoDBBackup")
+        val file = File(f,"/ToDoDatabaseBackup")
+        if(file!=null)
+            assert(file.exists())
+        else
+            assert(false)
+    }
+
+    @Test
+    fun testRestore() {
+
+        GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+        GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE)
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        val backup = DatabaseBackupRestore(appContext, null)
+        backup.restore()
+        val f= appContext.getExternalFilesDir("/todoBackup/")
+        val file = File(f,"/ToDoDatabaseBackup")
         if(file!=null)
             assert(file.exists())
         else
