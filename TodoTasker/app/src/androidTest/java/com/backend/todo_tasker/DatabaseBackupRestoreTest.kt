@@ -22,9 +22,9 @@ class DatabaseBackupRestoreTest {
         val backup = DatabaseBackupRestore(appContext, null)
         backup.backup()
         val f= appContext.getExternalFilesDir("/todoBackup/")
-        val file = File(f,"/ToDoDatabaseBackup")
-        if(file!=null)
-            assert(file.exists())
+        if(f!=null)
+            assert(File(f.absolutePath+"/todo-database").exists()&&
+                    File(f.absolutePath+"/todo-database-wal").exists()&&File(f.absolutePath+"/todo-database-shm").exists())
         else
             assert(false)
     }

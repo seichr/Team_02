@@ -29,23 +29,44 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
             }
             val sfpath =
                     sdir.path + File.separator.toString() + "TodoDBBackup"
-            val savefile = File(sdir,"ToDoDatabaseBackup")
-            savefile.delete()
-            savefile.createNewFile()
-            val buffersize = 8 * 1024
-            val buffer = ByteArray(buffersize)
-            var bytes_read = buffersize
-            val savedb: OutputStream = FileOutputStream(sfpath)
-            val indb: InputStream = FileInputStream(dbFile)
-            while (indb.read(buffer, 0, buffersize).also({ bytes_read = it }) > 0) {
-                savedb.write(buffer, 0, bytes_read)
-            }
-            savedb.flush()
-            indb.close()
-            savedb.close()
+
+            CopyFile( File(dbFile),File(sdir,"todo-database"))
+            CopyFile( File(dbFile+"-shm"),File(sdir,"todo-database-shm"))
+            CopyFile(File(dbFile+"-wal"),File(sdir,"todo-database-wal"))
+            /* val savefile = File(sdir,"ToDoDatabaseBackup")
+             savefile.delete()
+             savefile.createNewFile()
+             val buffersize = 8 * 1024
+             val buffer = ByteArray(buffersize)
+             var bytes_read = buffersize
+             val savedb: OutputStream = FileOutputStream(sfpath)
+             val indb: InputStream = FileInputStream(dbFile)
+             while (indb.read(buffer, 0, buffersize).also({ bytes_read = it }) > 0) {
+                 savedb.write(buffer, 0, bytes_read)
+             }
+             savedb.flush()
+             indb.close()
+             savedb.close()*/
 
         }
     }
+    fun CopyFile(from:File, to:File){
+        val savefile = to
+        savefile.delete()
+        savefile.createNewFile()
+        val buffersize = 8 * 1024
+        val buffer = ByteArray(buffersize)
+        var bytes_read = buffersize
+        val savedb: OutputStream = FileOutputStream(to)
+        val indb: InputStream = FileInputStream(from)
+        while (indb.read(buffer, 0, buffersize).also({ bytes_read = it }) > 0) {
+            savedb.write(buffer, 0, bytes_read)
+        }
+        savedb.flush()
+        indb.close()
+        savedb.close()
+    }
+
     fun restore() {
         if(Activity!= null){
             verifyStoragePermissions(Activity)
@@ -56,29 +77,33 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
         val dbFile = appContext.getDatabasePath("todo-database").absolutePath
 
         val sdir = appContext.getExternalFilesDir("/todoBackup/")
-        if(sdir != null){
-            if (!sdir.exists()) {
-                sdir.mkdirs()
-            }
-            val sfpath =
-                    sdir.path + File.separator.toString() + "TodoDBBackup"
-            val savefile = File(sdir,"ToDoDatabaseBackup")
-            val dbFilefile = File(dbFile)
-            dbFilefile.delete()
-            dbFilefile.createNewFile()
-            val buffersize = 8 * 1024
-            val buffer = ByteArray(buffersize)
-            var bytes_read = buffersize
-            val savedb: OutputStream = FileOutputStream(dbFile)
-            val indb: InputStream = FileInputStream(savefile)
-            while (indb.read(buffer, 0, buffersize).also({ bytes_read = it }) > 0) {
-                savedb.write(buffer, 0, bytes_read)
-            }
-            savedb.flush()
-            indb.close()
-            savedb.close()
-        }
+        CopyFile( File(sdir,"todo-database"),File(dbFile))
+        CopyFile( File(sdir,"todo-database-shm"),File(dbFile+"-shm"))
+        CopyFile(File(sdir,"todo-database-wal"),File(dbFile+"-wal"))
+        /*
+            if(sdir != null){
+                if (!sdir.exists()) {
+                    sdir.mkdirs()
+                }
+                val sfpath =
+                        sdir.path + File.separator.toString() + "TodoDBBackup"
+                val savefile = File(sdir,"ToDoDatabaseBackup")
+                val dbFilefile = File(dbFile)
+                dbFilefile.delete()
+                dbFilefile.createNewFile()
+                val buffersize = 8 * 1024
+                val buffer = ByteArray(buffersize)
+                var bytes_read = buffersize
+                val savedb: OutputStream = FileOutputStream(dbFile)
+                val indb: InputStream = FileInputStream(savefile)
+                while (indb.read(buffer, 0, buffersize).also({ bytes_read = it }) > 0) {
+                    savedb.write(buffer, 0, bytes_read)
+                }
+                savedb.flush()
+                indb.close()
+                savedb.close()*/
     }
+
 
     fun verifyStoragePermissions(activity: Activity?) {
         val REQUEST_EXTERNAL_STORAGE = 1
