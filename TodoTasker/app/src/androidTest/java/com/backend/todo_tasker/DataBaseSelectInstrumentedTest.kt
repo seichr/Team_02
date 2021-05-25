@@ -27,7 +27,7 @@ class DataBaseSelectInstrumentedTest {
         db.deleteDBEntries(datab)
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        val testTodo = Todo(6, "Test", timeInMillis, null)
+        val testTodo = Todo(6, "Test", timeInMillis)
 
         // Add a single entry into the Database
         val retVal = db.addToDb(datab, testTodo)
@@ -53,7 +53,7 @@ class DataBaseSelectInstrumentedTest {
         // Add 51 differing entries to the Database
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..50) {
-            val testTodo = Todo(i, "Test", timeInMillis, null)
+            val testTodo = Todo(i, "Test", timeInMillis)
             val retVal = db.addToDb(datab, testTodo)
             assertNotEquals(retVal, -1)
         }
@@ -64,7 +64,7 @@ class DataBaseSelectInstrumentedTest {
 
         // Check if all of the entries are there
         for(i in 0..50) {
-            assert(todos[i] == Todo(i, "Test", timeInMillis, null))
+            assert(todos[i] == Todo(i, "Test", timeInMillis))
         }
     }
 }

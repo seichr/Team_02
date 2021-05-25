@@ -1,6 +1,5 @@
 package com.backend.todo_tasker_long
 
-
 import android.view.View
 import android.view.ViewGroup
 import android.widget.DatePicker
@@ -50,7 +49,7 @@ class ReminderNotificationShowUpRecordedTest {
         val timeout:Long =  90 * 1000
 
         val db = DatabaseClass(appContext)
-        db.deleteDBEntries(todoDb) //TODO this clears the production Database, could be changed to mockdb at some point
+        db.deleteDBEntries(todoDb)
 
         val calendar = Calendar.getInstance()
 

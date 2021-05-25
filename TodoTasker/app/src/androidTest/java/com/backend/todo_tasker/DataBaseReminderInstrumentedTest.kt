@@ -17,7 +17,7 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class DataBaseReminderInstrumentedTest {
-    // Single entry with reminder info
+    // Single entry
     @Test
     fun singleAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
@@ -27,13 +27,13 @@ class DataBaseReminderInstrumentedTest {
         db.deleteDBEntries(datab)
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        val testTodo = Todo(6, "Test", timeInMillis, timeInMillis)
+        val testTodo = Todo(6, "Test", timeInMillis)
 
         val retVal = db.addToDb(datab, testTodo)
         assertNotEquals(retVal, -1)
     }
 
-    // Loads of Entries with reminder info
+    // Loads of Entries
     @Test
     fun multiAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
@@ -44,7 +44,7 @@ class DataBaseReminderInstrumentedTest {
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..50) {
-            val testTodo = Todo(i, "Test", timeInMillis, timeInMillis)
+            val testTodo = Todo(i, "Test", timeInMillis)
             val retVal = db.addToDb(datab, testTodo)
             assertNotEquals(retVal, -1)
         }
@@ -60,12 +60,12 @@ class DataBaseReminderInstrumentedTest {
         db.deleteDBEntries(datab)
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        var testTodo = Todo(1337, "TestThatPasses", timeInMillis, timeInMillis)
+        var testTodo = Todo(1337, "TestThatPasses", timeInMillis)
         var retVal = db.addToDb(datab, testTodo)
         assertNotEquals(retVal, -1)
 
         for(i in 0..50) {
-            testTodo = Todo(1337, "TestThatFails", timeInMillis, timeInMillis)
+            testTodo = Todo(1337, "TestThatFails", timeInMillis)
             retVal = db.addToDb(datab, testTodo)
             assertEquals(retVal, -1)
         }
@@ -81,7 +81,7 @@ class DataBaseReminderInstrumentedTest {
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..3) {
-            var testTodo = Todo(i, "TestThatPasses", timeInMillis + (i * 60000), 0)
+            var testTodo = Todo(i, "TestThatPasses", timeInMillis + (i * 60000))
             var retVal = db.addToDb(datab, testTodo)
         }
 
