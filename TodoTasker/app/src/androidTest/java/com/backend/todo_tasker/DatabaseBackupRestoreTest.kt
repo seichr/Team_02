@@ -41,7 +41,10 @@ class DatabaseBackupRestoreTest {
         val file = File(f,"/ToDoDatabaseBackup")
         if(file!=null)
             assert(file.exists())
-        else
+                    //(File(file.absolutePath+"/ToDoDatabaseBackup").exists()&&
+                    //File(file.absolutePath+"/TodoDBBackup").exists())
+            else
+
             assert(false)
     }
 }

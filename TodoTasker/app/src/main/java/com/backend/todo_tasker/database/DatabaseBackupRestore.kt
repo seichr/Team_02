@@ -13,6 +13,7 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
     private var Activity = activity
 
     private var appContext = Context
+
     fun backup() {
         if(Activity!= null){
             verifyStoragePermissions(Activity)
@@ -33,7 +34,7 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
             CopyFile( File(dbFile),File(sdir,"todo-database"))
             CopyFile( File(dbFile+"-shm"),File(sdir,"todo-database-shm"))
             CopyFile(File(dbFile+"-wal"),File(sdir,"todo-database-wal"))
-            /* val savefile = File(sdir,"ToDoDatabaseBackup")
+             val savefile = File(sdir,"ToDoDatabaseBackup")
              savefile.delete()
              savefile.createNewFile()
              val buffersize = 8 * 1024
@@ -46,10 +47,11 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
              }
              savedb.flush()
              indb.close()
-             savedb.close()*/
+             savedb.close()
 
         }
     }
+
     fun CopyFile(from:File, to:File){
         val savefile = to
         savefile.delete()
@@ -80,7 +82,7 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
         CopyFile( File(sdir,"todo-database"),File(dbFile))
         CopyFile( File(sdir,"todo-database-shm"),File(dbFile+"-shm"))
         CopyFile(File(sdir,"todo-database-wal"),File(dbFile+"-wal"))
-        /*
+
             if(sdir != null){
                 if (!sdir.exists()) {
                     sdir.mkdirs()
@@ -101,25 +103,24 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
                 }
                 savedb.flush()
                 indb.close()
-                savedb.close()*/
+                savedb.close()
+        }
     }
-
-
     fun verifyStoragePermissions(activity: Activity?) {
         val REQUEST_EXTERNAL_STORAGE = 1
         val PERMISSIONS_STORAGE =
-                arrayOf<String>( //Manifest.permission.READ_EXTERNAL_STORAGE,
-                        Manifest.permission.WRITE_EXTERNAL_STORAGE
-                )
-        val permission = ActivityCompat.checkSelfPermission(
-                activity!!,
+            arrayOf<String>( //Manifest.permission.READ_EXTERNAL_STORAGE,
                 Manifest.permission.WRITE_EXTERNAL_STORAGE
+            )
+        val permission = ActivityCompat.checkSelfPermission(
+            activity!!,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
         )
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(
-                    activity,
-                    PERMISSIONS_STORAGE,
-                    REQUEST_EXTERNAL_STORAGE
+                activity,
+                PERMISSIONS_STORAGE,
+                REQUEST_EXTERNAL_STORAGE
             )
         }
     }
