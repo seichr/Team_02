@@ -1,9 +1,16 @@
 package com.backend.todo_tasker
 
 
+import android.view.InputDevice
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.action.CoordinatesProvider
+import androidx.test.espresso.action.GeneralClickAction
+import androidx.test.espresso.action.Press
+import androidx.test.espresso.action.Tap
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -26,6 +33,19 @@ class OpenMenuWithChangedLanguageTest {
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
+
+    @Test
+    fun openMenuWithChangedLanguageTest2() {
+        val actionMenuItemView = onView(
+                allOf(withId(R.id.language), withContentDescription("Изменить язык"),
+                        childAtPosition(
+                                childAtPosition(
+                                        withId(R.id.toolbar),
+                                        2),
+                                0),
+                        isDisplayed()))
+        actionMenuItemView.perform(click())
+    }
 
     @Test
     fun openMenuWithChangedLanguageTest() {

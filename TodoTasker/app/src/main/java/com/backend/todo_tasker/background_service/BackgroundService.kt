@@ -36,11 +36,13 @@ class AlarmHelper {
     }
 
     fun replaceNextAlarm(context: Context, time: Long) {
-        if(liveAlarmTime > time) {
-            cancelAlarm(context, liveAlarmID)
-            setNewAlarm(context, time)
-        } else if (liveAlarmTime == NO_ALARM_SET) {
-            setNewAlarm(context, time)
+        if (time > System.currentTimeMillis()) {
+            if (liveAlarmTime > time) {
+                cancelAlarm(context, liveAlarmID)
+                setNewAlarm(context, time)
+            } else if (liveAlarmTime == NO_ALARM_SET) {
+                setNewAlarm(context, time)
+            }
         }
     }
 

@@ -25,7 +25,7 @@ interface TodoDao {
     // the CAST((julianday))... is a SQLite way to say "Current timestamp in milliseconds".
     @Query("SELECT * FROM todo " +
             "WHERE date > CAST((julianday('now') - 2440587.5)*86400000 AS INTEGER) " +
-            "ORDER BY reminder ASC LIMIT 1 ")
+            "ORDER BY date ASC LIMIT 1 ")
     fun getNextDate(): Todo
 
     @Query("DELETE FROM todo WHERE uid = :uid")
@@ -34,6 +34,6 @@ interface TodoDao {
     @Query("Select * FROM todo WHERE uid = :uid")
     fun getSingle(uid: Int) : Todo
 
-    @Query("Update todo set title = :title, date = :date, reminder = :reminder where uid = :uid")
-    fun update(uid: Int, title:String, date:Long ,reminder:Long)
+    @Query("Update todo set title = :title, date = :date where uid = :uid")
+    fun update(uid: Int, title:String, date:Long)
 }

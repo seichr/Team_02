@@ -14,6 +14,5 @@ import androidx.room.PrimaryKey
 data class Todo(
         @PrimaryKey val uid: Int,
         @ColumnInfo(name = "title") val title: String?,
-        @ColumnInfo(name = "date") val date: Long?,
-        @ColumnInfo(name = "reminder") val reminder: Long?
+        @ColumnInfo(name = "date") val date: Long?
 )
