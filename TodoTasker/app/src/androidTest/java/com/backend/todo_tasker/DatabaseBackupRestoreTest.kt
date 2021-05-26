@@ -1,17 +1,18 @@
 package com.backend.todo_tasker
 
 import android.Manifest
-import android.content.Context
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.rule.GrantPermissionRule
 import com.backend.todo_tasker.database.DatabaseBackupRestore
+import org.junit.FixMethodOrder
 import org.junit.Test
 import org.junit.runner.RunWith
+import org.junit.runners.MethodSorters
 import java.io.File
 
-
 @RunWith(AndroidJUnit4::class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 class DatabaseBackupRestoreTest {
 
     @Test
@@ -31,7 +32,6 @@ class DatabaseBackupRestoreTest {
 
     @Test
     fun testRestore() {
-
         GrantPermissionRule.grant(Manifest.permission.WRITE_EXTERNAL_STORAGE)
         GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE)
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
@@ -51,10 +51,7 @@ class DatabaseBackupRestoreTest {
 
             assert(File(f.absolutePath + "-shm").exists() &&
                         File(f.absolutePath + "-wal").exists() && File(f.absolutePath).exists())
-
-
         }
-
         else
             assert(false)
     }
