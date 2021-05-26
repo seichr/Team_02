@@ -32,6 +32,8 @@ class PopUpWindowInflater {
     private var modifyTaskWindow:       PopupWindow? = null
     private var moreOptionsTaskView:    View?        = null
     private var moreOptionsTaskWindow:  PopupWindow? = null
+    private var menuTaskView:    View?        = null
+    private var menuTaskWindow:  PopupWindow? = null
 
     private var currentUID: Int? = null
 
@@ -56,6 +58,10 @@ class PopUpWindowInflater {
 
     fun dismissModifyTaskWindow() {
         modifyTaskWindow!!.dismiss()
+    }
+
+    fun dismissMenuWindow() {
+        menuTaskWindow!!.dismiss()
     }
 
     fun inflateWindow(view: View,
@@ -216,31 +222,31 @@ class PopUpWindowInflater {
     private fun inflateMenuWindow(view: View, width: Int, height: Int) {
         val inflater = view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val openMenuView = inflater.inflate(R.layout.burgermenu_window, null)
+        menuTaskView = inflater.inflate(R.layout.burgermenu_window, null)
 
-        val openMenuWindow = PopupWindow(openMenuView, width, height, true)
-        openMenuView.animation = AnimationUtils.loadAnimation(view.context, R.anim.slide_in)
+        menuTaskWindow = PopupWindow(menuTaskView, width, height, true)
+        menuTaskView?.animation = AnimationUtils.loadAnimation(view.context, R.anim.slide_in)
 
-        openMenuWindow.setOnDismissListener {
+        menuTaskWindow!!.setOnDismissListener {
             backgroundDimmerWindow!!.dismiss()
         }
 
-        openMenuWindow.showAtLocation(view, Gravity.START, 0, 0)
+        menuTaskWindow!!.showAtLocation(view, Gravity.START, 0, 0)
 
         val currentNightMode = view.context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
 
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_NO -> {
-                val lightmode_btn = openMenuView?.findViewById<Button>(R.id.lightmode_btn)
+                val lightmode_btn = menuTaskWindow?.findViewById<Button>(R.id.lightmode_btn)
                 lightmode_btn?.isEnabled = false
-                val darkmode_btn = openMenuView?.findViewById<Button>(R.id.darkmode_btn)
+                val darkmode_btn = menuTaskWindow?.findViewById<Button>(R.id.darkmode_btn)
                 darkmode_btn?.isEnabled = true
             } // Light mode is not active, we're using the light theme
 
             Configuration.UI_MODE_NIGHT_YES -> {
-                val lightmode_btn = openMenuView?.findViewById<Button>(R.id.lightmode_btn)
+                val lightmode_btn = menuTaskWindow?.findViewById<Button>(R.id.lightmode_btn)
                 lightmode_btn?.isEnabled = true
-                val darkmode_btn = openMenuView?.findViewById<Button>(R.id.darkmode_btn)
+                val darkmode_btn = menuTaskWindow?.findViewById<Button>(R.id.darkmode_btn)
                 darkmode_btn?.isEnabled = false
             } // Night mode is active, we're using dark theme
 
