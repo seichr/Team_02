@@ -46,30 +46,7 @@ class MainActivity : AppCompatActivity() {
         dbTodoClass = DatabaseTodoClass(applicationContext)
         todoDb = dbTodoClass.createDb()
 
-        todoList = findViewById(R.id.todo_list)
-        todoList?.adapter = RecyclerAdapter().getInstance()
-
-        linearLayoutManager = LinearLayoutManager(this)
-        todoList?.layoutManager = linearLayoutManager
-
-        val dividerItemDecoration = DividerItemDecoration(todoList?.context,
-                                                          linearLayoutManager.orientation)
-        todoList?.addItemDecoration(dividerItemDecoration)
-
-        val toolbar: Toolbar? = findViewById(R.id.toolbar)
-        setSupportActionBar(toolbar)
-
-        if (supportActionBar != null) {
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-            supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
-            supportActionBar!!.title = applicationContext.getString(R.string.STRING_APP_NAME)
-        }
-
-        toolbar!!.setNavigationOnClickListener {
-            openMenuActivity(it)
-        }
-
-        DbOperations().getInstance().refreshListView()
+        loadTodoList()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -126,30 +103,44 @@ class MainActivity : AppCompatActivity() {
 
     fun openMainWindowActivity(view: View) {
         setContentView(R.layout.activity_main)
+        loadTodoList()
+    }
+
+    fun exportToFile(view: View) {
+        DatabaseBackupRestore(applicationContext, this)
+        // TODO
+    }
+    fun restoreFromFile(view: View) {
+        DatabaseBackupRestore(applicationContext, this)
+    }
+
+    private fun loadTodoList() {
+        todoList = findViewById(R.id.todo_list)
+        todoList?.adapter = RecyclerAdapter().getInstance()
+
+        linearLayoutManager = LinearLayoutManager(this)
+        todoList?.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            todoList?.context,
+            linearLayoutManager.orientation
+        )
+        todoList?.addItemDecoration(dividerItemDecoration)
 
         val toolbar: Toolbar? = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
         if (supportActionBar != null) {
             supportActionBar!!.setDisplayHomeAsUpEnabled(true)
             supportActionBar!!.setHomeAsUpIndicator(R.drawable.baseline_menu_24)
             supportActionBar!!.title = applicationContext.getString(R.string.STRING_APP_NAME)
         }
+
         toolbar!!.setNavigationOnClickListener {
             openMenuActivity(it)
         }
 
-        todoList = findViewById(R.id.todo_list)
-        todoList?.adapter = RecyclerAdapter(emptyList())
-        linearLayoutManager = LinearLayoutManager(this)
-        todoList?.layoutManager = linearLayoutManager
-        refreshListView()
-    }
-
-    fun exportToFile(view: View) {
-        DatabaseBackupRestore(applicationContext, this)
-    }
-    fun restoreFromFile(view: View) {
-        DatabaseBackupRestore(applicationContext, this)
+        DbOperations().getInstance().refreshListView()
     }
 }
 
