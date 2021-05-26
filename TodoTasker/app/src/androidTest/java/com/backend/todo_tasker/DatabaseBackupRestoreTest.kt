@@ -36,15 +36,26 @@ class DatabaseBackupRestoreTest {
         GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE)
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
         val backup = DatabaseBackupRestore(appContext, null)
-        backup.restore()
-        val f= appContext.getExternalFilesDir("/todoBackup/")
-        val file = File(f,"/ToDoDatabaseBackup")
-        if(file!=null)
-            assert(file.exists())
-                    //(File(file.absolutePath+"/ToDoDatabaseBackup").exists()&&
-                    //File(file.absolutePath+"/TodoDBBackup").exists())
-            else
+        val f=  appContext.getDatabasePath("todo-database")
+        if(f!=null) {
+            val toDelete1: File = File(f.absolutePath)
+            val toDelete2: File = File(f.absolutePath +"-shm")
+            val toDelete3: File = File(f.absolutePath + "-wal")
+            toDelete1.delete()
+            toDelete2.delete()
+            toDelete3.delete()
+            assert(!File(f.absolutePath + "-shm").exists() &&
+                    !File(f.absolutePath + "-wal").exists() && !File(f.absolutePath).exists())
 
+            backup.restore()
+
+            assert(File(f.absolutePath + "-shm").exists() &&
+                        File(f.absolutePath + "-wal").exists() && File(f.absolutePath).exists())
+
+
+        }
+
+        else
             assert(false)
     }
 }

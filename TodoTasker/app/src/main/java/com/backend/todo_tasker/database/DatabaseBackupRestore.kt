@@ -31,8 +31,8 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
             val sfpath =
                     sdir.path + File.separator.toString() + "TodoDBBackup"
 
-            CopyFile( File(dbFile),File(sdir,"todo-database"))
-            CopyFile( File(dbFile+"-shm"),File(sdir,"todo-database-shm"))
+            CopyFile(File(dbFile),File(sdir,"todo-database"))
+            CopyFile(File(dbFile+"-shm"),File(sdir,"todo-database-shm"))
             CopyFile(File(dbFile+"-wal"),File(sdir,"todo-database-wal"))
              val savefile = File(sdir,"ToDoDatabaseBackup")
              savefile.delete()
