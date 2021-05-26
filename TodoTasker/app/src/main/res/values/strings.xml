@@ -20,7 +20,8 @@
     <string name="STRING_PROJECT_SETTINGS">Project Settings</string>
     <string name="STRING_BACK">Back Arrow</string>
     <string name="STRING_MODIFY_PROJECTS">Modify Projects</string>
-    <string name="STRING_ADDPROJECT">Modify Project</string>
+    <string name="STRING_MODIFY_PROJECT">Modify Project</string>
+    <string name="STRING_ADD_PROJECT">Add Project</string>
     <string name="STRING_ENTER_COLOR">Color</string>
     <string name="STRING_BACKUP_AND_RESTORE_BUTTON">Backup and Restore</string>
     <string name="STRING_EXPORT_TO_FILE">Export to file\n</string>
