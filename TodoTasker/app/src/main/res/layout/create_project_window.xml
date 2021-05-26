@@ -13,7 +13,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="20dp"
         android:layout_marginTop="30dp"
-        android:text="@string/STRING_ADDPROJECT"
+        android:text="@string/STRING_ADD_PROJECT"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
         android:textSize="22sp"
         android:textStyle="bold" />
@@ -72,10 +72,6 @@
         android:onClick="clickOnDateTimeField"
         android:labelFor="@+id/edittext_name" />
 
-    <!-- Dieser Button ist stur.... die Farbe lässt sich nicht ordentlich
-         ändern wenn man einen anderen Style oder Background wählt
-         und Border hinzufügen geht auch null :'( -->
-
     <Button
         android:id="@+id/button_add_cancel"
         android:layout_width="130dp"
@@ -88,7 +84,7 @@
         android:backgroundTint="@color/light_grey"
         android:text="@string/STRING_CANCEL"
         android:textColor="@color/black"
-        android:onClick="cancelAddActivity"/>
+        android:onClick="cancelAddCategoryActivity"/>
 
     <Button
         android:id="@+id/button_add_to_db"
@@ -101,5 +97,5 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/violet"
         android:text="@string/STRING_SAVE"
-        android:onClick="addTodoActivity" />
+        android:onClick="addCategoryActivity" />
 </RelativeLayout>
