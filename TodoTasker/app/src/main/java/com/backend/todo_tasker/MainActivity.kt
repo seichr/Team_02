@@ -8,6 +8,7 @@ import com.backend.todo_tasker.background_service.NotificationHelper
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.backend.todo_tasker.database.DatabaseBackupRestore
 import com.backend.todo_tasker.button_functions.DateTimePickerFunctions
 import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.database.TodoDatabase
@@ -144,6 +145,12 @@ class MainActivity : AppCompatActivity() {
         refreshListView()
     }
 
+    fun exportToFile(view: View) {
+        DatabaseBackupRestore(applicationContext, this)
+    }
+    fun restoreFromFile(view: View) {
+        DatabaseBackupRestore(applicationContext, this)
+    }
 }
 
 
