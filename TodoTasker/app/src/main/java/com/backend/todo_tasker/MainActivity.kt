@@ -99,6 +99,7 @@ class MainActivity : AppCompatActivity() {
 
     fun openBackupAndRestoreWindowActivity(view: View) {
         setContentView(R.layout.backup_and_restore_window)
+        PopUpWindowInflater().getInstance().dismissMenuWindow()
     }
 
     fun openMainWindowActivity(view: View) {
@@ -107,11 +108,12 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun exportToFile(view: View) {
-        DatabaseBackupRestore(applicationContext, this)
-        // TODO
+        DatabaseBackupRestore(applicationContext, this).backup()
+        // TODO message "Backup successfull".
     }
+
     fun restoreFromFile(view: View) {
-        DatabaseBackupRestore(applicationContext, this)
+        DatabaseBackupRestore(applicationContext, this).restore()
     }
 
     private fun loadTodoList() {
