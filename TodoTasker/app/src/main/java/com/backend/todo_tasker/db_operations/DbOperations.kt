@@ -22,7 +22,7 @@ class DbOperations {
 
     fun refreshListView() {
         GlobalScope.launch {
-            val data = dbClass.getAllDb(todoDb)
+            val data = dbTodoClass.getAllDb(todoDb)
             todoList?.post {
                 RecyclerAdapter().getInstance().setData(data)
                 adapter = RecyclerAdapter().getInstance()
@@ -34,12 +34,12 @@ class DbOperations {
     fun addOperation(title: String, date: Long) {
         GlobalScope.launch {
             sharedDbLock.acquire()
-            if (dbClass.getLastEntry(todoDb) == null) { // This is not always false...
-                dbClass.addToDb(todoDb, Todo(0,
+            if (dbTodoClass.getLastEntry(todoDb) == null) { // This is not always false...
+                dbTodoClass.addToDb(todoDb, Todo(0,
                         title,
                         date))
             } else {
-                dbClass.addToDb(todoDb, Todo(dbClass.getLastEntry(todoDb).uid + 1,
+                dbTodoClass.addToDb(todoDb, Todo(dbTodoClass.getLastEntry(todoDb).uid + 1,
                         title,
                         date))
             }
@@ -54,7 +54,7 @@ class DbOperations {
     fun duplicateOperation(UID: Int, adapterPosition: Int) {
         GlobalScope.launch {
             sharedDbLock.acquire()
-            dbClass.duplicateDBEntry(todoDb, UID)
+            dbTodoClass.duplicateDBEntry(todoDb, UID)
             refreshListView()
             sharedDbLock.release()
             todoList?.post {
@@ -67,7 +67,7 @@ class DbOperations {
     fun deleteOperation(UID: Int, adapterPosition: Int) {
         GlobalScope.launch {
             sharedDbLock.acquire()
-            dbClass.deleteDBSingleEntry(todoDb, UID)
+            dbTodoClass.deleteDBSingleEntry(todoDb, UID)
             refreshListView()
             sharedDbLock.release()
             todoList?.post {
@@ -79,7 +79,7 @@ class DbOperations {
     fun updateOperation(uid: Int, title: String, date: Long, adapterPosition: Int) {
         GlobalScope.launch {
             sharedDbLock.acquire()
-            dbClass.updateEntry(todoDb,
+            dbTodoClass.updateEntry(todoDb,
                     uid,
                     title,
                     date)

@@ -2,7 +2,7 @@ package com.backend.todo_tasker
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.database.Todo
 
 import org.junit.Test
@@ -22,7 +22,7 @@ class DataBaseReminderInstrumentedTest {
     fun singleAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
@@ -38,7 +38,7 @@ class DataBaseReminderInstrumentedTest {
     fun multiAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
@@ -55,7 +55,7 @@ class DataBaseReminderInstrumentedTest {
     fun multiUIDFail() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
@@ -75,7 +75,7 @@ class DataBaseReminderInstrumentedTest {
     fun getNewestReminder() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 

@@ -26,7 +26,7 @@ class AlarmHelper {
     fun setNextAlarm(context: Context?) {
         GlobalScope.launch {
             sharedDbLock.acquire()
-            val todo = dbClass.getNextDate(todoDb)
+            val todo = dbTodoClass.getNextDate(todoDb)
             sharedDbLock.release()
             cancelAlarm(context, liveAlarmID)
             if(todo != null && todo.date != null) {

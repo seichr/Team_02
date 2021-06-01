@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import java.util.*
 
-class DatabaseClass(context: Context) {
+class DatabaseTodoClass(context: Context) {
     private var appContext = context
 
     fun createDb(): TodoDatabase {

@@ -2,6 +2,8 @@ package com.backend.todo_tasker
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
+import com.backend.todo_tasker.database.Category
+import com.backend.todo_tasker.database.DatabaseCategoryClass
 import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.database.Todo
 import org.junit.Test
@@ -14,55 +16,52 @@ import org.junit.Assert.*
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class DataBaseAddInstrumentedTest {
+class DataBaseCategoryTest {
     @Test
-    fun singleAddPass() {
+    fun addCategoryPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseTodoClass(appContext)
+        val db = DatabaseCategoryClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        val testTodo = Todo(6, "Test", timeInMillis)
+        val testCategory = Category(6, "TestCategory", null, null)
 
-        val retVal = db.addToDb(datab, testTodo)
+        val retVal = db.addToDb(datab, testCategory)
         assertNotEquals(retVal, -1)
     }
 
     @Test
-    fun multiAddPass() {
+    fun addCategoryPassAddsDefaultColor() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseTodoClass(appContext)
+        val db = DatabaseCategoryClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        for(i in 0..50) {
-            val testTodo = Todo(i, "Test", timeInMillis)
-            val retVal = db.addToDb(datab, testTodo)
-            assertNotEquals(retVal, -1)
-        }
+        val testCategory = Category(6, "TestCategory", null, null)
+
+        val retVal = db.addToDb(datab, testCategory)
+        assertNotEquals(retVal, -1)
+
+        var last : Category= db.getLastEntry(datab)
+        assert(last.color != null)
     }
 
     @Test
-    fun multiUIDFail() {
+    fun addCategoryPassAddsParent() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseTodoClass(appContext)
+        val db = DatabaseCategoryClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
-        val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        var testTodo = Todo(1337, "TestThatPasses", timeInMillis)
-        var retVal = db.addToDb(datab, testTodo)
+        val testCategory = Category(6, "TestCategory", null, 0)
+
+        val retVal = db.addToDb(datab, testCategory)
         assertNotEquals(retVal, -1)
 
-        for(i in 0..50) {
-            testTodo = Todo(1337, "TestThatFails", timeInMillis)
-            retVal = db.addToDb(datab, testTodo)
-            assertEquals(retVal, -1)
-        }
+        var last : Category= db.getLastEntry(datab)
+        assert(last.color == null)
     }
 }
