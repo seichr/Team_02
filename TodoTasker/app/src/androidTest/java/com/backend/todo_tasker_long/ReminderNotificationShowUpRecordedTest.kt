@@ -105,7 +105,7 @@ class ReminderNotificationShowUpRecordedTest {
         materialButton.perform(scrollTo(), click())
 
         onView(withClassName(Matchers.equalTo(TimePicker::class.java.name)))
-                .perform(PickerActions.setTime(calendar.get(Calendar.HOUR), calendar.get(Calendar.MINUTE) + 1))
+                .perform(PickerActions.setTime(calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE) + 1))
 
 
         val materialButton2 = onView(
