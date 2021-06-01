@@ -16,7 +16,7 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import com.backend.todo_tasker.MainActivity
 import com.backend.todo_tasker.R
-import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.database.DatabaseTodoClass
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.`is`
@@ -38,7 +38,7 @@ class EndToEndTest {
     fun endToEndTest() {
         val appContext = ApplicationProvider.getApplicationContext<Application>()
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 

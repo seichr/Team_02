@@ -3,7 +3,7 @@ package com.backend.todo_tasker
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.filters.MediumTest
 import androidx.test.platform.app.InstrumentationRegistry
-import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.database.Todo
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -15,7 +15,7 @@ class DataBaseBasicInstrumentedTest {
     fun addModify() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
         val toInsert : Todo = Todo(1,"test",3)
@@ -32,7 +32,7 @@ class DataBaseBasicInstrumentedTest {
     fun DuplicateTest(){
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
@@ -47,7 +47,7 @@ class DataBaseBasicInstrumentedTest {
     fun DeleteTest() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 

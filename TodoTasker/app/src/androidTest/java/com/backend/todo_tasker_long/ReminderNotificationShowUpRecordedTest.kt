@@ -18,7 +18,7 @@ import androidx.test.uiautomator.UiObject2
 import androidx.test.uiautomator.Until
 import com.backend.todo_tasker.MainActivity
 import com.backend.todo_tasker.R
-import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.todoDb
 import junit.framework.Assert.assertEquals
 import org.hamcrest.Description
@@ -48,7 +48,7 @@ class ReminderNotificationShowUpRecordedTest {
         val notificationText =  appContext.getString(R.string.NOTIFICATION_TEXT)
         val timeout:Long =  90 * 1000
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         db.deleteDBEntries(todoDb)
 
         val calendar = Calendar.getInstance()
