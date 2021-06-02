@@ -5,6 +5,8 @@ import android.app.Activity
 import android.content.Context
 import android.content.pm.PackageManager
 import androidx.core.app.ActivityCompat
+import com.backend.todo_tasker.dbTodoClass
+import com.backend.todo_tasker.todoDb
 import java.io.*
 
 
@@ -15,7 +17,7 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
     private var appContext = Context
 
     fun backup() {
-        if(Activity!= null){
+        if (Activity != null) {
             verifyStoragePermissions(Activity)
         }
         val db = DatabaseTodoClass(appContext)
@@ -24,22 +26,22 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
         val dbFile = appContext.getDatabasePath("todo-database").absolutePath
 
         val sdir = appContext.getExternalFilesDir("/todoBackup/")
-        if(sdir != null){
+        if (sdir != null) {
             if (!sdir.exists()) {
                 sdir.mkdirs()
             }
             val sfpath =
-                    sdir.path + File.separator.toString() + "TodoDBBackup"
+                sdir.path + File.separator.toString() + "TodoDBBackup"
 
-            CopyFile(File(dbFile),File(sdir,"todo-database"))
-            CopyFile(File(dbFile+"-shm"),File(sdir,"todo-database-shm"))
-            CopyFile(File(dbFile+"-wal"),File(sdir,"todo-database-wal"))
+            CopyFile(File(dbFile), File(sdir, "todo-database"))
+            CopyFile(File(dbFile + "-shm"), File(sdir, "todo-database-shm"))
+            CopyFile(File(dbFile + "-wal"), File(sdir, "todo-database-wal"))
         }
     }
 
-    fun CopyFile(from:File, to:File){
+    fun CopyFile(from: File, to: File) {
         val savefile = to
-        if(savefile.exists())
+        if (savefile.exists())
             savefile.delete()
         savefile.createNewFile()
         val buffersize = 8 * 1024
@@ -56,19 +58,19 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
     }
 
     fun restore() {
-        if(Activity!= null){
+        if (Activity != null) {
             verifyStoragePermissions(Activity)
         }
-        val db = DatabaseTodoClass(appContext)
-        val datab = db.createDb()
-        datab.close()
+        todoDb.close()
         val dbFile = appContext.getDatabasePath("todo-database").absolutePath
 
         val sdir = appContext.getExternalFilesDir("/todoBackup/")
-        CopyFile( File(sdir,"todo-database"),File(dbFile))
-        CopyFile( File(sdir,"todo-database-shm"),File(dbFile+"-shm"))
-        CopyFile(File(sdir,"todo-database-wal"),File(dbFile+"-wal"))
+        CopyFile(File(sdir, "todo-database"), File(dbFile))
+        CopyFile(File(sdir, "todo-database-shm"), File(dbFile + "-shm"))
+        CopyFile(File(sdir, "todo-database-wal"), File(dbFile + "-wal"))
+        todoDb = dbTodoClass.createDb()
     }
+
     fun verifyStoragePermissions(activity: Activity?) {
         val REQUEST_EXTERNAL_STORAGE = 1
         val PERMISSIONS_STORAGE =
