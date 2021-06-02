@@ -16,6 +16,15 @@ class DatabaseBackupRestore(Context: Context, activity: Activity?) {
 
     private var appContext = Context
 
+    fun getLastRestoreInfo(): Long? {
+        var sdir = appContext.getExternalFilesDir("/todoBackup/")
+        sdir = File(sdir!!.absolutePath,"todo-database" )
+        if(sdir.exists())
+            return sdir.lastModified();
+        else return null;
+    }
+
+
     fun backup() {
         if (Activity != null) {
             verifyStoragePermissions(Activity)

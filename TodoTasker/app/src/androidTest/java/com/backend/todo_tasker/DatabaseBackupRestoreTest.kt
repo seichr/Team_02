@@ -56,4 +56,27 @@ class DatabaseBackupRestoreTest {
             assert(false)
         }
     }
+
+    @Test
+    fun getLastRestoreInfo(){
+        GrantPermissionRule.grant(Manifest.permission.READ_EXTERNAL_STORAGE)
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+        val backup = DatabaseBackupRestore(appContext, null)
+        val f =File(appContext.getExternalFilesDir("/todoBackup/")!!.absolutePath)
+        val toDelete1: File = File(f.absolutePath,"todo-database")
+        val toDelete2: File = File(f.absolutePath , "todo-database-shm")
+        val toDelete3: File = File(f.absolutePath , "todo-database-wal")
+        toDelete1.delete()
+        toDelete2.delete()
+        toDelete3.delete()
+
+        assert(!File(f.absolutePath , "todo-database-shm").exists() &&
+                !File(f.absolutePath , "todo-database-wal").exists() && !File(f.absolutePath,"todo-database").exists())
+
+        assert(backup.getLastRestoreInfo() == null)
+
+        backup.backup()
+
+        assert(backup.getLastRestoreInfo() != null)
+    }
 }
