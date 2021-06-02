@@ -154,12 +154,13 @@ class MainActivity : AppCompatActivity() {
             colorPicker.setRoundColorButton(true)
             colorPicker.show()
             colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
-                override fun onChooseColor(position: Int, color: Int) {
-                    // put code
+                override fun onChooseColor(position: Int, color: Int)
+                {
+                    color_button.setColorFilter(color)
                 }
 
                 override fun onCancel() {
-                    // put code
+
                 }
             })
         }
