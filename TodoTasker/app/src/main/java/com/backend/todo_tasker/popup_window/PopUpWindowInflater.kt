@@ -181,7 +181,9 @@ class PopUpWindowInflater {
         editTextDateTime?.text = taskDate
         val moreOptionsButton = modifyTaskView?.findViewById<ImageButton>(R.id.button_more_options)
         moreOptionsButton?.setOnClickListener {
-            ModifyFunctions().openMoreOptionsWindows(it, view)
+            if (adapterPosition != null) {
+                ModifyFunctions().openMoreOptionsWindows(it, view, adapterPosition)
+            }
         }
     }
 

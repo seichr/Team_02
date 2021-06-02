@@ -23,7 +23,7 @@ class ModifyFunctions {
         cancelModifyActivity()
     }
 
-    fun openMoreOptionsWindows(it: View, v: View) {
-        PopUpWindowInflater().getInstance().inflateWindow(v, WINDOWTYPE.MOREOPTIONS, it, backgroundDimmed = false)
+    fun openMoreOptionsWindows(it: View, v: View, pos: Int) {
+        PopUpWindowInflater().getInstance().inflateWindow(v, WINDOWTYPE.MOREOPTIONS, it, adapterPosition = pos, backgroundDimmed = false)
     }
 }
