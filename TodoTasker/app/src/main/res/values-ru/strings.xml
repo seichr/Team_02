@@ -22,6 +22,6 @@
     <string name="STRING_BACKUP_AND_RESTORE_BUTTON">резервное копирование и восстановление</string>
     <string name="STRING_EXPORT_TO_FILE">Экспорт в файл</string>
     <string name="STRING_RESTORE_FROM_FILE">Восстановить из файла</string>
-
+    <string name="TASKS">Задачи</string>
     <!--string name=""></string-->
 </resources>

@@ -18,6 +18,7 @@
     <string name="STRING_BACKUP_AND_RESTORE_BUTTON">Backup and Restore</string>
     <string name="STRING_EXPORT_TO_FILE">Export to file</string>
     <string name="STRING_RESTORE_FROM_FILE">Restore from file</string>
+    <string name="TASKS">Tasks</string>
 
     <string name="STRING_THEME">Theme</string>
     <string name="STRING_LIGHT_MODE">Light Mode</string>
