@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PopUpWindow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/roundedbutton7dp">
@@ -19,6 +20,7 @@
         android:textStyle="bold" />
 
     <ImageButton
+        style="@style/SettingsButtonStyle"
         android:id="@+id/button_more_options"
         android:layout_width="50dp"
         android:layout_height="50dp"
@@ -26,8 +28,7 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="20dp"
         android:layout_marginEnd="15dp"
-        android:background="@drawable/baseline_more_vert_24"
-        android:backgroundTint="@color/black" />
+        android:background="@drawable/baseline_more_vert_24"/>
 
     <TextView
         android:id="@+id/textview_modifyname"
@@ -101,6 +102,7 @@
         android:textColor="@color/black" />
 
     <Button
+        style = "@style/ChangingTextColor"
         android:id="@+id/button_modify_to_db"
         android:layout_width="130dp"
         android:layout_height="50dp"
@@ -110,5 +112,7 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/violet"
-        android:text="@string/STRING_SAVE" />
+        android:text="@string/STRING_SAVE"
+        android:textColor="@color/white"/>
+
 </RelativeLayout>

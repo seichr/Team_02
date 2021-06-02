@@ -46,7 +46,7 @@ class DateTimePickerFunctions {
                             }
                     TimePickerDialog(
                             view.context,
-                            R.style.DatePickerTheme,
+                            R.style.TimePickerTheme,
                             timeSetListener,
                             calendar[Calendar.HOUR_OF_DAY],
                             calendar[Calendar.MINUTE],

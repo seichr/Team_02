@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PopUpWindow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/roundedbutton7dp">
@@ -91,6 +92,7 @@
         android:onClick="cancelAddActivity"/>
 
     <Button
+        style = "@style/ChangingTextColor"
         android:id="@+id/button_add_to_db"
         android:layout_width="130dp"
         android:layout_height="50dp"
@@ -101,5 +103,6 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/violet"
         android:text="@string/STRING_SAVE"
+        android:textColor="@color/white"
         android:onClick="addTodoActivity" />
 </RelativeLayout>

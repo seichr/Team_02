@@ -1,5 +1,6 @@
 package com.backend.todo_tasker.popup_window
 
+import android.content.res.Configuration
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.Gravity
@@ -225,6 +226,31 @@ class PopUpWindowInflater {
         }
 
         openMenuWindow.showAtLocation(view, Gravity.START, 0, 0)
+
+        val currentNightMode = view.context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
+
+        when (currentNightMode) {
+            Configuration.UI_MODE_NIGHT_NO -> {
+                val lightmode_btn = openMenuView?.findViewById<Button>(R.id.lightmode_btn)
+                lightmode_btn?.isEnabled = false
+                val darkmode_btn = openMenuView?.findViewById<Button>(R.id.darkmode_btn)
+                darkmode_btn?.isEnabled = true
+            } // Light mode is not active, we're using the light theme
+
+            Configuration.UI_MODE_NIGHT_YES -> {
+                val lightmode_btn = openMenuView?.findViewById<Button>(R.id.lightmode_btn)
+                lightmode_btn?.isEnabled = true
+                val darkmode_btn = openMenuView?.findViewById<Button>(R.id.darkmode_btn)
+                darkmode_btn?.isEnabled = false
+            } // Night mode is active, we're using dark theme
+
+
+
+        }
+
+
+
+
     }
 
 }

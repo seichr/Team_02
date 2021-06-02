@@ -15,8 +15,6 @@
     <color name="dark_grey">#858585</color>
     <color name="ultradark_grey">#303030</color>
 
-    <color name="tasks1">#FFFFFFFF</color>
-    <color name="tasks2">#FFFAF8FD</color>
-
-
+    <color name="tasks1">#303030</color>
+    <color name="tasks2">#5e5e5e</color>
 </resources>

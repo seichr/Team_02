@@ -18,6 +18,7 @@ import com.backend.todo_tasker.popup_window.WINDOWTYPE
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import java.util.concurrent.Semaphore
 import androidx.appcompat.widget.Toolbar
+import com.backend.todo_tasker.button_functions.MenuFunctions
 
 
 lateinit var dbTodoClass: DatabaseTodoClass
@@ -108,6 +109,15 @@ class MainActivity : AppCompatActivity() {
     private fun openMenuActivity(view: View) {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.MENU)
     }
+
+    fun changeToDarkMode(view: View) {
+        MenuFunctions().darkModeFunction()
+    }
+
+    fun changeToLightMode(view: View) {
+        MenuFunctions().lightModeFunction()
+    }
+
 }
 
 
