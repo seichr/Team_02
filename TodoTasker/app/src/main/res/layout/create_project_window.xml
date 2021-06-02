@@ -99,9 +99,9 @@
         android:layout_marginTop="50dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/light_grey"
+        android:onClick="cancelProCreate"
         android:text="@string/STRING_CANCEL"
-        android:textColor="@color/black"
-        android:onClick="cancelAddCategoryActivity"/>
+        android:textColor="@color/black" />
 
     <Button
         android:id="@+id/button_add_to_db"
@@ -113,6 +113,6 @@
         android:layout_marginEnd="20dp"
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/violet"
-        android:text="@string/STRING_SAVE"
-        android:onClick="addCategoryActivity" />
+        android:onClick="saveProCreate"
+        android:text="@string/STRING_SAVE" />
 </RelativeLayout>

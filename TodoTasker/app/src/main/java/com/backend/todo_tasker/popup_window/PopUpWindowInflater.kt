@@ -71,6 +71,10 @@ class PopUpWindowInflater {
         openMenuWindow!!.dismiss()
     }
 
+    fun dismissProjectWindow() {
+        createProjectWindow!!.dismiss()
+    }
+
     fun inflateWindow(view: View,
                       type: WINDOWTYPE,
                       it: View? = null,

@@ -14,8 +14,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.database.DatabaseBackupRestore
 import com.backend.todo_tasker.button_functions.DateTimePickerFunctions
 import com.backend.todo_tasker.button_functions.ColorMenuButtonFunctions
-import com.backend.todo_tasker.database.DatabaseTodoClass
-import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.db_operations.DbOperations
 import com.backend.todo_tasker.language.LanguageHelper
 import com.backend.todo_tasker.popup_window.PopUpWindowInflater
@@ -23,6 +21,9 @@ import com.backend.todo_tasker.popup_window.WINDOWTYPE
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import java.util.concurrent.Semaphore
 import androidx.appcompat.widget.Toolbar
+import com.backend.todo_tasker.database.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
@@ -31,6 +32,12 @@ import petrov.kristiyan.colorpicker.ColorPicker
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
 lateinit var dbBackupRestore: DatabaseBackupRestore
+
+lateinit var dbCategoryClass: DatabaseCategoryClass
+lateinit var categoryDb: CategoryDatabase
+
+val sharedTodoDbLock = Semaphore(1)
+val sharedCategoryDbLock = Semaphore(1)
 
 val sharedDbLock = Semaphore(1)
 
@@ -54,6 +61,15 @@ class MainActivity : AppCompatActivity() {
         dbTodoClass = DatabaseTodoClass(applicationContext)
         todoDb = dbTodoClass.createDb()
         dbBackupRestore = DatabaseBackupRestore(applicationContext, this)
+
+        dbCategoryClass = DatabaseCategoryClass(applicationContext)
+        categoryDb = dbCategoryClass.createDb()
+
+        GlobalScope.launch {
+            sharedCategoryDbLock.acquire()
+            dbCategoryClass.addToDb(categoryDb, Category(0, null, null, null))
+            sharedCategoryDbLock.release()
+        }
 
         setMainFragment()
 
@@ -148,6 +164,16 @@ class MainActivity : AppCompatActivity() {
     fun pickColor(view: View)
     {
         ColorMenuButtonFunctions().pickColorFunction(this, view)
+    }
+
+    fun saveProCreate(view: View)
+    {
+        ColorMenuButtonFunctions().saveProjectCreation(view)
+    }
+
+    fun cancelProCreate(view: View)
+    {
+        ColorMenuButtonFunctions().cancelProjectCreation()
     }
 
     fun changeToDarkMode(view: View) {
