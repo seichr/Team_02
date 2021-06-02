@@ -85,7 +85,7 @@
         android:ems="10"
         android:inputType="none"
         android:labelFor="@+id/edittext_name"
-        android:onClick="clickOnDateTimeField"
+        android:onClick="pickColor"
         android:src="@drawable/roundedbutton45dp"
         android:tint="#00C11C" />
 

@@ -1,5 +1,6 @@
 package com.backend.todo_tasker
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.*
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.database.DatabaseBackupRestore
 import com.backend.todo_tasker.button_functions.DateTimePickerFunctions
+import com.backend.todo_tasker.button_functions.ColorMenuButtonFunctions
 import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.database.TodoDatabase
 import com.backend.todo_tasker.db_operations.DbOperations
@@ -24,7 +26,7 @@ import androidx.appcompat.widget.Toolbar
 import java.text.SimpleDateFormat
 import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
-
+import petrov.kristiyan.colorpicker.ColorPicker
 
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
@@ -43,6 +45,7 @@ var taskTimeMillis = 0L
 class MainActivity : AppCompatActivity() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var instance: Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -53,6 +56,8 @@ class MainActivity : AppCompatActivity() {
         dbBackupRestore = DatabaseBackupRestore(applicationContext, this)
 
         setMainFragment()
+
+        instance = this
 
         DbOperations().getInstance().refreshListView()
     }
@@ -140,6 +145,25 @@ class MainActivity : AppCompatActivity() {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.ADDCATEGORY)
     }
 
+    fun pickColor(view: View)
+    {
+        val color_button = view.findViewById<ImageButton>(R.id.image_btn_color)
+
+        color_button.setOnClickListener {
+            val colorPicker = ColorPicker(this)
+            colorPicker.setRoundColorButton(true)
+            colorPicker.show()
+            colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
+                override fun onChooseColor(position: Int, color: Int) {
+                    // put code
+                }
+
+                override fun onCancel() {
+                    // put code
+                }
+            })
+        }
+    }
 
     fun changeToDarkMode(view: View) {
         MenuFunctions().darkModeFunction()
