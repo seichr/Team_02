@@ -103,5 +103,6 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/violet"
         android:text="@string/STRING_SAVE"
+        android:textColor="@color/white"
         android:onClick="addTodoActivity" />
 </RelativeLayout>
