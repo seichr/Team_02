@@ -1,6 +1,7 @@
 package com.backend.todo_tasker
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.view.*
 import android.widget.*
 import android.widget.Toast.LENGTH_LONG
@@ -20,11 +21,14 @@ import com.backend.todo_tasker.popup_window.WINDOWTYPE
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import java.util.concurrent.Semaphore
 import androidx.appcompat.widget.Toolbar
+import java.text.SimpleDateFormat
+import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
 
 
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
+lateinit var dbBackupRestore: DatabaseBackupRestore
 
 val sharedDbLock = Semaphore(1)
 
@@ -46,6 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         dbTodoClass = DatabaseTodoClass(applicationContext)
         todoDb = dbTodoClass.createDb()
+        dbBackupRestore = DatabaseBackupRestore(applicationContext, this)
 
         loadTodoList()
     }
@@ -100,7 +105,22 @@ class MainActivity : AppCompatActivity() {
 
 
     fun openBackupAndRestoreWindowActivity(view: View) {
+        dbBackupRestore.backup()
         setContentView(R.layout.backup_and_restore_window)
+
+        var timeAsNumber = dbBackupRestore.getLastRestoreInfo()
+        if (timeAsNumber != null) {
+            var date =  Date(timeAsNumber)
+            val format = SimpleDateFormat("dd.MM.yyyy")
+            val dateAsString = format.format(date)
+            val text = this.findViewById<View>(android.R.id.content).findViewById<TextView>(R.id.textView_LastBackup)
+            if (text != null) {
+                  text.text = SpannableStringBuilder(dateAsString.toString())
+            }
+        }
+
+        dbBackupRestore.setExportString(this)
+
         PopUpWindowInflater().getInstance().dismissMenuWindow()
     }
 
@@ -110,19 +130,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun exportToFile(view: View) {
-        DatabaseBackupRestore(applicationContext, this).backup()
+
         openMainWindowActivity(view)
+
         val backupSuccessful = getString(R.string.STRING_BACKUP_SUCCESSFUL)
         Toast.makeText(applicationContext, backupSuccessful, LENGTH_LONG).show()
     }
 
     fun restoreFromFile(view: View) {
-        DatabaseBackupRestore(applicationContext, this).restore()
+        dbBackupRestore.restore()
         openMainWindowActivity(view)
         val restoreSuccessful = getString(R.string.STRING_RESTORE_SUCCESSFUL)
         Toast.makeText(applicationContext, restoreSuccessful, LENGTH_LONG).show()
-
-        // TODO date des letzten backup
     }
 
     private fun loadTodoList() {

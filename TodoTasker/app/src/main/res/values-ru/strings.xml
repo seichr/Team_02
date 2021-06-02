@@ -26,6 +26,7 @@
     <string name="STRING_BACKUP_AND_RESTORE_TITLE"><![CDATA[Резервное копирование & Восстановить]]></string>
     <string name="STRING_BACKUP_SUCCESSFUL">Резервное копирование выполнено успешно</string>
     <string name="STRING_RESTORE_SUCCESSFUL">Восстановление прошло успешно</string>
+    <string name="STRING_LAST_BACKUP">Резервной копии пока нет</string>
     <string name="TASKS">Задачи</string>
     <!--string name=""></string-->
 </resources>
