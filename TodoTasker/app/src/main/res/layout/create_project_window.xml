@@ -60,9 +60,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_adddate"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="5dp"
+        android:layout_toEndOf="@+id/image_btn_color"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="20dp"
         android:autofillHints=""
         android:ems="10"
@@ -71,6 +70,24 @@
         android:editable="false"
         android:onClick="clickOnDateTimeField"
         android:labelFor="@+id/edittext_name" />
+
+    <ImageButton
+        android:id="@+id/image_btn_color"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textview_adddate"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:background="#FFFFFF"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="none"
+        android:labelFor="@+id/edittext_name"
+        android:onClick="clickOnDateTimeField"
+        android:src="@drawable/roundedbutton45dp"
+        android:tint="#00C11C" />
 
     <Button
         android:id="@+id/button_add_cancel"

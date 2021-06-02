@@ -63,4 +63,5 @@ dependencies {
     // optional - Test helpers
     testImplementation "androidx.room:room-testing:$room_version"
     // #########
+    implementation 'petrov.kristiyan:colorpicker-library:1.1.10'
 }
