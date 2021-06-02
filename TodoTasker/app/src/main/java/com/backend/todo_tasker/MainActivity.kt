@@ -3,6 +3,7 @@ package com.backend.todo_tasker
 import android.os.Bundle
 import android.view.*
 import android.widget.*
+import android.widget.Toast.LENGTH_LONG
 import androidx.appcompat.app.AppCompatActivity
 import com.backend.todo_tasker.background_service.NotificationHelper
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -68,7 +69,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addTodoActivity(view: View) {
-        val textField: EditText? = PopUpWindowInflater().getInstance().getAddTaskView()?.findViewById(R.id.edittext_name)
+        val textField: EditText? =
+            PopUpWindowInflater().getInstance().getAddTaskView()?.findViewById(R.id.edittext_name)
 
         val title = textField?.text.toString()
         val date = taskTimeMillis
@@ -80,7 +82,7 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    fun clickOnDateTimeField(view: View){
+    fun clickOnDateTimeField(view: View) {
         DateTimePickerFunctions().clickOnDateTimeField(view, WINDOWTYPE.ADD)
     }
 
@@ -109,11 +111,18 @@ class MainActivity : AppCompatActivity() {
 
     fun exportToFile(view: View) {
         DatabaseBackupRestore(applicationContext, this).backup()
-        // TODO message "Backup successfull".
+        openMainWindowActivity(view)
+        val backupSuccessful = getString(R.string.STRING_BACKUP_SUCCESSFUL)
+        Toast.makeText(applicationContext, backupSuccessful, LENGTH_LONG).show()
     }
 
     fun restoreFromFile(view: View) {
         DatabaseBackupRestore(applicationContext, this).restore()
+        openMainWindowActivity(view)
+        val restoreSuccessful = getString(R.string.STRING_RESTORE_SUCCESSFUL)
+        Toast.makeText(applicationContext, restoreSuccessful, LENGTH_LONG).show()
+
+        // TODO date des letzten backup
     }
 
     private fun loadTodoList() {
