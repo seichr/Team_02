@@ -147,23 +147,7 @@ class MainActivity : AppCompatActivity() {
 
     fun pickColor(view: View)
     {
-        val color_button = view.findViewById<ImageButton>(R.id.image_btn_color)
-
-        color_button.setOnClickListener {
-            val colorPicker = ColorPicker(this)
-            colorPicker.setRoundColorButton(true)
-            colorPicker.show()
-            colorPicker.setOnChooseColorListener(object : ColorPicker.OnChooseColorListener {
-                override fun onChooseColor(position: Int, color: Int)
-                {
-                    color_button.setColorFilter(color)
-                }
-
-                override fun onCancel() {
-
-                }
-            })
-        }
+        ColorMenuButtonFunctions().pickColorFunction(this, view)
     }
 
     fun changeToDarkMode(view: View) {
