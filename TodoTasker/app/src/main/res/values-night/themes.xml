@@ -45,8 +45,6 @@
         <item name="android:background">@color/purple_title_bar</item>
     </style>
 
-
-
     <style name="DatePickerTheme" parent="Theme.MaterialComponents.Light.Dialog">
         <item name="android:windowBackground">@color/ultradark_grey</item>
         <item name="colorPrimary">@color/purple_title_bar</item>
