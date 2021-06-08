@@ -38,7 +38,7 @@
 | Multi-Language support | TT-023 | X | |
 | Simple reminder | TT-003 | X | |
 | Menu | TT-026 | X | |
-| Dark mode | TT-018 | | X |
+| Dark mode | TT-018 | X | |
 | Backup & Restore | TT-015 | | X |
 | Categorization | TT-004 | | X |
 
