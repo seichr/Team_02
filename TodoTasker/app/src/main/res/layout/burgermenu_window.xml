@@ -22,20 +22,18 @@
             android:textColor="@color/white"/>
     </RelativeLayout>
 
-    <Button
-        android:id="@+id/button_example"
+    <TextView
+        android:id="@+id/themes"
         style="@style/BurgerMenuButtons"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/layout_purple_zone"
-        android:text="DELETE ME BEFORE RELEASE!"
-        android:textSize="12sp"
-        android:textAlignment="textStart"
-        app:icon="@drawable/abc_vector_test"
-        app:iconTint="#000000"
-        />
-
-        <!-- android:onClick="Funktionsname" -->
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_purple_zone"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/STRING_THEME"
+        android:textSize="20dp"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/lightmode_btn"
@@ -47,7 +45,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:onClick="changeToLightMode"
-        android:text="Light Mode"
+        android:text="@string/STRING_LIGHT_MODE"
         android:textAlignment="textStart"
         android:textSize="12sp"
         app:icon="@drawable/darkmode_black_24"
@@ -63,31 +61,29 @@
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:onClick="changeToDarkMode"
-        android:text="Dark Mode"
+        android:text="@string/STRING_DARK_MODE"
         android:textAlignment="textStart"
         android:textSize="12sp"
         app:icon="@drawable/lightmode_black_24"
         app:iconTint="?attr/colorPrimaryDark" />
 
-    <TextView
-        android:id="@+id/themes"
-        style="@style/BurgerMenuButtons"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button_example"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="0dp"
-        android:text="Theme"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+    <View
+        android:id="@+id/separator_1"
+        android:layout_width="270dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/darkmode_btn"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/darker_gray"/>
 
     <TextView
         android:id="@+id/text_burgermenu_placeholder"
         android:layout_width="270dp"
         android:layout_height="match_parent"
-        android:layout_below="@id/button_example"
+        android:layout_below="@id/separator_1"
         android:text=""
         android:textSize="12sp" />
+
+
 
 </RelativeLayout>
