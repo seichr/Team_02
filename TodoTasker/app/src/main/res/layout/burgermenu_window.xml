@@ -36,19 +36,7 @@
         android:textStyle="bold" />
 
 
-    <Button
-        android:id="@+id/button_backup"
-        android:layout_width="270dp"
-        android:layout_height="60dp"
-        android:layout_below="@id/button_example"
-        android:backgroundTint="@color/white"
-        android:text="@string/STRING_BACKUP_AND_RESTORE_BUTTON"
-        android:textColor="@color/black"
-        android:textSize="12sp"
-        android:textAlignment="textStart"
-        app:icon="@drawable/outline_backup_24"
-        app:iconTint="#000000"
-    android:onClick="openBackupAndRestoreWindowActivity"/>
+
 
 
     <Button
@@ -100,6 +88,17 @@
         android:text=""
         android:textSize="12sp" />
 
-
+    <Button
+        android:id="@+id/button_backup"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/darkmode_btn"
+        android:text="@string/STRING_BACKUP_AND_RESTORE_BUTTON"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:icon="@drawable/outline_backup_24"
+        app:iconTint="?attr/colorPrimaryDark"
+        android:onClick="openBackupAndRestoreWindowActivity"/>
 
 </RelativeLayout>
