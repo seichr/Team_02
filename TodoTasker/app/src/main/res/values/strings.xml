@@ -15,5 +15,8 @@
     <string name="STRING_DUPLICATETASK">Duplicate Task</string>
     <string name="STRING_DELETETASK">Delete Task</string>
     <string name="STRING_DATETIMEFORMAT">dd.MM.yy HH:mm</string>
+    <string name="STRING_THEME">Theme</string>
+    <string name="STRING_LIGHT_MODE">Light Mode</string>
+    <string name="STRING_DARK_MODE">Dark Mode</string>
     <!--string name=""></string-->
 </resources>
