@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity() {
         languageHelper.toggleLanguage(resources, this)
     }
 
+    fun displayAboutActivity(item: MenuItem) {
+        setContentView(R.layout.info_about)
+    }
+
     fun cancelAddActivity(view: View) {
         PopUpWindowInflater().getInstance().dismissAddTaskWindow()
     }
@@ -170,6 +174,11 @@ class MainActivity : AppCompatActivity() {
         }
 
         DbOperations().getInstance().refreshListView()
+    }
+
+    fun displayAboutActivity(view: View) {
+        setContentView(R.layout.info_about)
+        PopUpWindowInflater().getInstance().dismissMenuWindow()
     }
 }
 

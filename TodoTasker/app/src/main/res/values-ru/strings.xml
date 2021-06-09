@@ -28,4 +28,27 @@
     <string name="STRING_RESTORE_SUCCESSFUL">Восстановление прошло успешно</string>
     <string name="STRING_LAST_BACKUP">Резервной копии пока нет</string>
     <string name="TASKS">Задачи</string>
+    <string name="STRING_ABOUT">О нас</string>
+    <string name="STRING_APP_DESCRIPTION">Бесплатное приложение для создания списка дел для Android с настраиваемыми функциями напоминания и дополнительными платными параметрами настройки / функциями геймификации.</string>
+    <string name="STRING_TEAM">Команда</string>
+    <string name="STRING_ROLES">"Роль
+Владелец продукта
+Скрам Мастер
+Разработчик
+Разработчик
+Разработчик
+Разработчик
+Разработчик
+Разработчик
+Разработчик"</string>
+    <string name="STRING_NAMES">"Имя
+Andreas Steinkellner
+Stefan Schintler
+Christian Seifert
+Erwin Peterlin
+Yuma Buchrieser
+Bernd Grabner
+Lukas Kloiber
+Manuel Krenn
+Stefan Schörkmeier"</string>
 </resources>
