@@ -76,17 +76,7 @@
         android:layout_width="270dp"
         android:layout_height="1dp"
         android:layout_below="@+id/darkmode_btn"
-        android:layout_marginTop="5dp"
-        android:layout_marginBottom="5dp"
         android:background="@android:color/darker_gray"/>
-
-    <TextView
-        android:id="@+id/text_burgermenu_placeholder"
-        android:layout_width="270dp"
-        android:layout_height="match_parent"
-        android:layout_below="@id/separator_1"
-        android:text=""
-        android:textSize="12sp" />
 
     <Button
         android:id="@+id/button_backup"
@@ -100,5 +90,33 @@
         app:icon="@drawable/outline_backup_24"
         app:iconTint="?attr/colorPrimaryDark"
         android:onClick="openBackupAndRestoreWindowActivity"/>
+
+    <View
+        android:id="@+id/separator_2"
+        android:layout_width="270dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/button_backup"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/button_about"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/separator_2"
+        android:text="@string/STRING_ABOUT"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:icon="@drawable/baseline_info_24"
+        app:iconTint="?attr/colorPrimaryDark"
+        android:onClick="displayAboutActivity"/>
+
+    <TextView
+        android:id="@+id/text_burgermenu_placeholder"
+        android:layout_width="270dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button_about"
+        android:text=""
+        android:textSize="12sp" />
 
 </RelativeLayout>

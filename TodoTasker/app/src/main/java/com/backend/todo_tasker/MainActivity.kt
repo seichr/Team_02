@@ -175,6 +175,11 @@ class MainActivity : AppCompatActivity() {
 
         DbOperations().getInstance().refreshListView()
     }
+
+    fun displayAboutActivity(view: View) {
+        setContentView(R.layout.info_about)
+        PopUpWindowInflater().getInstance().dismissMenuWindow()
+    }
 }
 
 
