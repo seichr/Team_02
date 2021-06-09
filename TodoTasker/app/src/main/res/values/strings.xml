@@ -19,7 +19,7 @@
     <string name="STRING_EXPORT_TO_FILE">Export to file</string>
     <string name="STRING_RESTORE_FROM_FILE">Restore from file</string>
     <!-- CDATA used so that & throws no error. -->
-    <string name="STRING_BACKUP_AND_RESTORE_TITLE"><![CDATA[Backup & Restore]]></string>
+    <string name="STRING_BACKUP_AND_RESTORE_TITLE">Backup</string>
     <string name="STRING_BACKUP_SUCCESSFUL">Backup successful</string>
     <string name="STRING_RESTORE_SUCCESSFUL">Restore successful</string>
     <string name="STRING_LAST_BACKUP">There is no backup yet</string>
