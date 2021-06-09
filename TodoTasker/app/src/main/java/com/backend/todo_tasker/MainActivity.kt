@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
+import com.backend.todo_tasker.tasklist_view.RecyclerAdapterCategory
 
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
@@ -44,8 +45,13 @@ val notificationHelper = NotificationHelper()
 val alarmHelper = AlarmHelper()
 
 lateinit var adapter: RecyclerAdapter
+lateinit var adapterCategory: RecyclerAdapterCategory
+
 var todoList: RecyclerView? = null
+var projectList: RecyclerView? = null
 var taskTimeMillis = 0L
+
+var nextColor = 0
 
 class MainActivity : AppCompatActivity() {
 
@@ -139,6 +145,7 @@ class MainActivity : AppCompatActivity() {
     fun openProjectSettings(v: View) {
         setContentView(R.layout.project_settings)
         PopUpWindowInflater().getInstance().dismissMenuWindow()
+        loadProjectList()
     }
 
     fun openMainWindowActivity(view: View) {
@@ -149,6 +156,7 @@ class MainActivity : AppCompatActivity() {
 
     fun openAddProjectWindow(view: View) {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.ADDCATEGORY)
+        DbOperations().getInstance().refreshListViewProjects()
     }
 
     fun pickColor(view: View)
@@ -236,6 +244,22 @@ class MainActivity : AppCompatActivity() {
         }
 
         DbOperations().getInstance().refreshListView()
+    }
+
+    private fun loadProjectList() {
+        projectList = findViewById(R.id.project_list)
+        projectList?.adapter = RecyclerAdapterCategory().getInstance()
+
+        linearLayoutManager = LinearLayoutManager(this)
+        projectList?.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            projectList?.context,
+            linearLayoutManager.orientation
+        )
+        projectList?.addItemDecoration(dividerItemDecoration)
+
+        DbOperations().getInstance().refreshListViewProjects()
     }
 
     fun displayAboutActivity(view: View) {

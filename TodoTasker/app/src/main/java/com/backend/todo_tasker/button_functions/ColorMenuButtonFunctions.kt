@@ -1,9 +1,11 @@
 package com.backend.todo_tasker.button_functions
 
 import android.app.Activity
+import android.content.res.ColorStateList
 import android.view.View
 import android.widget.EditText
 import android.widget.ImageButton
+import androidx.appcompat.widget.AppCompatImageButton
 import com.backend.todo_tasker.*
 import com.backend.todo_tasker.database.Category
 import com.backend.todo_tasker.popup_window.PopUpWindowInflater
@@ -16,12 +18,11 @@ class ColorMenuButtonFunctions {
     fun saveProjectCreation(view: View)
     {
         var name = view.rootView.findViewById<EditText>(R.id.edittext_name).text.toString()
-        var color = view.rootView.findViewById<ImageButton>(R.id.image_btn_color).imageTintList?.defaultColor
 
         GlobalScope.launch {
             sharedCategoryDbLock.acquire()
             var id = dbCategoryClass.getLastEntry(categoryDb).uid + 1
-            dbCategoryClass.addToDb(categoryDb, Category(id, name, color, null))
+            dbCategoryClass.addToDb(categoryDb, Category(id, name, nextColor, null))
             sharedCategoryDbLock.release()
         }
 
@@ -45,6 +46,7 @@ class ColorMenuButtonFunctions {
                 override fun onChooseColor(position: Int, color: Int)
                 {
                     color_button.setColorFilter(color)
+                    nextColor = color
                 }
 
                 override fun onCancel() {
