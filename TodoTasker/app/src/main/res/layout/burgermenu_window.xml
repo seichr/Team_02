@@ -24,7 +24,7 @@
 
     <Button
         android:id="@+id/button_projects"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/projects_text"
         android:layout_width="210dp"
         android:layout_height="60dp"
         android:layout_below="@id/layout_purple_zone"
@@ -33,17 +33,15 @@
         android:text="@string/STRING_YOUR_PROJECT"
         android:textAlignment="textStart"
         android:textAllCaps="false"
-        android:textColor="@color/black"
         android:textSize="14sp" />
 
     <ImageButton
         android:id="@+id/button_projects_settings"
-        style="@style/Widget.AppCompat.Button.Borderless"
+        style="@style/projects_img_button"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_below="@id/layout_purple_zone"
         android:layout_toEndOf="@id/button_projects"
-        android:tint="@color/black"
         android:src="@drawable/baseline_settings_24"
         android:onClick="openProjectSettings"
         android:contentDescription="@string/STRING_PROJECT_SETTINGS" />
