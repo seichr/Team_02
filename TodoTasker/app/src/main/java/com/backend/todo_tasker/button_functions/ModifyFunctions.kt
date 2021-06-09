@@ -24,6 +24,18 @@ class ModifyFunctions {
     }
 
     fun openMoreOptionsWindows(it: View, v: View, pos: Int) {
-        PopUpWindowInflater().getInstance().inflateWindow(v, WINDOWTYPE.MOREOPTIONS, it, adapterPosition = pos, backgroundDimmed = false)
+        PopUpWindowInflater().getInstance().inflateWindow(
+            v,
+            WINDOWTYPE.MOREOPTIONS,
+            it,
+            adapterPosition = pos,
+            backgroundDimmed = false
+        )
+    }
+
+    fun deleteCompletedTask(textViewUID: TextView, adapterPosition: Int) {
+        val uid = textViewUID.text.toString().toInt()
+        DbOperations().getInstance().deleteOperation(uid, adapterPosition)
+        PopUpWindowInflater().getInstance().dismissModifyTaskWindow()
     }
 }

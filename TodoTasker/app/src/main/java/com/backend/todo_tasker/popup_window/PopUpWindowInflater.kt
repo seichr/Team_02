@@ -185,6 +185,15 @@ class PopUpWindowInflater {
                 ModifyFunctions().updateModifyActivity(editTextName, view.item_uid, adapterPosition)
             }
         }
+
+        val completeButton = modifyTaskView?.findViewById<Button>(R.id.button_complete_task)
+        completeButton?.setOnClickListener {
+            if (adapterPosition != null) {
+                ModifyFunctions().deleteCompletedTask(view.item_uid, adapterPosition)
+            }
+        }
+
+
         val editTextDateTime = modifyTaskView?.findViewById<EditText>(R.id.edittext_modify_datetime)
         editTextDateTime?.setOnClickListener {
             DateTimePickerFunctions().clickOnDateTimeField(it, WINDOWTYPE.MODIFY)
