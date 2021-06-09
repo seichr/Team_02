@@ -22,7 +22,7 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:text="@string/STRING_PLACEHOLDER" />
 
-    <ImageButton
+    <ImageView
         android:id="@+id/category_color"
         android:layout_width="20dp"
         android:layout_height="20dp"
@@ -35,9 +35,8 @@
         android:ems="10"
         android:inputType="none"
         android:labelFor="@+id/edittext_name"
-        android:onClick="pickColor"
         android:src="@drawable/roundedbutton20dp"
-        android:tint="#00C11C"
+        app:tint="#00C11C"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
