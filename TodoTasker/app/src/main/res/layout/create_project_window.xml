@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PopUpWindow"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@drawable/roundedbutton7dp">
 
     <TextView
         android:id="@+id/textview_addtitle"
+        style="@style/ChangingTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -20,6 +22,7 @@
 
     <TextView
         android:id="@+id/textview_addname"
+        style="@style/ChangingTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textview_addtitle"
@@ -46,6 +49,7 @@
 
     <TextView
         android:id="@+id/textview_adddate"
+        style="@style/ChangingTextColor"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/edittext_name"
@@ -114,5 +118,6 @@
         android:layout_marginBottom="20dp"
         android:backgroundTint="@color/violet"
         android:onClick="saveProCreate"
+        android:textColor="@color/white"
         android:text="@string/STRING_SAVE" />
 </RelativeLayout>
