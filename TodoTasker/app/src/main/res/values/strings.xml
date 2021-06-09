@@ -27,5 +27,27 @@
     <string name="STRING_THEME">Theme</string>
     <string name="STRING_LIGHT_MODE">Light Mode</string>
     <string name="STRING_DARK_MODE">Dark Mode</string>
-    <string name="about">About</string>
+    <string name="STRING_ABOUT">About</string>
+    <string name="STRING_APP_DESCRIPTION">A free to do list application for Android with custom reminder functionality and additional paid customization options / gamification features.</string>
+    <string name="STRING_TEAM">Team</string>
+    <string name="STRING_ROLES">"Role
+Product Owner
+Scrum Master
+Senior Developer
+Senior Developer
+Developer
+Developer
+Developer
+Developer
+Developer"</string>
+    <string name="STRING_NAMES">"Name
+Andreas Steinkellner
+Stefan Schintler
+Christian Seifert
+Erwin Peterlin
+Yuma Buchrieser
+Bernd Grabner
+Lukas Kloiber
+Manuel Krenn
+Stefan Schörkmeier"</string>
 </resources>
