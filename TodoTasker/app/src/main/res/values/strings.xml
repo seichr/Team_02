@@ -27,4 +27,5 @@
     <string name="STRING_THEME">Theme</string>
     <string name="STRING_LIGHT_MODE">Light Mode</string>
     <string name="STRING_DARK_MODE">Dark Mode</string>
+    <string name="about">About</string>
 </resources>

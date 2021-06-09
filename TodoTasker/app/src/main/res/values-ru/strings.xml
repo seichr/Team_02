@@ -28,4 +28,5 @@
     <string name="STRING_RESTORE_SUCCESSFUL">Восстановление прошло успешно</string>
     <string name="STRING_LAST_BACKUP">Резервной копии пока нет</string>
     <string name="TASKS">Задачи</string>
+    <string name="about">О</string>
 </resources>

@@ -65,6 +65,10 @@ class MainActivity : AppCompatActivity() {
         languageHelper.toggleLanguage(resources, this)
     }
 
+    fun displayAboutActivity(item: MenuItem) {
+        setContentView(R.layout.info_about)
+    }
+
     fun cancelAddActivity(view: View) {
         PopUpWindowInflater().getInstance().dismissAddTaskWindow()
     }
