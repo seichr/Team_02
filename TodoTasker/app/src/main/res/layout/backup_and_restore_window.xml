@@ -45,17 +45,16 @@
 
     <Button
         android:id="@+id/button_exportToFile"
+        style="@style/BurgerMenuButtons"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_below="@id/layout_purple_zone"
-        android:backgroundTint="@color/white"
         android:onClick="exportToFile"
         android:text="@string/STRING_EXPORT_TO_FILE"
         android:textAlignment="textStart"
-        android:textColor="@color/black"
         android:textSize="12sp"
         app:icon="@drawable/outline_folder_24"
-        app:iconTint="#000000"
+        app:iconTint="?attr/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/layout_purple_zone" />
@@ -63,18 +62,17 @@
 
     <Button
         android:id="@+id/button_restoreFromFile"
+        style="@style/BurgerMenuButtons"
         android:layout_width="match_parent"
         android:layout_height="57dp"
         android:layout_below="@id/button_exportToFile"
         android:layout_marginTop="20dp"
-        android:backgroundTint="@color/white"
         android:onClick="restoreFromFile"
         android:text="@string/STRING_RESTORE_FROM_FILE"
         android:textAlignment="textStart"
-        android:textColor="@color/black"
         android:textSize="12sp"
         app:icon="@drawable/outline_file_download_24"
-        app:iconTint="#000000"
+        app:iconTint="?attr/colorPrimaryDark"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button_exportToFile" />
@@ -90,7 +88,7 @@
         android:layout_marginTop="127dp"
         android:layout_marginEnd="192dp"
         android:text="@string/STRING_LAST_BACKUP"
-        android:textColor="@color/black"
+        style="@style/BurgerMenuButtons"
         tools:layout_editor_absoluteX="175dp"
         tools:layout_editor_absoluteY="97dp" />
 
@@ -105,7 +103,7 @@
         android:layout_marginTop="54dp"
         android:layout_marginEnd="190dp"
         android:text="PLACEHOLDER"
-        android:textColor="@color/black"
+        style="@style/BurgerMenuButtons"
         tools:layout_editor_absoluteX="175dp"
         tools:layout_editor_absoluteY="97dp" />
 
