@@ -27,7 +27,6 @@ import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
-import petrov.kristiyan.colorpicker.ColorPicker
 
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
@@ -36,7 +35,6 @@ lateinit var dbBackupRestore: DatabaseBackupRestore
 lateinit var dbCategoryClass: DatabaseCategoryClass
 lateinit var categoryDb: CategoryDatabase
 
-val sharedTodoDbLock = Semaphore(1)
 val sharedCategoryDbLock = Semaphore(1)
 
 val sharedDbLock = Semaphore(1)
@@ -113,14 +111,6 @@ class MainActivity : AppCompatActivity() {
         PopUpWindowInflater().getInstance().dismissAddTaskWindow()
     }
 
-    fun cancelAddCategoryActivity(view: View) {
-
-    }
-
-    fun addCategoryActivity(view: View) {
-
-    }
-
     fun openAddWindowActivity(view: View) {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.ADD)
     }
@@ -188,9 +178,9 @@ class MainActivity : AppCompatActivity() {
     fun openBackupAndRestoreWindowActivity(view: View) {
         setContentView(R.layout.backup_and_restore_window)
 
-        var timeAsNumber = dbBackupRestore.getLastRestoreInfo()
+        val timeAsNumber = dbBackupRestore.getLastRestoreInfo()
         if (timeAsNumber != null) {
-            var date =  Date(timeAsNumber)
+            val date =  Date(timeAsNumber)
             val format = SimpleDateFormat("dd.MM.yyyy")
             val dateAsString = format.format(date)
             val text = this.findViewById<View>(android.R.id.content).findViewById<TextView>(R.id.textView_LastBackup)
