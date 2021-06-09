@@ -19,5 +19,14 @@
     <string name="STRING_THEME">Тема</string>
     <string name="STRING_LIGHT_MODE">Легкий режим</string>
     <string name="STRING_DARK_MODE">Темный режим</string>
+    <string name="STRING_BACKUP_AND_RESTORE_BUTTON">резервное копирование и восстановление</string>
+    <string name="STRING_EXPORT_TO_FILE">Экспорт в файл</string>
+    <string name="STRING_RESTORE_FROM_FILE">Восстановить из файла</string>
+    <!-- CDATA used so that & throws no error. -->
+    <string name="STRING_BACKUP_AND_RESTORE_TITLE">Резервное копирование</string>
+    <string name="STRING_BACKUP_SUCCESSFUL">Резервное копирование выполнено успешно</string>
+    <string name="STRING_RESTORE_SUCCESSFUL">Восстановление прошло успешно</string>
+    <string name="STRING_LAST_BACKUP">Резервной копии пока нет</string>
+    <string name="TASKS">Задачи</string>
     <!--string name=""></string-->
 </resources>

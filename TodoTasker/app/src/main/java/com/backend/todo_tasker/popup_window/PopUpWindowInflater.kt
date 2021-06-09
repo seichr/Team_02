@@ -26,23 +26,25 @@ class PopUpWindowInflater {
     }
 
     private var backgroundDimmerWindow: PopupWindow? = null
-    private var addTaskView:            View?        = null
-    private var addTaskWindow:          PopupWindow? = null
-    private var modifyTaskView:         View?        = null
-    private var modifyTaskWindow:       PopupWindow? = null
-    private var moreOptionsTaskView:    View?        = null
-    private var moreOptionsTaskWindow:  PopupWindow? = null
+    private var addTaskView: View? = null
+    private var addTaskWindow: PopupWindow? = null
+    private var modifyTaskView: View? = null
+    private var modifyTaskWindow: PopupWindow? = null
+    private var moreOptionsTaskView: View? = null
+    private var moreOptionsTaskWindow: PopupWindow? = null
+    private var menuTaskView: View? = null
+    private var menuTaskWindow: PopupWindow? = null
 
     private var currentUID: Int? = null
 
     fun getInstance(): PopUpWindowInflater {
-        if(instance == null) {
+        if (instance == null) {
             instance = PopUpWindowInflater()
         }
         return instance as PopUpWindowInflater
     }
 
-    fun getAddTaskView(): View?  {
+    fun getAddTaskView(): View? {
         return addTaskView
     }
 
@@ -58,25 +60,33 @@ class PopUpWindowInflater {
         modifyTaskWindow!!.dismiss()
     }
 
-    fun inflateWindow(view: View,
-                      type: WINDOWTYPE,
-                      it: View? = null,
-                      adapterPosition: Int? = null,
-                      width: Int = LinearLayout.LayoutParams.WRAP_CONTENT,
-                      height: Int = LinearLayout.LayoutParams.WRAP_CONTENT,
-                      backgroundDimmed: Boolean = true) {
+    fun dismissMenuWindow() {
+        menuTaskWindow!!.dismiss()
+    }
 
-        val inflater = view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    fun inflateWindow(
+        view: View,
+        type: WINDOWTYPE,
+        it: View? = null,
+        adapterPosition: Int? = null,
+        width: Int = LinearLayout.LayoutParams.WRAP_CONTENT,
+        height: Int = LinearLayout.LayoutParams.WRAP_CONTENT,
+        backgroundDimmed: Boolean = true
+    ) {
 
-        if(backgroundDimmed) {
+        val inflater =
+            view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+
+        if (backgroundDimmed) {
             val backgroundView: View = inflater.inflate(R.layout.dimming_background, null)
             val widthBackgroundWindow = LinearLayout.LayoutParams.MATCH_PARENT
             val heightBackgroundWindow = LinearLayout.LayoutParams.MATCH_PARENT
-            backgroundDimmerWindow = PopupWindow(backgroundView, widthBackgroundWindow, heightBackgroundWindow, false)
+            backgroundDimmerWindow =
+                PopupWindow(backgroundView, widthBackgroundWindow, heightBackgroundWindow, false)
             backgroundDimmerWindow!!.showAtLocation(view, Gravity.CENTER, 0, 0)
         }
 
-        when(type) {
+        when (type) {
             WINDOWTYPE.ADD -> {
                 inflateAddWindow(view, width, height)
             }
@@ -95,7 +105,8 @@ class PopUpWindowInflater {
     }
 
     private fun inflateAddWindow(view: View, width: Int, height: Int) {
-        val inflater = view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater =
+            view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         addTaskView = inflater.inflate(R.layout.create_task_window, null)
         addTaskWindow = PopupWindow(addTaskView, width, height, true)
@@ -107,25 +118,31 @@ class PopUpWindowInflater {
 
         val editText = addTaskView?.findViewById<EditText>(R.id.edittext_name)
         editText?.addTextChangedListener(
-                object : TextWatcher {
-                    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            object : TextWatcher {
+                override fun beforeTextChanged(
+                    s: CharSequence?,
+                    start: Int,
+                    count: Int,
+                    after: Int
+                ) {
+                }
 
-                    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-                    override fun afterTextChanged(s: Editable) {
-                        val saveButton = addTaskView?.findViewById<Button>(R.id.button_add_to_db)
-                        saveButton?.isEnabled = editText.text.toString() != ""
-                    }
-                })
-        if (editText != null && editText.text.toString() == "")
-        {
+                override fun afterTextChanged(s: Editable) {
+                    val saveButton = addTaskView?.findViewById<Button>(R.id.button_add_to_db)
+                    saveButton?.isEnabled = editText.text.toString() != ""
+                }
+            })
+        if (editText != null && editText.text.toString() == "") {
             val saveButton = addTaskView?.findViewById<Button>(R.id.button_add_to_db)
             saveButton?.isEnabled = false
         }
     }
 
     private fun inflateModifyWindow(view: View, width: Int, height: Int, adapterPosition: Int?) {
-        val inflater = view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater =
+            view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
         modifyTaskView = inflater.inflate(R.layout.modify_task_window, null)
 
@@ -175,12 +192,21 @@ class PopUpWindowInflater {
         editTextDateTime?.text = taskDate
         val moreOptionsButton = modifyTaskView?.findViewById<ImageButton>(R.id.button_more_options)
         moreOptionsButton?.setOnClickListener {
-            ModifyFunctions().openMoreOptionsWindows(it, view)
+            if (adapterPosition != null) {
+                ModifyFunctions().openMoreOptionsWindows(it, view, adapterPosition)
+            }
         }
     }
 
-    private fun inflateMoreOptionsWindow(view: View, width: Int, height: Int, it: View, adapterPosition: Int?) {
-        val inflater = view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+    private fun inflateMoreOptionsWindow(
+        view: View,
+        width: Int,
+        height: Int,
+        it: View,
+        adapterPosition: Int?
+    ) {
+        val inflater =
+            view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         moreOptionsTaskView = inflater.inflate(R.layout.more_options_window, null)
         currentUID = view.item_uid.text.toString().toInt()
 
@@ -192,10 +218,15 @@ class PopUpWindowInflater {
         val button = it.findViewById<ImageButton>(R.id.button_more_options)
         val margin = 30 // Gap between Button and Window
 
-        val moreOptionsWindowYPos = -windowLoc[1]/2 + button.height + margin
+        val moreOptionsWindowYPos = -windowLoc[1] / 2 + button.height + margin
         val moreOptionsWindowXPos = 120
 
-        moreOptionsTaskWindow!!.showAtLocation(view, Gravity.CENTER, moreOptionsWindowXPos, moreOptionsWindowYPos)
+        moreOptionsTaskWindow!!.showAtLocation(
+            view,
+            Gravity.CENTER,
+            moreOptionsWindowXPos,
+            moreOptionsWindowYPos
+        )
 
         val duplicateButton = moreOptionsTaskView?.findViewById<Button>(R.id.button_duplicate_task)
         duplicateButton?.setOnClickListener {
@@ -214,43 +245,37 @@ class PopUpWindowInflater {
     }
 
     private fun inflateMenuWindow(view: View, width: Int, height: Int) {
-        val inflater = view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
+        val inflater =
+            view.context.getSystemService(AppCompatActivity.LAYOUT_INFLATER_SERVICE) as LayoutInflater
 
-        val openMenuView = inflater.inflate(R.layout.burgermenu_window, null)
+        menuTaskView = inflater.inflate(R.layout.burgermenu_window, null)
 
-        val openMenuWindow = PopupWindow(openMenuView, width, height, true)
-        openMenuView.animation = AnimationUtils.loadAnimation(view.context, R.anim.slide_in)
+        menuTaskWindow = PopupWindow(menuTaskView, width, height, true)
+        menuTaskView?.animation = AnimationUtils.loadAnimation(view.context, R.anim.slide_in)
 
-        openMenuWindow.setOnDismissListener {
+        menuTaskWindow!!.setOnDismissListener {
             backgroundDimmerWindow!!.dismiss()
         }
 
-        openMenuWindow.showAtLocation(view, Gravity.START, 0, 0)
+        menuTaskWindow!!.showAtLocation(view, Gravity.START, 0, 0)
 
-        val currentNightMode = view.context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
+        val currentNightMode =
+            view.context?.resources?.configuration?.uiMode?.and(Configuration.UI_MODE_NIGHT_MASK)
 
         when (currentNightMode) {
             Configuration.UI_MODE_NIGHT_NO -> {
-                val lightmode_btn = openMenuView?.findViewById<Button>(R.id.lightmode_btn)
+                val lightmode_btn = view.findViewById<Button>(R.id.lightmode_btn)
                 lightmode_btn?.isEnabled = false
-                val darkmode_btn = openMenuView?.findViewById<Button>(R.id.darkmode_btn)
+                val darkmode_btn = view.findViewById<Button>(R.id.darkmode_btn)
                 darkmode_btn?.isEnabled = true
             } // Light mode is not active, we're using the light theme
 
             Configuration.UI_MODE_NIGHT_YES -> {
-                val lightmode_btn = openMenuView?.findViewById<Button>(R.id.lightmode_btn)
+                val lightmode_btn = view.findViewById<Button>(R.id.lightmode_btn)
                 lightmode_btn?.isEnabled = true
-                val darkmode_btn = openMenuView?.findViewById<Button>(R.id.darkmode_btn)
+                val darkmode_btn = view.findViewById<Button>(R.id.darkmode_btn)
                 darkmode_btn?.isEnabled = false
             } // Night mode is active, we're using dark theme
-
-
-
         }
-
-
-
-
     }
-
 }
