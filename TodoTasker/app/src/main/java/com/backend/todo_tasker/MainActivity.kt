@@ -51,6 +51,7 @@ var todoList: RecyclerView? = null
 var projectList: RecyclerView? = null
 var taskTimeMillis = 0L
 
+//var color_text  : EditText? = null
 var nextColor = 0
 
 class MainActivity : AppCompatActivity() {
@@ -157,6 +158,7 @@ class MainActivity : AppCompatActivity() {
     fun openAddProjectWindow(view: View) {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.ADDCATEGORY)
         DbOperations().getInstance().refreshListViewProjects()
+        //color_text = view.findViewById<EditText>(R.id.color_hex)
     }
 
     fun pickColor(view: View)
@@ -167,6 +169,7 @@ class MainActivity : AppCompatActivity() {
     fun saveProCreate(view: View)
     {
         ColorMenuButtonFunctions().saveProjectCreation(view)
+        DbOperations().getInstance().refreshListViewProjects()
     }
 
     fun cancelProCreate(view: View)
@@ -181,7 +184,6 @@ class MainActivity : AppCompatActivity() {
     fun changeToLightMode(view: View) {
         MenuFunctions().lightModeFunction()
     }
-
 
     fun openBackupAndRestoreWindowActivity(view: View) {
         setContentView(R.layout.backup_and_restore_window)
