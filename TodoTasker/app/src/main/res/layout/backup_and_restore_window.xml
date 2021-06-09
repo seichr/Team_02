@@ -47,7 +47,7 @@
         android:id="@+id/button_exportToFile"
         style="@style/BurgerMenuButtons"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="65dp"
         android:layout_below="@id/layout_purple_zone"
         android:onClick="exportToFile"
         android:text="@string/STRING_EXPORT_TO_FILE"
@@ -64,9 +64,9 @@
         android:id="@+id/button_restoreFromFile"
         style="@style/BurgerMenuButtons"
         android:layout_width="match_parent"
-        android:layout_height="57dp"
+        android:layout_height="65dp"
         android:layout_below="@id/button_exportToFile"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="1dp"
         android:onClick="restoreFromFile"
         android:text="@string/STRING_RESTORE_FROM_FILE"
         android:textAlignment="textStart"
@@ -79,32 +79,28 @@
 
     <TextView
         android:id="@+id/textView_LastBackup"
+        style="@style/BurgerMenuButtons"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/button_exportToFile"
         android:layout_alignEnd="@+id/button_exportToFile"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="127dp"
-        android:layout_marginEnd="192dp"
-        android:text="@string/STRING_LAST_BACKUP"
-        style="@style/BurgerMenuButtons"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="97dp" />
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="100dp"
+        android:elevation="7dp"
+        android:text="@string/STRING_LAST_BACKUP"/>
 
     <TextView
         android:id="@+id/textView_NumberOfTodos"
+        style="@style/BurgerMenuButtons"
         android:layout_width="193dp"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/button_exportToFile"
         android:layout_alignEnd="@+id/button_exportToFile"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="27dp"
-        android:layout_marginTop="54dp"
-        android:layout_marginEnd="190dp"
-        android:text="PLACEHOLDER"
-        style="@style/BurgerMenuButtons"
-        tools:layout_editor_absoluteX="175dp"
-        tools:layout_editor_absoluteY="97dp" />
+        android:layout_marginStart="49dp"
+        android:layout_marginTop="35dp"
+        android:elevation="7dp"
+        android:text="PLACEHOLDER" />
 
 </RelativeLayout>
