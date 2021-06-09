@@ -105,7 +105,6 @@ class MainActivity : AppCompatActivity() {
 
 
     fun openBackupAndRestoreWindowActivity(view: View) {
-        dbBackupRestore.backup()
         setContentView(R.layout.backup_and_restore_window)
 
         var timeAsNumber = dbBackupRestore.getLastRestoreInfo()
@@ -130,7 +129,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun exportToFile(view: View) {
-
+        dbBackupRestore.backup()
         openMainWindowActivity(view)
 
         val backupSuccessful = getString(R.string.STRING_BACKUP_SUCCESSFUL)
