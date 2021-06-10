@@ -2,7 +2,7 @@ package com.backend.todo_tasker
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4
-import com.backend.todo_tasker.database.DatabaseClass
+import com.backend.todo_tasker.database.DatabaseTodoClass
 import com.backend.todo_tasker.database.Todo
 
 import org.junit.Test
@@ -17,34 +17,34 @@ import org.junit.Assert.*
  */
 @RunWith(AndroidJUnit4::class)
 class DataBaseReminderInstrumentedTest {
-    // Single entry with reminder info
+    // Single entry
     @Test
     fun singleAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        val testTodo = Todo(6, "Test", timeInMillis, timeInMillis)
+        val testTodo = Todo(6, "Test", timeInMillis)
 
         val retVal = db.addToDb(datab, testTodo)
         assertNotEquals(retVal, -1)
     }
 
-    // Loads of Entries with reminder info
+    // Loads of Entries
     @Test
     fun multiAddPass() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
         for(i in 0..50) {
-            val testTodo = Todo(i, "Test", timeInMillis, timeInMillis)
+            val testTodo = Todo(i, "Test", timeInMillis)
             val retVal = db.addToDb(datab, testTodo)
             assertNotEquals(retVal, -1)
         }
@@ -55,19 +55,37 @@ class DataBaseReminderInstrumentedTest {
     fun multiUIDFail() {
         val appContext = InstrumentationRegistry.getInstrumentation().targetContext
 
-        val db = DatabaseClass(appContext)
+        val db = DatabaseTodoClass(appContext)
         val datab = db.createDb()
         db.deleteDBEntries(datab)
 
         val timeInMillis = db.dateToMillis(db.getCurrentDate())
-        var testTodo = Todo(1337, "TestThatPasses", timeInMillis, timeInMillis)
+        var testTodo = Todo(1337, "TestThatPasses", timeInMillis)
         var retVal = db.addToDb(datab, testTodo)
         assertNotEquals(retVal, -1)
 
         for(i in 0..50) {
-            testTodo = Todo(1337, "TestThatFails", timeInMillis, timeInMillis)
+            testTodo = Todo(1337, "TestThatFails", timeInMillis)
             retVal = db.addToDb(datab, testTodo)
             assertEquals(retVal, -1)
         }
+    }
+
+    @Test
+    fun getNewestReminder() {
+        val appContext = InstrumentationRegistry.getInstrumentation().targetContext
+
+        val db = DatabaseTodoClass(appContext)
+        val datab = db.createDb()
+        db.deleteDBEntries(datab)
+
+        val timeInMillis = db.dateToMillis(db.getCurrentDate())
+        for(i in 0..3) {
+            var testTodo = Todo(i, "TestThatPasses", timeInMillis + (i * 60000))
+            var retVal = db.addToDb(datab, testTodo)
+        }
+
+        val todo = db.getNextDate(datab)
+        assertEquals(todo.date, timeInMillis + 60000)
     }
 }

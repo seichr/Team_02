@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    style="@style/PopUpWindow"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/roundedbutton7dp">
+
+    <TextView
+        android:id="@+id/textview_addtitle"
+        style="@style/ChangingTextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="30dp"
+        android:text="@string/STRING_ADD_PROJECT"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textSize="22sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/textview_addname"
+        style="@style/ChangingTextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_addtitle"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/STRING_NAME"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/edittext_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_addname"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:autofillHints=""
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:labelFor="@+id/edittext_name" />
+
+    <TextView
+        android:id="@+id/textview_adddate"
+        style="@style/ChangingTextColor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/edittext_name"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/STRING_ENTER_COLOR"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/color_hex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textview_adddate"
+        android:layout_toEndOf="@+id/image_btn_color"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:layout_alignParentEnd="true"
+        android:inputType="none"
+        android:focusable="false" />
+
+    <ImageButton
+        android:id="@+id/image_btn_color"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_below="@+id/textview_adddate"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="20dp"
+        android:autofillHints=""
+        android:background="#FFFFFF"
+        android:editable="false"
+        android:ems="10"
+        android:inputType="none"
+        android:onClick="pickColor"
+        android:src="@drawable/roundedbutton45dp"
+        android:tint="@color/black" />
+
+    <Button
+        android:id="@+id/button_add_cancel"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/color_hex"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/light_grey"
+        android:onClick="cancelProCreate"
+        android:text="@string/STRING_CANCEL"
+        android:textColor="@color/black" />
+
+    <Button
+        android:id="@+id/button_add_to_db"
+        android:layout_width="130dp"
+        android:layout_height="50dp"
+        android:layout_below="@+id/color_hex"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="50dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="@color/violet"
+        android:onClick="saveProCreate"
+        android:textColor="@color/white"
+        android:text="@string/STRING_SAVE" />
+</RelativeLayout>

@@ -19,63 +19,57 @@ import org.junit.runner.RunWith
 
 @LargeTest
 @RunWith(AndroidJUnit4::class)
-class ChangeLanguageAndBackTest {
+class ChangeLanguageTest {
 
     @Rule
     @JvmField
     var mActivityTestRule = ActivityTestRule(MainActivity::class.java)
 
     @Test
-    fun changeLanguageAndBackTest() {
+    fun changeLanguageTest() {
         val actionMenuItemView = onView(
-            allOf(
-                withId(R.id.language), withContentDescription("Change Language"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.action_bar),
-                        1
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
+allOf(withId(R.id.language), withContentDescription("Change Language"),
+childAtPosition(
+childAtPosition(
+withId(R.id.toolbar),
+2),
+0),
+isDisplayed()))
         actionMenuItemView.perform(click())
-
+        
         val actionMenuItemView2 = onView(
-            allOf(
-                withId(R.id.language), withContentDescription("Изменить язык"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.action_bar),
-                        1
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
+allOf(withId(R.id.language), withContentDescription("Изменить язык"),
+childAtPosition(
+childAtPosition(
+withId(R.id.toolbar),
+2),
+0),
+isDisplayed()))
         actionMenuItemView2.perform(click())
-
+        
         val actionMenuItemView3 = onView(
-            allOf(
-                withId(R.id.language), withContentDescription("Change Language"),
-                childAtPosition(
-                    childAtPosition(
-                        withId(R.id.action_bar),
-                        1
-                    ),
-                    0
-                ),
-                isDisplayed()
-            )
-        )
+allOf(withId(R.id.language), withContentDescription("Change Language"),
+childAtPosition(
+childAtPosition(
+withId(R.id.toolbar),
+2),
+0),
+isDisplayed()))
         actionMenuItemView3.perform(click())
-    }
-
+        
+        val actionMenuItemView4 = onView(
+allOf(withId(R.id.language), withContentDescription("Изменить язык"),
+childAtPosition(
+childAtPosition(
+withId(R.id.toolbar),
+2),
+0),
+isDisplayed()))
+        actionMenuItemView4.perform(click())
+        }
+    
     private fun childAtPosition(
-        parentMatcher: Matcher<View>, position: Int
-    ): Matcher<View> {
+            parentMatcher: Matcher<View>, position: Int): Matcher<View> {
 
         return object : TypeSafeMatcher<View>() {
             override fun describeTo(description: Description) {
@@ -90,4 +84,4 @@ class ChangeLanguageAndBackTest {
             }
         }
     }
-}
+    }

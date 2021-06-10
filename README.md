@@ -33,6 +33,16 @@
 | Task deletion | TT-010 | X | |
 | Task modification | TT-011 | X | |
 | Task duplication | TT-012 | X | |
+| Change main view to list | TT-021 | X | |
+| Prettify List View | TT-022 | X | |
 | Multi-Language support | TT-023 | X | |
-| Simple reminder | TT-003 | | X |
+| Simple reminder | TT-003 | X | |
+| Menu | TT-026 | X | |
+| Dark mode | TT-018 | X | |
+| Backup & Restore | TT-015 | X | |
+| Beautification of Backup & Restore | TT-031 | X | |
+| Task completion | TT-030 | X | |
+| About page | TT-029 | X | |
+| App Icon | TT-028 | X | |
+| Categorization | TT-004 | | X |
 

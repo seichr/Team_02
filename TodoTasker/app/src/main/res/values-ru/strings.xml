@@ -10,8 +10,52 @@
     <string name="STRING_SHOWTASKLIST">Показать список задач</string>
     <string name="STRING_PLACEHOLDER">Заполнитель</string>
     <string name="STRING_LANGUAGEBUTTON">Изменить язык</string>
+    <string name="NOTIFICATION_TITLE">Напоминание о задаче</string>
+    <string name="NOTIFICATION_TEXT">Отстань от своей ленивой задницы товарищ</string>
     <string name="STRING_CANCEL">отменить</string>
+    <string name="STRING_COMPLETE_TASK">Завершить задачу</string>
     <string name="STRING_DUPLICATETASK">Повторяющаяся задача</string>
     <string name="STRING_DELETETASK">Удалить задачу</string>
-    <!--string name=""></string-->
+    <string name="STRING_DATETIMEFORMAT">dd.MM.yy HH:mm</string>
+    <string name="STRING_YOUR_PROJECT">Ваши проекты</string>
+    <string name="STRING_PROJECT_SETTINGS">Настройки проекта</string>
+    <string name="STRING_BACK">Стрелка назад</string>
+    <string name="STRING_MODIFY_PROJECTS">Изменить проекты</string>
+    <string name="STRING_MODIFY_PROJECT">Изменить проект</string>
+    <string name="STRING_ADD_PROJECT">Добавить проект</string>
+    <string name="STRING_ENTER_COLOR">Цвет</string>
+    <string name="STRING_THEME">Тема</string>
+    <string name="STRING_LIGHT_MODE">Легкий режим</string>
+    <string name="STRING_DARK_MODE">Темный режим</string>
+    <string name="STRING_BACKUP_AND_RESTORE_BUTTON">резервное копирование и восстановление</string>
+    <string name="STRING_EXPORT_TO_FILE">Экспорт в файл\n</string>
+    <string name="STRING_RESTORE_FROM_FILE">Восстановить из файла\n</string>
+    <string name="STRING_BACKUP_AND_RESTORE_TITLE">Резервное копирование</string>
+    <string name="STRING_BACKUP_SUCCESSFUL">Резервное копирование выполнено успешно</string>
+    <string name="STRING_RESTORE_SUCCESSFUL">Восстановление прошло успешно</string>
+    <string name="STRING_LAST_BACKUP">Резервной копии пока нет</string>
+    <string name="TASKS">Задачи</string>
+    <string name="STRING_ABOUT">О нас</string>
+    <string name="STRING_APP_DESCRIPTION">Бесплатное приложение для создания списка дел для Android с настраиваемыми функциями напоминания и дополнительными платными параметрами настройки / функциями геймификации.</string>
+    <string name="STRING_TEAM">Команда</string>
+    <string name="STRING_ROLES">"Роль
+Владелец продукта
+Скрам Мастер
+Разработчик
+Разработчик
+Разработчик
+Разработчик
+Разработчик
+Разработчик
+Разработчик"</string>
+    <string name="STRING_NAMES">"Имя
+Andreas Steinkellner
+Stefan Schintler
+Christian Seifert
+Erwin Peterlin
+Yuma Buchrieser
+Bernd Grabner
+Lukas Kloiber
+Manuel Krenn
+Stefan Schörkmeier"</string>
 </resources>

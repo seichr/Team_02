@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="match_parent"
+    style="@style/BurgerMenu">
+    <RelativeLayout
+        style = "@style/BurgerMenuTop"
+        android:id="@+id/layout_purple_zone"
+        android:layout_width="270dp"
+        android:layout_height="75dp">
+
+        <TextView
+            android:id="@+id/text_burgermenu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="20dp"
+            android:text="@string/STRING_APP_NAME"
+            android:textSize="22sp"
+            android:textColor="@color/white"/>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/button_projects"
+        style="@style/projects_text"
+        android:layout_width="210dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_purple_zone"
+        android:backgroundTint="@color/white"
+        android:clickable="false"
+        android:text="@string/STRING_YOUR_PROJECT"
+        android:textAlignment="textStart"
+        android:textAllCaps="false"
+        android:textSize="14sp" />
+
+    <ImageButton
+        android:id="@+id/button_projects_settings"
+        style="@style/projects_img_button"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/layout_purple_zone"
+        android:layout_toEndOf="@id/button_projects"
+        android:src="@drawable/baseline_settings_24"
+        android:onClick="openProjectSettings"
+        android:contentDescription="@string/STRING_PROJECT_SETTINGS" />
+
+    <TextView
+        android:id="@+id/themes"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button_projects_settings"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="15dp"
+        android:layout_marginTop="0dp"
+        android:text="@string/STRING_THEME"
+        android:textSize="20dp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/lightmode_btn"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/themes"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="-3dp"
+        android:layout_marginTop="10dp"
+        android:onClick="changeToLightMode"
+        android:text="@string/STRING_LIGHT_MODE"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:icon="@drawable/darkmode_black_24"
+        app:iconTint="?attr/colorPrimaryDark" />
+
+    <Button
+        android:id="@+id/darkmode_btn"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@+id/lightmode_btn"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="0dp"
+        android:onClick="changeToDarkMode"
+        android:text="@string/STRING_DARK_MODE"
+        android:textAlignment="textStart"
+        android:textSize="12sp"
+        app:icon="@drawable/lightmode_black_24"
+        app:iconTint="?attr/colorPrimaryDark" />
+
+    <View
+        android:id="@+id/separator_1"
+        android:layout_width="270dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/darkmode_btn"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/button_backup"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/darkmode_btn"
+        android:text="@string/STRING_BACKUP_AND_RESTORE_BUTTON"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:icon="@drawable/outline_backup_24"
+        app:iconTint="?attr/colorPrimaryDark"
+        android:onClick="openBackupAndRestoreWindowActivity"/>
+
+    <View
+        android:id="@+id/separator_2"
+        android:layout_width="270dp"
+        android:layout_height="1dp"
+        android:layout_below="@+id/button_backup"
+        android:background="@android:color/darker_gray"/>
+
+    <Button
+        android:id="@+id/button_about"
+        style="@style/BurgerMenuButtons"
+        android:layout_width="270dp"
+        android:layout_height="60dp"
+        android:layout_below="@id/separator_2"
+        android:text="@string/STRING_ABOUT"
+        android:textSize="12sp"
+        android:textAlignment="textStart"
+        app:icon="@drawable/baseline_info_24"
+        app:iconTint="?attr/colorPrimaryDark"
+        android:onClick="displayAboutActivity"/>
+
+    <TextView
+        android:id="@+id/text_burgermenu_placeholder"
+        android:layout_width="270dp"
+        android:layout_height="match_parent"
+        android:layout_below="@id/button_about"
+        android:text=""
+        android:textSize="12sp" />
+
+</RelativeLayout>
