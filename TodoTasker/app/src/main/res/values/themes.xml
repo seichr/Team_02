@@ -57,6 +57,7 @@
     <style name="DatePickerTheme.ButtonBarNegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/black</item>
     </style>
+
     <style name="DatePickerTheme.ButtonBarPositiveButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
         <item name="android:textColor">@color/white</item>
         <item name="android:backgroundTint">@color/violet</item>
@@ -69,6 +70,14 @@
         <item name="colorAccent">@color/violet</item>
         <item name="android:buttonBarNegativeButtonStyle">@style/DatePickerTheme.ButtonBarNegativeButtonStyle</item>
         <item name="android:buttonBarPositiveButtonStyle">@style/DatePickerTheme.ButtonBarPositiveButtonStyle</item>
+    </style>
+
+    <style name="projects_text" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:textColor">@color/black</item>
+    </style>
+
+    <style name="projects_img_button" parent="@style/Widget.AppCompat.Button.Borderless">
+        <item name="android:tint">@color/black</item>
     </style>
 
     <style name="TimePickerTheme.ButtonBarNegativeButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">

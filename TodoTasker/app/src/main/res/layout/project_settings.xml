@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/layout_purple_zone"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/purple_title_bar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageButton
+            android:id="@+id/button_back_to_main"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:tint="@color/white"
+            android:src="@drawable/baseline_arrow_back_24"
+            android:onClick="openMainWindowActivity"
+            android:contentDescription="@string/STRING_BACK" />
+
+        <TextView
+            android:id="@+id/text_burgermenu_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@+id/button_back_to_main"
+            android:text="@string/STRING_MODIFY_PROJECTS"
+            android:textSize="18sp"
+            android:textColor="@color/white"/>
+
+        <ImageButton
+            android:id="@+id/button_add_projects"
+            style="@style/Widget.AppCompat.Button.Borderless"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:scaleX="0.7"
+            android:scaleY="0.7"
+            android:tint="@color/white"
+            android:src="@drawable/baseline_add_24"
+            android:onClick="openAddProjectWindow"
+            android:contentDescription="@string/STRING_BACK" />
+    </RelativeLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/project_list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/layout_purple_zone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+</RelativeLayout>

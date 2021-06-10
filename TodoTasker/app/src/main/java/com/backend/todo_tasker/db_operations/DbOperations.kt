@@ -3,6 +3,7 @@ package com.backend.todo_tasker.db_operations
 import com.backend.todo_tasker.*
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
+import com.backend.todo_tasker.tasklist_view.RecyclerAdapterCategory
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -24,9 +25,20 @@ class DbOperations {
         GlobalScope.launch {
             val data = dbTodoClass.getAllDb(todoDb)
             todoList?.post {
-                RecyclerAdapter().getInstance().setData(data)
+                RecyclerAdapter().getInstance().setDataToDo(data)
                 adapter = RecyclerAdapter().getInstance()
                 todoList?.adapter = adapter
+            }
+        }
+    }
+
+    fun refreshListViewProjects() {
+        GlobalScope.launch {
+            val data = dbCategoryClass.getAllDb(categoryDb)
+            projectList?.post {
+                RecyclerAdapterCategory().getInstance().setDataCategory(data)
+                adapterCategory = RecyclerAdapterCategory().getInstance()
+                projectList?.adapter = adapterCategory
             }
         }
     }

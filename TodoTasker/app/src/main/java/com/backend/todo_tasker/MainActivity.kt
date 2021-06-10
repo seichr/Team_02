@@ -1,5 +1,6 @@
 package com.backend.todo_tasker
 
+import android.app.Activity
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.view.*
@@ -12,8 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.database.DatabaseBackupRestore
 import com.backend.todo_tasker.button_functions.DateTimePickerFunctions
-import com.backend.todo_tasker.database.DatabaseTodoClass
-import com.backend.todo_tasker.database.TodoDatabase
+import com.backend.todo_tasker.button_functions.ColorMenuButtonFunctions
 import com.backend.todo_tasker.db_operations.DbOperations
 import com.backend.todo_tasker.language.LanguageHelper
 import com.backend.todo_tasker.popup_window.PopUpWindowInflater
@@ -21,14 +21,23 @@ import com.backend.todo_tasker.popup_window.WINDOWTYPE
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapter
 import java.util.concurrent.Semaphore
 import androidx.appcompat.widget.Toolbar
+import com.backend.todo_tasker.database.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
-
+import com.backend.todo_tasker.tasklist_view.RecyclerAdapterCategory
+import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
 lateinit var dbBackupRestore: DatabaseBackupRestore
+
+lateinit var dbCategoryClass: DatabaseCategoryClass
+lateinit var categoryDb: CategoryDatabase
+
+val sharedCategoryDbLock = Semaphore(1)
 
 val sharedDbLock = Semaphore(1)
 
@@ -37,12 +46,19 @@ val notificationHelper = NotificationHelper()
 val alarmHelper = AlarmHelper()
 
 lateinit var adapter: RecyclerAdapter
+lateinit var adapterCategory: RecyclerAdapterCategory
+
 var todoList: RecyclerView? = null
+var projectList: RecyclerView? = null
 var taskTimeMillis = 0L
+
+//var color_text  : EditText? = null
+var nextColor = 0
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var linearLayoutManager: LinearLayoutManager
+    lateinit var instance: Activity
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,6 +67,36 @@ class MainActivity : AppCompatActivity() {
         dbTodoClass = DatabaseTodoClass(applicationContext)
         todoDb = dbTodoClass.createDb()
         dbBackupRestore = DatabaseBackupRestore(applicationContext, this)
+
+        dbCategoryClass = DatabaseCategoryClass(applicationContext)
+        categoryDb = dbCategoryClass.createDb()
+
+        GlobalScope.launch {
+            sharedCategoryDbLock.acquire()
+            dbCategoryClass.addToDb(categoryDb, Category(0, null, null, null))
+            sharedCategoryDbLock.release()
+        }
+
+        setMainFragment()
+
+        instance = this
+
+        DbOperations().getInstance().refreshListView()
+    }
+
+    private fun setMainFragment() {
+        todoList = findViewById(R.id.todo_list)
+        todoList?.adapter = RecyclerAdapter().getInstance()
+
+        linearLayoutManager = LinearLayoutManager(this)
+        todoList?.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(todoList?.context,
+            linearLayoutManager.orientation)
+        todoList?.addItemDecoration(dividerItemDecoration)
+
+        val toolbar: Toolbar? = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
         loadTodoList()
     }
@@ -78,8 +124,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun addTodoActivity(view: View) {
-        val textField: EditText? =
-            PopUpWindowInflater().getInstance().getAddTaskView()?.findViewById(R.id.edittext_name)
+        val textField: EditText? = PopUpWindowInflater().getInstance().getAddTaskView()?.findViewById(R.id.edittext_name)
 
         val title = textField?.text.toString()
         val date = taskTimeMillis
@@ -99,6 +144,40 @@ class MainActivity : AppCompatActivity() {
         PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.MENU)
     }
 
+    fun openProjectSettings(v: View) {
+        setContentView(R.layout.project_settings)
+        PopUpWindowInflater().getInstance().dismissMenuWindow()
+        loadProjectList()
+    }
+
+    fun openMainWindowActivity(view: View) {
+        setContentView(R.layout.activity_main)
+        setMainFragment()
+        DbOperations().getInstance().refreshListView()
+    }
+
+    fun openAddProjectWindow(view: View) {
+        PopUpWindowInflater().getInstance().inflateWindow(view, WINDOWTYPE.ADDCATEGORY)
+        DbOperations().getInstance().refreshListViewProjects()
+        //color_text = view.findViewById<EditText>(R.id.color_hex)
+    }
+
+    fun pickColor(view: View)
+    {
+        ColorMenuButtonFunctions().pickColorFunction(this, view)
+    }
+
+    fun saveProCreate(view: View)
+    {
+        ColorMenuButtonFunctions().saveProjectCreation(view)
+        DbOperations().getInstance().refreshListViewProjects()
+    }
+
+    fun cancelProCreate(view: View)
+    {
+        ColorMenuButtonFunctions().cancelProjectCreation()
+    }
+
     fun changeToDarkMode(view: View) {
         MenuFunctions().darkModeFunction()
     }
@@ -107,13 +186,12 @@ class MainActivity : AppCompatActivity() {
         MenuFunctions().lightModeFunction()
     }
 
-
     fun openBackupAndRestoreWindowActivity(view: View) {
         setContentView(R.layout.backup_and_restore_window)
 
-        var timeAsNumber = dbBackupRestore.getLastRestoreInfo()
+        val timeAsNumber = dbBackupRestore.getLastRestoreInfo()
         if (timeAsNumber != null) {
-            var date =  Date(timeAsNumber)
+            val date =  Date(timeAsNumber)
             val format = SimpleDateFormat("dd.MM.yyyy")
             val dateAsString = format.format(date)
             val text = this.findViewById<View>(android.R.id.content).findViewById<TextView>(R.id.textView_LastBackup)
@@ -125,11 +203,6 @@ class MainActivity : AppCompatActivity() {
         dbBackupRestore.setExportString(this)
 
         PopUpWindowInflater().getInstance().dismissMenuWindow()
-    }
-
-    fun openMainWindowActivity(view: View) {
-        setContentView(R.layout.activity_main)
-        loadTodoList()
     }
 
     fun exportToFile(view: View) {
@@ -176,9 +249,37 @@ class MainActivity : AppCompatActivity() {
         DbOperations().getInstance().refreshListView()
     }
 
+    private fun loadProjectList() {
+        projectList = findViewById(R.id.project_list)
+        projectList?.adapter = RecyclerAdapterCategory().getInstance()
+
+        linearLayoutManager = LinearLayoutManager(this)
+        projectList?.layoutManager = linearLayoutManager
+
+        val dividerItemDecoration = DividerItemDecoration(
+            projectList?.context,
+            linearLayoutManager.orientation
+        )
+        projectList?.addItemDecoration(dividerItemDecoration)
+
+        DbOperations().getInstance().refreshListViewProjects()
+    }
+
     fun displayAboutActivity(view: View) {
         setContentView(R.layout.info_about)
         PopUpWindowInflater().getInstance().dismissMenuWindow()
+    }
+
+    fun deleteProject(view : View) {
+        val uid = view.contentDescription.toString().toInt()
+
+        GlobalScope.launch {
+            sharedCategoryDbLock.acquire()
+            dbCategoryClass.deleteDBSingleEntry(categoryDb, uid)
+            sharedCategoryDbLock.release()
+        }
+
+        DbOperations().getInstance().refreshListViewProjects()
     }
 }
 

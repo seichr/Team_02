@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.backend.todo_tasker.*
+import com.backend.todo_tasker.database.Category
 import com.backend.todo_tasker.database.Todo
 import com.backend.todo_tasker.popup_window.PopUpWindowInflater
 import com.backend.todo_tasker.popup_window.WINDOWTYPE
@@ -21,7 +22,7 @@ class RecyclerAdapter: RecyclerView.Adapter<RecyclerAdapter.TodoHolder>()  {
     }
 
 
-    fun setData(data: List<Todo>) {
+    fun setDataToDo(data: List<Todo>) {
         todos = data
     }
 

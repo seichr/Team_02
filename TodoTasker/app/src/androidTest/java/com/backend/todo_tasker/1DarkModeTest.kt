@@ -43,7 +43,7 @@ class `1DarkModeTest` {
                 allOf(withId(R.id.darkmode_btn), withText("Dark Mode"),
                         childAtPosition(
                                 withClassName(`is`("android.widget.RelativeLayout")),
-                                3),
+                                5),
                         isDisplayed()))
         materialButton.perform(click())
 
@@ -62,7 +62,7 @@ class `1DarkModeTest` {
                 allOf(withId(R.id.lightmode_btn), withText("Light Mode"),
                         childAtPosition(
                                 withClassName(`is`("android.widget.RelativeLayout")),
-                                2),
+                                4),
                         isDisplayed()))
         materialButton2.perform(click())
     }
