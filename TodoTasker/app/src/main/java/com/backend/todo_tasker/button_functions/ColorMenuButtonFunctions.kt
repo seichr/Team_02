@@ -22,8 +22,20 @@ class ColorMenuButtonFunctions {
 
         GlobalScope.launch {
             sharedCategoryDbLock.acquire()
-            var id = dbCategoryClass.getLastEntry(categoryDb).uid + 1
-            dbCategoryClass.addToDb(categoryDb, Category(id, name, nextColor, null))
+
+            var entry = dbCategoryClass.getLastEntry(categoryDb)
+            if (entry != null)
+            {
+                dbCategoryClass.addToDb(categoryDb, Category(entry.uid + 1, name, nextColor, null))
+                nextColor = 0xFF000000.toInt()
+            }
+            else
+            {
+                dbCategoryClass.addToDb(categoryDb, Category(0, name, nextColor, null))
+                nextColor = 0xFF000000.toInt()
+            }
+
+
             sharedCategoryDbLock.release()
         }
 

@@ -28,6 +28,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import com.backend.todo_tasker.button_functions.MenuFunctions
 import com.backend.todo_tasker.tasklist_view.RecyclerAdapterCategory
+import kotlinx.android.synthetic.main.recyclerview_item.view.*
 
 lateinit var dbTodoClass: DatabaseTodoClass
 lateinit var todoDb: TodoDatabase
@@ -267,6 +268,18 @@ class MainActivity : AppCompatActivity() {
     fun displayAboutActivity(view: View) {
         setContentView(R.layout.info_about)
         PopUpWindowInflater().getInstance().dismissMenuWindow()
+    }
+
+    fun deleteProject(view : View) {
+        val uid = view.contentDescription.toString().toInt()
+
+        GlobalScope.launch {
+            sharedCategoryDbLock.acquire()
+            dbCategoryClass.deleteDBSingleEntry(categoryDb, uid)
+            sharedCategoryDbLock.release()
+        }
+
+        DbOperations().getInstance().refreshListViewProjects()
     }
 }
 

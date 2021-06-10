@@ -57,14 +57,14 @@ class RecyclerAdapterCategory: RecyclerView.Adapter<RecyclerAdapterCategory.Cate
         private var view: View = v
         private var category: Category? = null
 
-
-
         fun bindCategory(cat: Category) {
 
             this.category = cat
 
             view.item_name.text = cat.name
             view.category_color.setColorFilter(cat.color!!)
+            view.item_uid.text = cat.uid.toString()
+            view.deleteButton.contentDescription = cat.uid.toString()
             //view.item_name.color = cat.color
         }
     }
